@@ -60,6 +60,7 @@ void	parse_player(char *name, t_champ *player)
 	int		fd;
 	int		ret;
 	char	temp[1];
+	int		i;
 
 	if ((fd = open(name, O_RDONLY)) < 0)
 		file_error();
@@ -70,6 +71,9 @@ void	parse_player(char *name, t_champ *player)
 		invalid_champion(name);
 	if ((ret = read(fd, player->field, CHAMP_MAX_SIZE)) < 0)
 		invalid_champion(name);
+	i = -1;
+	while (++i < ret)
+		player->field[i] = (unsigned char)player->field[i];
 	player->field_size = ret;
 	if ((ret = read(fd, temp, 1)) > 0)
 		invalid_champion(name);

@@ -21,6 +21,7 @@
 ** ERRORS
 */
 
+void	mall_error(void);
 void	print_usage(void);
 void	invalid_flag(char *str);
 void	not_a_champion(char *str);
@@ -29,7 +30,8 @@ void	invalid_champion(char *str);
 void	file_error(void);
 
 long	g_dump_cycle = -1;
-_Bool	g_present_players[4] = {0, 0, 0, 0};
 int		g_num_of_players = 0;
+t_champ	g_players[4];
+
 
 #endif

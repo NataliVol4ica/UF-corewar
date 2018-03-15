@@ -13,9 +13,16 @@
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
-typedef struct	s_champion
-{
+# include "op.h"
 
-}				t_champion;
+typedef struct	s_champ
+{
+	int		index;
+	char	*filename;
+	char	name[PROG_NAME_LENGTH];
+	char	comment[COMMENT_LENGTH];
+	int		field[CHAMP_MAX_SIZE];
+	int		field_size;
+}				t_champ;
 
 #endif

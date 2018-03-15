@@ -15,7 +15,7 @@ VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES))
 
 LIBDIR = ./libft
 LIBFT = $(LIBDIR)/libft.a
-FLAGS = -Wall -Wextra -Werror
+FLAGS = #-Wall -Wextra -Werror
 LIBINCDIR = $(LIBDIR)/includes
 
 ODIR = ./obj

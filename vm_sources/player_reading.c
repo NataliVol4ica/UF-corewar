@@ -17,7 +17,7 @@ extern int		g_num_of_players;
 extern t_champ	g_players[MAX_PLAYERS];
 extern _Bool	g_taken_index[MAX_PLAYERS];
 
-static void	alloc_players()
+static void	alloc_players(void)
 {
 	int	i;
 	int	j;
@@ -35,11 +35,10 @@ static void	alloc_players()
 		i = -1;
 		while (++i < CHAMP_MAX_SIZE)
 			g_players[j].field[i] = 0;
-
 	}
 }
 
-void	read_players(int cur_arg, int ac, char **av)
+void		read_players(int cur_arg, int ac, char **av)
 {
 	_Bool	inv_ind;
 
@@ -60,7 +59,7 @@ void	read_players(int cur_arg, int ac, char **av)
 		print_usage();
 }
 
-void	numerate_remaining_players()
+void		numerate_remaining_players(void)
 {
 	int		i;
 	int		j;
@@ -76,12 +75,12 @@ void	numerate_remaining_players()
 			if (!g_taken_index[j])
 			{
 				g_players[g_num_of_players].index = j;
-				break;
+				break ;
 			}
 	}
 }
 
-void	validate_numeration()
+void		validate_numeration(void)
 {
 	int		i;
 	int		j;

@@ -8,7 +8,10 @@ VMSRCDIR = ./vm_sources
 HFILES = $(patsubst %, $(INCDIR)/%.h, $(HEADERS))
 
 VMFILENAMES =	main \
-				errors
+				errors \
+				globals \
+				player_reading \
+				player_parsing
 
 VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES))
 VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES))

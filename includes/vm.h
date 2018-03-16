@@ -18,6 +18,16 @@
 # include "structures.h"
 
 /*
+** PLAYER READING
+*/
+
+void	parse_player(char *name, t_champ *player);
+_Bool	parse_n_flag(int *cur_arg, int ac, char **av);
+void	read_players(int cur_arg, int ac, char **av);
+void	numerate_remaining_players();
+void	validate_numeration();
+
+/*
 ** ERRORS
 */
 
@@ -28,14 +38,5 @@ void	not_a_champion(char *str);
 void	invalid_palyer_index(char *str);
 void	invalid_champion(char *str);
 void	file_error(char *filename);
-
-/*
-** GLOBALS
-*/
-
-long	g_dump_cycle = -1;
-int		g_num_of_players = 0;
-t_champ	g_players[MAX_PLAYERS];
-_Bool	g_taken_index[MAX_PLAYERS] = {0, 0, 0, 0};
 
 #endif

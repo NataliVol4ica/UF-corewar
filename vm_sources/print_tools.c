@@ -47,9 +47,11 @@ void		print_field(void)
 	while (++i < g_num_of_players)
 	{
 		ft_printf("=============// Player[%d]\n", i + 1);
-		ft_printf("\tName:    \"%s\"\n", g_players[i].name);
+		ft_printf("\tName:    \"%.*s\"\n", PROG_NAME_LENGTH,
+			g_players[i].name);
 		ft_printf("\tWeight:   %d\n", g_players[i].field_size);
-		ft_printf("\tComment: \"%s\"\n", g_players[i].comment);
+		ft_printf("\tComment: \"%.*s\"\n", COMMENT_LENGTH,
+			g_players[i].comment);
 	}
 	ft_printf("\n ||    FIELD:     || \n");
 	i = -1;

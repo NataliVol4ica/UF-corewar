@@ -12,6 +12,7 @@
 
 #include "libft.h"
 #include "vm.h"
+#include <stdlib.h>
 
 extern int				g_num_of_players;
 extern t_champ			g_players[MAX_PLAYERS];
@@ -60,4 +61,5 @@ void		print_field(void)
 		if (i % 64 == 63)
 			ft_printf("\n");
 	}
+	exit(0);
 }

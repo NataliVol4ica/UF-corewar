@@ -44,7 +44,7 @@ void	parse_magic_number(char *name, int fd)
 	char	buf[4];
 
 	if ((fd = open(name, O_RDONLY)) < 0)
-		file_error();
+		file_error(name);
 	if ((ret = read(fd, buf, 4)) < 4)
 		not_a_champion(name);
 	magic_number = (unsigned char)buf[3] +
@@ -63,7 +63,7 @@ void	parse_player(char *name, t_champ *player)
 	int		i;
 
 	if ((fd = open(name, O_RDONLY)) < 0)
-		file_error();
+		file_error(name);
 	parse_magic_number(name, fd);
 	if ((ret = read(fd, player->name, PROG_NAME_LENGTH)) < PROG_NAME_LENGTH)
 		invalid_champion(name);
@@ -80,12 +80,97 @@ void	parse_player(char *name, t_champ *player)
 	close(fd);
 }
 
+_Bool	parse_n_flag(int *cur_arg, int ac, char **av)
+{
+	_Bool	inv_ind;
+	int		index;
+
+	inv_ind = 0;
+	if (av[*cur_arg][0] != '-')
+		return (0);
+	if (ft_strcmp(av[*cur_arg], "-n"))
+		invalid_flag(av[*cur_arg]);
+	*cur_arg = *cur_arg + 1;
+	if (*cur_arg >= ac)
+		print_usage();
+	index = ft_atoi(av[*cur_arg]) - 1;
+	if (index < 0 || index > MAX_PLAYERS - 1 || g_taken_index[index])
+		inv_ind = 1;
+	else
+	{
+		g_players[g_num_of_players].index = index;
+		g_taken_index[index] = 1;
+	}
+	*cur_arg = *cur_arg + 1;
+	if (*cur_arg >= ac)
+		print_usage();
+	return (inv_ind);
+}
+
+void	numerate_remaining_players()
+{
+	int		i;
+	int		j;
+
+	i = g_num_of_players;
+	while (i)
+	{
+		i--;
+		if (g_players[g_num_of_players].index >= 0)
+			continue ;
+		j = -1;
+		while (++j < MAX_PLAYERS)
+			if (!g_taken_index[j])
+			{
+				g_players[g_num_of_players].index = j;
+				break;
+			}
+	}
+}
+
+void	validate_numeration()
+{
+	int		i;
+	int		j;
+
+	i = MAX_PLAYERS;
+	while (i > g_num_of_players)
+	{
+		i--;
+		if (g_taken_index[i])
+		{
+			j = -1;
+			while (++j < g_num_of_players)
+				if (g_players[j].index == i)
+					invalid_palyer_index(g_players[j].filename);
+		}
+	}
+}
+
+void	read_players(int cur_arg, int ac, char **av)
+{
+	_Bool	inv_ind;
+
+	alloc_players();
+	while (cur_arg < ac)
+	{
+		if (g_num_of_players == MAX_PLAYERS)
+			print_usage();
+		inv_ind = parse_n_flag(&cur_arg, ac, av);
+		g_players[g_num_of_players].filename = av[cur_arg];
+		parse_player(av[cur_arg], &g_players[g_num_of_players]);
+		if (inv_ind)
+			invalid_palyer_index(av[cur_arg]);
+		g_num_of_players++;
+		cur_arg++;
+	}
+	if (g_num_of_players == 0)
+		print_usage();
+}
+
 int		main(int ac, char **av)
 {
 	int		cur_arg;
-	int		index;
-	_Bool	inv_ind;
-	int		i;
 
 	cur_arg = 1;
 	if (cur_arg >= ac)
@@ -101,48 +186,9 @@ int		main(int ac, char **av)
 		cur_arg++;
 	}
 	//parse additional flags here
-	//players loop
-	alloc_players();
-	while (cur_arg < ac)
-	{
-		if (g_num_of_players == 4)
-			print_usage();
-		//[-n num] parse
-		inv_ind = 0;
-		if (av[cur_arg][0] == '-')
-		{
-			if (ft_strcmp(av[cur_arg], "-n"))
-				invalid_flag(av[cur_arg]);
-			cur_arg++;
-			if (cur_arg >= ac)
-				print_usage();
-			index = ft_atoi(av[cur_arg]);
-			if (index < 0 || index > 3 ||
-				g_players[index].index != -1)
-				inv_ind = 1;
-			g_players[index].index = g_num_of_players;
-			cur_arg++;
-		}
-		//player parse
-		if (cur_arg >= ac)
-			print_usage();
-		g_players[index].filename = av[cur_arg];
-		parse_player(av[cur_arg], &g_players[index]);
-		if (inv_ind)
-			invalid_palyer_index(av[cur_arg]);
-		g_num_of_players++;
-		cur_arg++;
-	}
-	if (g_num_of_players == 0)
-		print_usage();
-	//check if norm numerated
-	i = 4;
-	while (i > g_num_of_players)
-	{
-		i--;
-		if (g_players[i].index >= 0)
-			invalid_palyer_index(g_players[i].filename);
-	}
-	//set
+	read_players(cur_arg, ac, av);
+	numerate_remaining_players();
+	validate_numeration();
+	//set players data
 	return (0);
 }

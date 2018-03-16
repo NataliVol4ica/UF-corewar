@@ -27,11 +27,15 @@ void	invalid_flag(char *str);
 void	not_a_champion(char *str);
 void	invalid_palyer_index(char *str);
 void	invalid_champion(char *str);
-void	file_error(void);
+void	file_error(char *filename);
+
+/*
+** GLOBALS
+*/
 
 long	g_dump_cycle = -1;
 int		g_num_of_players = 0;
-t_champ	g_players[4];
-
+t_champ	g_players[MAX_PLAYERS];
+_Bool	g_taken_index[MAX_PLAYERS] = {0, 0, 0, 0};
 
 #endif

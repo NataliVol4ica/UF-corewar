@@ -56,8 +56,8 @@ void	invalid_champion(char *str)
 	exit(0);
 }
 
-void	file_error(void)
+void	file_error(char *filename)
 {
-	ft_printf("%s\n", strerror(errno));
+	ft_printf("\"%s\": %s\n", filename, strerror(errno));
 	exit (0);
 }

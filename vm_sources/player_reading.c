@@ -68,13 +68,14 @@ void		numerate_remaining_players(void)
 	while (i)
 	{
 		i--;
-		if (g_players[g_num_of_players].index >= 0)
+		if (g_players[i].index >= 0)
 			continue ;
 		j = -1;
 		while (++j < MAX_PLAYERS)
 			if (!g_taken_index[j])
 			{
-				g_players[g_num_of_players].index = j;
+				g_players[i].index = j;
+				g_taken_index[j] = 1;
 				break ;
 			}
 	}

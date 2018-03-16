@@ -18,7 +18,7 @@
 # include "structures.h"
 
 /*
-** PLAYER READING
+** INPUT READING
 */
 
 void	parse_player(char *name, t_champ *player);
@@ -26,6 +26,7 @@ _Bool	parse_n_flag(int *cur_arg, int ac, char **av);
 void	read_players(int cur_arg, int ac, char **av);
 void	numerate_remaining_players(void);
 void	validate_numeration(void);
+void	set_players(void);
 
 /*
 ** ERRORS

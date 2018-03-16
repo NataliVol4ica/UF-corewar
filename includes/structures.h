@@ -17,12 +17,13 @@
 
 typedef struct	s_champ
 {
-	int		index;
-	char	*filename;
-	char	name[PROG_NAME_LENGTH];
-	char	comment[COMMENT_LENGTH];
-	int		field[CHAMP_MAX_SIZE];
-	int		field_size;
+	int				index;
+	char			*filename;
+	char			name[PROG_NAME_LENGTH];
+	char			comment[COMMENT_LENGTH];
+	unsigned char	field[CHAMP_MAX_SIZE];
+	int				field_size;
+	int				startpos;
 }				t_champ;
 
 #endif

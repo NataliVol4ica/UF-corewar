@@ -53,8 +53,6 @@ static void	parse_magic_number(char *name, int fd)
 	long	magic_number;
 	char	buf[4];
 
-	if ((fd = open(name, O_RDONLY)) < 0)
-		file_error(name);
 	if ((ret = read(fd, buf, 4)) < 4)
 		not_a_champion(name);
 	magic_number = (unsigned char)buf[3] +
@@ -63,6 +61,20 @@ static void	parse_magic_number(char *name, int fd)
 					((unsigned char)buf[0] << 24);
 	if (magic_number != COREWAR_EXEC_MAGIC)
 		not_a_champion(name);
+}
+
+static void	read_viravn(char *name, int fd)
+{
+	char	temp[6];
+	int		ret;
+	int		i;
+
+	if ((ret = read(fd, temp, 6)) < 6)
+		invalid_champion(name);
+	i = -1;
+	while (++i < 6)
+		if (temp[i] != 0)
+			invalid_champion(name);
 }
 
 void		parse_player(char *name, t_champ *player)
@@ -78,14 +90,13 @@ void		parse_player(char *name, t_champ *player)
 	if ((ret = read(fd, player->name, PROG_NAME_LENGTH)) <
 		PROG_NAME_LENGTH)
 		invalid_champion(name);
+	read_viravn(name, fd);
 	if ((ret = read(fd, player->comment, COMMENT_LENGTH)) <
 		COMMENT_LENGTH)
 		invalid_champion(name);
+	read_viravn(name, fd);
 	if ((ret = read(fd, player->field, CHAMP_MAX_SIZE)) < 0)
 		invalid_champion(name);
-	i = -1;
-	while (++i < ret)
-		player->field[i] = (unsigned char)player->field[i];
 	player->field_size = ret;
 	if ((ret = read(fd, temp, 1)) > 0)
 		invalid_champion(name);

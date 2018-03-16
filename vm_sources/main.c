@@ -13,7 +13,9 @@
 #include "libft.h"
 #include "vm.h"
 
-extern long	g_dump_cycle;
+extern long		g_dump_cycle;
+extern int		g_num_of_players;
+extern t_champ	g_players[MAX_PLAYERS];
 
 int		main(int ac, char **av)
 {
@@ -36,6 +38,7 @@ int		main(int ac, char **av)
 	read_players(cur_arg, ac, av);
 	numerate_remaining_players();
 	validate_numeration();
-	//set players data
+	set_players();
+	print_field();
 	return (0);
 }

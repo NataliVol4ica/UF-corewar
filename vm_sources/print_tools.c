@@ -25,7 +25,7 @@ void		set_players(void)
 
 	i = -1;
 	while (++i < g_num_of_players)
-		g_players[i].startpos = g_players[i].index * MEM_SIZE /
+		g_players[i].startpos = /*g_players[i].index*/i * MEM_SIZE /
 			g_num_of_players;
 	MALL(g_field =
 		(unsigned char*)ft_memalloc(sizeof(unsigned char) * MEM_SIZE));

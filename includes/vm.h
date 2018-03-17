@@ -16,6 +16,8 @@
 # define MALL(x) if (!(x)) mall_error()
 
 # include "structures.h"
+# include "proc.h"
+# include "../libft/includes/libft.h"
 
 /*
 ** INPUT READING
@@ -39,5 +41,11 @@ void	not_a_champion(char *str);
 void	invalid_palyer_index(char *str);
 void	invalid_champion(char *str);
 void	file_error(char *filename);
+
+/*
+** print field
+*/
+
+void		print_field(void);
 
 #endif

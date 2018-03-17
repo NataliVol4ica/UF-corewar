@@ -41,6 +41,7 @@ void	invalid_flag(char *str)
 void	not_a_champion(char *str)
 {
 	ft_printf("\"%s\" is not a champion!\n", str);
+	system("afplay mp3/smile.mp3");
 	exit(0);
 }
 

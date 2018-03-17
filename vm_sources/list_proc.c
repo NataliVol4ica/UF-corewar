@@ -12,14 +12,14 @@
 
 #include "vm.h"
 #include <stdlib.h>
-#include <string.h>
+
 /*
 *** use only when we init proc in start
 */
 
-t_proc *lst_proc_new_start(t_champ cur, int index)
+t_proc		*lst_proc_new_start(t_champ cur, int index)
 {
-	t_proc *res;
+	t_proc	*res;
 
 	if (!(res = ft_memalloc(sizeof(t_proc))))
 		mall_error();
@@ -27,10 +27,8 @@ t_proc *lst_proc_new_start(t_champ cur, int index)
 	res->id = (index + 1) * (-1);
 	res->reg[0] = (index + 1) * -1;
 	res->pc = cur.startpos;
-	ft_printf("pc %d\n", res->pc);
 	res->next = NULL;
-	res->name = strdup(cur.name);
-	ft_printf("cur.name %s\n", res->name);
+	res->name = ft_strdup(cur.name);
 	return (res);
 }
 
@@ -38,9 +36,9 @@ t_proc *lst_proc_new_start(t_champ cur, int index)
 *** push back node with proc
 */
 
-void	lst_proc_push_back(t_proc **alst, t_proc *new)
+void		lst_proc_push_back(t_proc **alst, t_proc *new)
 {
-	t_proc *cur;
+	t_proc	*cur;
 
 	if (!alst)
 		return ;
@@ -59,7 +57,7 @@ void	lst_proc_push_back(t_proc **alst, t_proc *new)
 *** push front nide with proces
 */
 
-void	lst_proc_add(t_proc **alst, t_proc *new)
+void		lst_proc_add(t_proc **alst, t_proc *new)
 {
 	if (!alst)
 		exit(1);
@@ -71,10 +69,10 @@ void	lst_proc_add(t_proc **alst, t_proc *new)
 *** kill all dead proces
 */
 
-void	lst_del_dead_proc(t_proc **alst)
+void		lst_del_dead_proc(t_proc **alst)
 {
-	t_proc *cur;
-	t_proc *prev;
+	t_proc	*cur;
+	t_proc	*prev;
 
 	cur = (*alst);
 	prev = cur;

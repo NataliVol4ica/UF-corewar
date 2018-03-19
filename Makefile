@@ -13,7 +13,8 @@ VMFILENAMES =	main \
 				player_reading \
 				player_parsing \
 				print_tools \
-				list_proc
+				list_proc \
+				commands
 
 VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES))
 VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES))

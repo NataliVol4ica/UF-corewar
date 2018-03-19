@@ -12,8 +12,9 @@
 
 #include "libft.h"
 #include "vm.h"
+#include "encurse.h"
 #include <stdlib.h>
-
+# include <ncurses.h>
 extern long				g_dump_cycle;
 extern int				g_num_of_players;
 extern t_champ			g_players[MAX_PLAYERS];
@@ -126,18 +127,19 @@ int		main(int ac, char **av)
 	gen_processes();
 	cycle = 0;
 	total_cycle = 0;
-	while (1)
-	{
-		ft_printf("cycle %0.4d | ", total_cycle);
-		run_cycle_step();
-		if (cycle == CYCLE_TO_DIE)
-		{
-			cycle = 0;
-			//check and zero alive processes
-			break;
-		}
-		cycle++;
-		total_cycle++;
-	}
+	curse();
+	// while (1)
+	// {
+	// 	ft_printf("cycle %0.4d | ", total_cycle);
+	// 	run_cycle_step();
+	// 	if (cycle == CYCLE_TO_DIE)
+	// 	{
+	// 		cycle = 0;
+	// 		//check and zero alive processes
+	// 		break;
+	// 	}
+	// 	cycle++;
+	// 	total_cycle++;
+	// }
  	return (0);
 }

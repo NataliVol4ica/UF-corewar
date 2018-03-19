@@ -31,6 +31,14 @@ void	validate_numeration(void);
 void	set_players(void);
 
 /*
+** PROCESSES
+*/
+
+
+void	proc_invalid(void *data);
+void	proc_live(void *data);
+
+/*
 ** ERRORS
 */
 

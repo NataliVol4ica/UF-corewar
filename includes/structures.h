@@ -14,6 +14,15 @@
 # define STRUCTURES_H
 
 # include "op.h"
+# define NUM_OF_FUNCS 1
+
+typedef void	(*t_f)(void *data);
+typedef struct	s_func
+{
+	int		hex;
+	t_f		func;
+	int		sleep;
+}				t_func;
 
 typedef struct	s_champ
 {
@@ -25,5 +34,17 @@ typedef struct	s_champ
 	int				field_size;
 	int				startpos;
 }				t_champ;
+
+typedef struct	s_process
+{
+	int					index;
+	unsigned int		*registry;
+	int					pc;
+	_Bool				carry;
+	int					live;
+	int					sleep;
+	struct s_process	*next;
+	t_f					func;
+}				t_process;
 
 #endif

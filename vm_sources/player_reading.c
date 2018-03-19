@@ -23,7 +23,7 @@ static void	alloc_players(void)
 	int	j;
 
 	j = -1;
-	while (++j < 4)
+	while (++j < MAX_PLAYERS)
 	{
 		g_players[j].index = -1;
 		i = -1;
@@ -35,6 +35,7 @@ static void	alloc_players(void)
 		i = -1;
 		while (++i < CHAMP_MAX_SIZE)
 			g_players[j].field[i] = 0;
+		g_taken_index[j] = 0;
 	}
 }
 

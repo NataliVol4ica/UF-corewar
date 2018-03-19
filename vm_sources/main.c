@@ -12,38 +12,97 @@
 
 #include "libft.h"
 #include "vm.h"
+#include <stdlib.h>
 
-extern long		g_dump_cycle;
-extern int		g_num_of_players;
-extern t_champ	g_players[MAX_PLAYERS];
-//extern t_proc	*alst;
+extern long				g_dump_cycle;
+extern int				g_num_of_players;
+extern t_champ			g_players[MAX_PLAYERS];
+extern unsigned char	*g_field;
+extern t_process		**g_proc;
+extern t_func			g_funcs[];
 
-
-void	make_proc_at_start(t_proc **alst)
+void	parse_command(t_process *p)
 {
-	int i = 0;
-	int a = 0;
-	int count = 0;
-	while (a < MAX_PLAYERS && g_players[a].index != -1)
-	{
-		while (i < MAX_PLAYERS && g_players[i].index != -1)
+	int i;
+
+	i = -1;
+	while (++i < NUM_OF_FUNCS)
+		if (g_field[p->pc] == g_funcs[i].hex)
 		{
-			if (g_players[i].index == count)
-			{
-				lst_proc_push_back(alst, lst_proc_new_start(g_players[i], i));
-				count++;
-			}
-			i++;
+			p->func = g_funcs[i].func;
+			p->sleep = g_funcs[i].sleep;
+			break;
 		}
-		i = 0;
-		a++;
+	if (i == NUM_OF_FUNCS)
+	{
+		p->func = &proc_invalid;
+		p->sleep = 1;
+	}
+}
+
+void	new_process(int pc, int playernum, t_process **start)
+{
+	int			i;
+	t_process	*new_proc;
+
+	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
+	new_proc->index = playernum;
+	MALL(new_proc->registry = (unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER));
+	new_proc->registry[0] = -playernum;
+	new_proc->pc = pc;
+	new_proc->carry = 1;
+	new_proc->live = 0;
+	new_proc->next = *start;
+	*start = new_proc;
+	parse_command(new_proc);
+	//call draw at pc pos
+}
+
+void	gen_processes(void)
+{
+	int	i;
+	int j;
+
+	MALL(g_proc = (t_process**)malloc(sizeof(t_process*)));
+	*g_proc = NULL;
+	i = -1;
+	while (++i < g_num_of_players)
+	{
+		j = -1;
+		while (++j < g_num_of_players)
+			if (g_players[j].index == i)
+			{
+				new_process(g_players[j].startpos, j, g_proc);
+				break;
+			}
+	}
+}
+
+void	run_cycle_step(void)
+{
+	int			i;
+	t_process	*proc;
+	
+	i = 0;
+	proc = *g_proc;
+	while (proc)
+	{
+		proc->sleep--;
+		ft_printf("prs#%d ind[%d] pos %0.4d(%0.2x) sleep %d\n", i, proc->index, proc->pc, g_field[proc->pc], proc->sleep);
+		if (proc->sleep == 0)
+		{
+			proc->func((void*)proc);
+			parse_command(proc);
+		}
+		proc = proc->next;
 	}
 }
 
 int		main(int ac, char **av)
 {
 	int		cur_arg;
-	t_proc	*alst = NULL; //poiner to start proc node
+	int		cycle;
+	int		total_cycle;
 
 	cur_arg = 1;
 	if (cur_arg >= ac)
@@ -63,27 +122,22 @@ int		main(int ac, char **av)
 	numerate_remaining_players();
 	validate_numeration();
 	set_players();
-//	print_field();
-	
-	make_proc_at_start(&alst);
-
-//////////////////TESTING PART //////////////////////////////////////
-/////////////////////////////////////////////////////////////////////
-	alst->live = 0;
-	lst_del_dead_proc(&alst); //dell(kill) proc after start;
-
-	t_proc *tmp;
-	tmp = alst;
-	while (tmp)
+	//algo
+	gen_processes();
+	cycle = 0;
+	total_cycle = 0;
+	while (1)
 	{
-		ft_printf("id %d name %s PC %d\n", tmp->id, tmp->name, tmp->pc);
-		tmp = tmp->next;
+		ft_printf("cycle %0.4d | ", total_cycle);
+		run_cycle_step();
+		if (cycle == CYCLE_TO_DIE)
+		{
+			cycle = 0;
+			//check and zero alive processes
+			break;
+		}
+		cycle++;
+		total_cycle++;
 	}
-
-/////////////////////////////////////////////////////////////////////////////////
-	int index = -1;
-	ft_printf("MAX_PLAYERS %d\n\n", MAX_PLAYERS);
-	while (++index < MAX_PLAYERS && g_players[index].index != -1)
-		ft_printf("index = %d name %s file name %s\n", g_players[index].index, g_players[index].name, g_players[index].filename);
  	return (0);
 }

@@ -1,24 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   globals.c                                          :+:      :+:    :+:   */
+/*   commands.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkolosov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/16 16:11:55 by nkolosov          #+#    #+#             */
-/*   Updated: 2018/03/16 16:11:55 by nkolosov         ###   ########.fr       */
+/*   Created: 2018/03/19 14:29:56 by nkolosov          #+#    #+#             */
+/*   Updated: 2018/03/19 14:29:57 by nkolosov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "vm.h"
 
-long			g_dump_cycle = -1;
-int				g_num_of_players = 0;
-t_champ			g_players[MAX_PLAYERS];
-_Bool			g_taken_index[MAX_PLAYERS];
-unsigned char	*g_field;
-t_process		**g_proc;
-t_func			g_funcs[] =
+extern int			g_num_of_players;
+extern t_process	**g_proc;
+
+void	proc_invalid(void *data)
 {
-	{0x01, &proc_live, 10}
-};
+	t_process	*proc;
+
+	proc = (t_process*)data;
+	proc->pc = (proc->pc + 2) % MEM_SIZE;
+	//alert position movement
+}
+
+void	proc_live(void *data)
+{
+	t_process	*proc;
+
+	proc = (t_process*)data;
+	proc->live++;
+	proc->pc = (proc->pc + 5) % MEM_SIZE;
+	//alert pos movement
+	//alert player life incr
+}
+

@@ -10,13 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-//# include "encurse.h"
+# include "encurse.h"
 # include <stdio.h>
-//# include <ncurses.h>
-//# include <curses.h>
 # include "vm.h"
 
-extern WINDOW *win;
+extern unsigned char	*g_field;
+extern int				g_num_of_players;
+extern t_champ			g_players[MAX_PLAYERS];
 
 void	ft_er_init(void)
 {
@@ -52,8 +52,8 @@ void	ft_check_size_win(void)
 void	colors(void)
 {
 	init_color(COLOR_CYAN, 300, 300, 300);
-	init_pair(1,  COLOR_RED,     COLOR_RED);
-	init_pair(2,  COLOR_GREEN,   COLOR_BLACK);
+	init_pair(1,  COLOR_GREEN,   COLOR_BLACK);
+	init_pair(2,  COLOR_RED,     COLOR_BLACK);
 	init_pair(3,  COLOR_YELLOW,  COLOR_BLACK);
 	init_pair(4,  COLOR_BLUE,    COLOR_BLACK);
 	init_pair(5,  COLOR_MAGENTA, COLOR_BLACK);
@@ -67,6 +67,20 @@ void	colors(void)
 	init_pair(13, COLOR_BLACK,   COLOR_CYAN);
 	init_pair(14, COLOR_CYAN, COLOR_CYAN);
 	init_pair(15, COLOR_WHITE, COLOR_BLACK);
+	init_pair(16, COLOR_CYAN, COLOR_BLACK);
+	init_pair(13, COLOR_BLACK,   COLOR_CYAN);
+	init_pair(14, COLOR_CYAN, COLOR_CYAN);
+	init_pair(15, COLOR_WHITE, COLOR_BLACK);
+	init_pair(16, COLOR_CYAN, COLOR_BLACK);
+	init_pair(17, COLOR_BLACK, COLOR_BLACK);
+
+/*
+***
+*/
+	init_pair(21, COLOR_CYAN, COLOR_GREEN);
+	init_pair(22, COLOR_CYAN, COLOR_RED);
+	init_pair(23, COLOR_CYAN, COLOR_YELLOW);
+	init_pair(24, COLOR_CYAN, COLOR_BLUE);
 }
 
 /*
@@ -80,18 +94,18 @@ void	make_border(t_curs *b)
 
 	y = 0;
 	x = 0;
-	wattron(win, COLOR_PAIR(14));
+	attron(COLOR_PAIR(14));
 	while (y < WIN_HEIGHT - 1)
 	{
-		mvwaddch(win, y, 0, '@');
-		mvwaddch(win, y, 195, '@');
-		mvwaddch(win, y, 258, '@');
+		mvaddch(y, 0, '@');
+		mvaddch(y, 198, '@');
+		mvaddch(y, 258, '@');
 		y++;
 	}
 	while (x < WIN_WIDTH - 1)
 	{
-		mvwaddch(win, 0, x, '@');
-		mvwaddch(win, WIN_HEIGHT - 1, x, '@');
+		mvaddch(0, x, '@');
+		mvaddch(WIN_HEIGHT - 1, x, '@');
 		x++;
 	}
 //	wrefresh(win);
@@ -104,29 +118,41 @@ void	make_border(t_curs *b)
 void	make_first_player(void)
 {
 	mvprintw(Y_BAR_PL1, X_BAR_SRT,"%s","Player -1 : ");
-	mvprintw(Y_BAR_PL1LL, X_BAR_SCL,"%s","Last live : ");
-	mvprintw(Y_BAR_PL1LIC, X_BAR_SCL,"%s","Lives in current period : ");
+	attron(COLOR_PAIR(1));
+	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12,"%s", g_players[0].name);
+	attron(COLOR_PAIR(15));
+	mvprintw(Y_BAR_PL1LL, X_BAR_SCL,"%s 0","Last live : ");
+	mvprintw(Y_BAR_PL1LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
 }
 
 void	make_second_player(void)
 {
-	mvprintw(Y_BAR_PL2, X_BAR_SRT,"%s","Player -2 : ");
-	mvprintw(Y_BAR_PL2LL, X_BAR_SCL,"%s","Last live : ");
-	mvprintw(Y_BAR_PL2LIC, X_BAR_SCL,"%s","Lives in current period : ");
+	mvprintw(Y_BAR_PL2, X_BAR_SRT,"%s", "Player -2 : ");
+	attron(COLOR_PAIR(2));
+	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12,"%s", g_players[1].name);
+	attron(COLOR_PAIR(15));
+	mvprintw(Y_BAR_PL2LL, X_BAR_SCL,"%s 0","Last live : ");
+	mvprintw(Y_BAR_PL2LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
 }
 
 void	make_third_player(void)
 {
 	mvprintw(Y_BAR_PL3, X_BAR_SRT,"%s","Player -3 : ");
-	mvprintw(Y_BAR_PL3LL, X_BAR_SCL,"%s","Last live : ");
-	mvprintw(Y_BAR_PL3LIC, X_BAR_SCL,"%s","Lives in current period : ");
+	attron(COLOR_PAIR(3));
+	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12,"%s", g_players[2].name);
+	attron(COLOR_PAIR(15));
+	mvprintw(Y_BAR_PL3LL, X_BAR_SCL,"%s 0","Last live : ");
+	mvprintw(Y_BAR_PL3LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
 }
 
 void	make_fifth_player(void)
 {
 	mvprintw(Y_BAR_PL4, X_BAR_SRT,"%s","Player -4 : ");
-	mvprintw(Y_BAR_PL4LL, X_BAR_SCL,"%s","Last live : ");
-	mvprintw(Y_BAR_PL4LIC, X_BAR_SCL,"%s","Lives in current period : ");
+	attron(COLOR_PAIR(4));
+	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12,"%s", g_players[3].name);
+	attron(COLOR_PAIR(15));
+	mvprintw(Y_BAR_PL4LL, X_BAR_SCL,"%s 0","Last live : ");
+	mvprintw(Y_BAR_PL4LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
 }
 
 void	show_players(t_curs *b)
@@ -151,6 +177,7 @@ void	show_players(t_curs *b)
 		make_fifth_player();
 		b->bar_y_st = Y_BAR_PL4;
 	}
+	refresh();
 }
 
 /*
@@ -161,38 +188,166 @@ void	make_bar(t_curs *b)
 {
 	attron(COLOR_PAIR(15) | A_BOLD);
 	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", "** PAUSED ** ");
-	mvprintw(Y_BAR_SECL, X_BAR_SRT,"%s", "Cycles/second limit :");
-	mvprintw(Y_BAR_CYCL, X_BAR_SRT,"%s","Cycle :");
-	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s","Processes : ");
+	mvprintw(Y_BAR_SECL, X_BAR_SRT,"%s 1000", "Cycles/second limit :");
+	mvprintw(Y_BAR_CYCL, X_BAR_SRT,"%s 0","Cycle :");
+	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s 0","Processes : ");
 	show_players(b);
-	mvprintw(b->bar_y_st + Y_BAR_CD, X_BAR_SRT,"%s","CYCLE_TO_DIE : ");
-	mvprintw(b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT,"%s","CYCLE_DELTA : ");
-	mvprintw(b->bar_y_st + Y_BAR_NL, X_BAR_SRT,"%s","NBR_LIVE : ");
-	mvprintw(b->bar_y_st + Y_BAR_MCH, X_BAR_SRT,"%s","MAX_CHECKS : ");
+	mvprintw(b->bar_y_st + Y_BAR_CD, X_BAR_SRT,"%s","CYCLE_TO_DIE : 1536");
+	mvprintw(b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT,"%s","CYCLE_DELTA : 50");
+	mvprintw(b->bar_y_st + Y_BAR_NL, X_BAR_SRT,"%s","NBR_LIVE : 21");
+	mvprintw(b->bar_y_st + Y_BAR_MCH, X_BAR_SRT,"%s","MAX_CHECKS : 10");
+}
+
+void	print_color_p1(int *i, t_curs *b)
+{
+	wattron(b->win, COLOR_PAIR(1));
+	while (*i < g_players[0].startpos + g_players[0].field_size)
+	{
+		wprintw(b->win, " %02x", g_field[*i]);
+		if (*i % 64 == 63)
+			wprintw(b->win, "\n");
+		(*i)++;
+	}
+	wattron(b->win, COLOR_PAIR(16));
+}
+
+void	print_color_p2(int *i, t_curs *b)
+{
+	wattron(b->win, COLOR_PAIR(2));
+	while (*i < g_players[1].startpos + g_players[1].field_size)
+	{
+		wprintw(b->win, " %02x", g_field[*i]);
+		if (*i % 64 == 63)
+			wprintw(b->win, "\n");
+		(*i)++;
+	}
+	wattron(b->win, COLOR_PAIR(16));
+}
+
+void	print_color_p3(int *i, t_curs *b)
+{
+	wattron(b->win, COLOR_PAIR(3));
+	while (*i < g_players[2].startpos + g_players[2].field_size)
+	{
+		wprintw(b->win, " %02x", g_field[*i]);
+		if (*i % 64 == 63)
+			wprintw(b->win, "\n");
+		(*i)++;
+	}
+	wattron(b->win, COLOR_PAIR(16));
+}
+
+void	print_color_p4(int *i, t_curs *b)
+{
+	wattron(b->win, COLOR_PAIR(4));
+	while (*i < g_players[3].startpos + g_players[3].field_size)
+	{
+		wprintw(b->win, " %02x", g_field[*i]);
+		if (*i % 64 == 63)
+			wprintw(b->win, "\n");
+		(*i)++;
+	}
+	wattron(b->win, COLOR_PAIR(16));
+}
+
+void	print_map(t_curs *b)
+{
+	wattron(b->win, COLOR_PAIR(16));
+	refresh();
+	int i = -1;
+	while (++i < MEM_SIZE)
+	{
+		if (i == g_players[0].startpos)
+			print_color_p1(&i, b);
+		else if (i == g_players[1].startpos)
+			print_color_p2(&i, b);
+		else if (i == g_players[2].startpos)
+			print_color_p3(&i, b);
+		else if (i == g_players[3].startpos)
+			print_color_p4(&i, b);
+		wprintw(b->win, " %02x", g_field[i]);
+		if (i % 64 == 63)
+			wprintw(b->win, "\n");
+	}
+	wrefresh(b->win);
 }
 
 /*
 *** initil ncurse liblary
 */
 
+void	print_cursor(t_curs *b)
+{
+	refresh();
+	int x;
+	int y;
+	if (b->pl_nb >= 1)
+	{
+		x = g_players[0].startpos % 64;
+		y = g_players[0].startpos / 64;
+		wmove(b->win, y, (x * 3));
+		wattron(b->win, COLOR_PAIR(17));
+		wprintw(b->win, " ");
+		wattron(b->win, COLOR_PAIR(21));
+		wprintw(b->win, "%02x", g_field[g_players[0].startpos]);
+		wattron(b->win, COLOR_PAIR(16));
+	}
+	if (b->pl_nb >= 2)
+	{
+		x = g_players[1].startpos % 64;
+		y = g_players[1].startpos / 64;
+		wmove(b->win, y, (x * 3));
+		wattron(b->win, COLOR_PAIR(17));
+		wprintw(b->win, " ");
+		wattron(b->win, COLOR_PAIR(22));
+		wprintw(b->win, "%02x", g_field[g_players[1].startpos]);
+		wattron(b->win, COLOR_PAIR(16));
+	}
+	if (b->pl_nb >= 3)
+	{
+		x = g_players[2].startpos % 64;
+		y = g_players[2].startpos / 64;
+		wmove(b->win, y, (x * 3));
+		wattron(b->win, COLOR_PAIR(17));
+		wprintw(b->win, " ");
+		wattron(b->win, COLOR_PAIR(23));
+		wprintw(b->win, "%02x", g_field[g_players[2].startpos]);
+		wattron(b->win, COLOR_PAIR(16));
+	}
+	if (b->pl_nb == 4)
+	{
+		int x = g_players[3].startpos % 64;
+		int y = g_players[3].startpos / 64;
+		wmove(b->win, y, (x * 3));
+		wattron(b->win, COLOR_PAIR(17));
+		wprintw(b->win, " ");
+		wattron(b->win, COLOR_PAIR(24));
+		wprintw(b->win, "%02x", g_field[g_players[3].startpos]);
+		wattron(b->win, COLOR_PAIR(16));
+	}
+	// refresh();
+}
+
 void	init_curs(t_curs **b)
 {
 	*b = ft_memalloc(sizeof(t_curs));
-	(*b)->pl_nb = 4;
-
+	(*b)->pl_nb = g_num_of_players;
 	if (!(initscr()))
 		ft_er_init();
 	ft_check_size_win();
-//	system("afplay batle.mp3 &");
+	system("afplay mp3/batle.mp3 &");
 	curs_set(0);
-	win = newwin(WIN_HEIGHT, WIN_WIDTH, 0, 0);
 	refresh();
 	start_color();  // Инициализация цветов
+	(*b)->win = newwin(WIN_HEIGHT - 4, 194, 3, 3);
 	colors();
 	make_border(*b);
-	wattron(win, COLOR_PAIR(14));
+	print_map(*b);
+	wattron((*b)->win, COLOR_PAIR(14));
 	make_bar(*b);
-	wrefresh(win);
+	print_cursor(*b);
+	refresh();
+	wrefresh((*b)->win);
 }
 
 /*
@@ -201,17 +356,12 @@ void	init_curs(t_curs **b)
 
 void	exit_curse(t_curs *b)
 {
-	delwin(win);
+	delwin(b->win);
 	endwin();
-//	system("kill $(pgrep afplay)");
-	free(b);pwd
+	system("kill $(pgrep afplay)");
+	free(b);
 	exit (0);
 }
-
-// void	print_map(t_curs *b)
-// {
-
-// }
 
 int		curse(void)
 {
@@ -221,15 +371,15 @@ int		curse(void)
 	// kill -SIGSTOP $(pgrep afplay)
 	init_curs(&b);
 	noecho();
-//	print_map(b);
-	while (1)
+//	refresh();
+	while (b->key != 27)
 	{
 		b->key = getch();
-		if (b->key == 27)
-		{
-//			close(fd);
-			exit_curse(b);
-		}
+// //		if (b->key == 27)
+// //		{
+// //			close(fd);
+// 			exit_curse(b);
+// 		}
 		if (b->key == 32)
 		{
 			b->pause = (b->pause == 0 ? 1 : 0);

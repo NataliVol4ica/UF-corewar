@@ -2,7 +2,9 @@ VM_NAME = corewar
 
 HEADERS =	op \
 			vm \
-			structures
+			structures \
+			encurse
+
 INCDIR = ./includes
 VMSRCDIR = ./vm_sources
 HFILES = $(patsubst %, $(INCDIR)/%.h, $(HEADERS))
@@ -14,7 +16,8 @@ VMFILENAMES =	main \
 				player_parsing \
 				print_tools \
 				list_proc \
-				commands
+				commands \
+				main_pic
 
 VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES))
 VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES))
@@ -48,7 +51,7 @@ all: $(VM_NAME)
 
 $(VM_NAME): $(ODIR) $(HFILES) $(VMOFILES)
 	@echo ${CYAN}[Compiling the $(VM_NAME) executable]${NC}
-	gcc $(FLAGS) $(VMOFILES) $(LIBFT) -o $(VM_NAME)
+	gcc $(FLAGS) $(VMOFILES) $(LIBFT) -o $(VM_NAME) -lncurses
 	@echo ${GREEN}"[========| $(VM_NAME) is up to date. |========]"${NC}
 
 $(ODIR)/%.o: $(VMSRCDIR)/%.c $(HFILES) $(LIBFT)

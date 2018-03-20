@@ -127,6 +127,7 @@ int		main(int ac, char **av)
 	gen_processes();
 	cycle = 0;
 	total_cycle = 0;
+//	print_field();	
 	curse();
 	// while (1)
 	// {

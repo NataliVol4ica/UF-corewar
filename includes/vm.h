@@ -15,8 +15,12 @@
 
 # define MALL(x) if (!(x)) mall_error()
 
+//# include <ncurses.h>
 # include "structures.h"
 # include "proc.h"
+# include "encurse.h"
+//# include <ncurses.h>
+
 # include "../libft/includes/libft.h"
 
 /*
@@ -55,5 +59,5 @@ void	file_error(char *filename);
 */
 
 void		print_field(void);
-
+//int		curse(void);
 #endif

@@ -13,8 +13,7 @@
 #include "libft.h"
 #include "vm.h"
 
-extern int			g_num_of_players;
-extern t_process	**g_proc;
+extern t_global	g_g;
 
 void	proc_invalid(void *data)
 {
@@ -32,7 +31,9 @@ void	proc_live(void *data)
 	proc = (t_process*)data;
 	proc->live++;
 	proc->pc = (proc->pc + 5) % MEM_SIZE;
+	g_g.period_lives++;
 	//alert pos movement
 	//alert player life incr
 }
 
+//void	

@@ -14,13 +14,10 @@
 #include "vm.h"
 #include "encurse.h"
 #include <stdlib.h>
-# include <ncurses.h>
-extern long				g_dump_cycle;
-extern int				g_num_of_players;
-extern t_champ			g_players[MAX_PLAYERS];
-extern unsigned char	*g_field;
-extern t_process		**g_proc;
-extern t_func			g_funcs[];
+#include <ncurses.h>
+
+extern t_global	g_g;
+extern t_func	g_funcs[];
 
 void	parse_command(t_process *p)
 {
@@ -28,7 +25,7 @@ void	parse_command(t_process *p)
 
 	i = -1;
 	while (++i < NUM_OF_FUNCS)
-		if (g_field[p->pc] == g_funcs[i].hex)
+		if (g_g.field[p->pc] == g_funcs[i].hex)
 		{
 			p->func = g_funcs[i].func;
 			p->sleep = g_funcs[i].sleep;
@@ -47,7 +44,6 @@ void	new_process(int pc, int playernum, t_process **start)
 	t_process	*new_proc;
 
 	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
-	new_proc->index = playernum;
 	MALL(new_proc->registry = (unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER));
 	new_proc->registry[0] = -playernum;
 	new_proc->pc = pc;
@@ -56,7 +52,7 @@ void	new_process(int pc, int playernum, t_process **start)
 	new_proc->next = *start;
 	*start = new_proc;
 	parse_command(new_proc);
-	//call draw at pc pos
+	//draw_new(new_proc->pc)
 }
 
 void	gen_processes(void)
@@ -64,16 +60,14 @@ void	gen_processes(void)
 	int	i;
 	int j;
 
-	MALL(g_proc = (t_process**)malloc(sizeof(t_process*)));
-	*g_proc = NULL;
 	i = -1;
-	while (++i < g_num_of_players)
+	while (++i < g_g.num_of_players)
 	{
 		j = -1;
-		while (++j < g_num_of_players)
-			if (g_players[j].index == i)
+		while (++j < g_g.num_of_players)
+			if (g_g.players[j].index == i)
 			{
-				new_process(g_players[j].startpos, j, g_proc);
+				new_process(g_g.players[j].startpos, j, g_g.proc);
 				break;
 			}
 	}
@@ -85,18 +79,88 @@ void	run_cycle_step(void)
 	t_process	*proc;
 	
 	i = 0;
-	proc = *g_proc;
+	proc = *g_g.proc;
 	while (proc)
 	{
 		proc->sleep--;
-		ft_printf("prs#%d ind[%d] pos %0.4d(%0.2x) sleep %d\n", i, proc->index, proc->pc, g_field[proc->pc], proc->sleep);
+		ft_printf("prs#%d ind[%d] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
 		if (proc->sleep == 0)
 		{
+			//erase_old(proc->pc);
 			proc->func((void*)proc);
 			parse_command(proc);
+			//draw_new(proc->pc);
 		}
 		proc = proc->next;
 	}
+}
+
+void	free_proc(t_process *proc)
+{
+	//call death function
+	free(proc->registry);
+	free(proc);
+}
+
+void	you_gonna_die_bitch(void)
+{
+	t_process	*temp;
+	t_process	*prev;
+
+	temp = *g_g.proc;
+	while (temp)
+	{
+		if (temp->live)
+		{
+			prev = temp;
+			temp = temp->next;
+			continue;
+		}
+		if (temp == *g_g.proc)
+		{
+			temp = (*g_g.proc)->next;
+			free_proc(*g_g.proc);
+			*g_g.proc = temp;
+			continue;
+		}
+		temp = temp->next;
+		free_proc(prev->next);
+		prev->next = temp;
+	}
+}
+
+static void	alloc_players(void)
+{
+	int	i;
+	int	j;
+
+	j = -1;
+	while (++j < MAX_PLAYERS)
+	{
+		g_g.players[j].index = -1;
+		i = -1;
+		while (++i < PROG_NAME_LENGTH)
+			g_g.players[j].name[i] = 0;
+		i = -1;
+		while (++i < COMMENT_LENGTH)
+			g_g.players[j].comment[i] = 0;
+		i = -1;
+		while (++i < CHAMP_MAX_SIZE)
+			g_g.players[j].field[i] = 0;
+		g_g.taken_index[j] = 0;
+	}
+}
+
+void	init_globals(void)
+{
+	g_g.dump_cycle = -1;
+	g_g.num_of_players = 0;
+	alloc_players();
+	MALL(g_g.field =
+		(unsigned char*)ft_memalloc(sizeof(unsigned char) * MEM_SIZE));
+	MALL(g_g.proc = (t_process**)malloc(sizeof(t_process*)));
+	*g_g.proc = NULL;
+	g_g.period_lives = 0;
 }
 
 int		main(int ac, char **av)
@@ -108,13 +172,14 @@ int		main(int ac, char **av)
 	cur_arg = 1;
 	if (cur_arg >= ac)
 		print_usage();
+	init_globals();
 	if (!ft_strcmp("-dump", av[cur_arg]))
 	{
 		if (cur_arg + 1 >= ac)
 			print_usage();
 		cur_arg++;
 		if (!(is_number(av[cur_arg])) ||
-			(g_dump_cycle = ft_atoi(av[cur_arg])) < 0)
+			(g_g.dump_cycle = ft_atoi(av[cur_arg])) < 0)
 			print_usage();
 		cur_arg++;
 	}
@@ -123,24 +188,29 @@ int		main(int ac, char **av)
 	numerate_remaining_players();
 	validate_numeration();
 	set_players();
+	if (g_g.dump_cycle == 0)
+		print_field();
 	//algo
 	gen_processes();
 	cycle = 0;
 	total_cycle = 0;
-//	print_field();	
-	curse();
-	// while (1)
-	// {
-	// 	ft_printf("cycle %0.4d | ", total_cycle);
-	// 	run_cycle_step();
-	// 	if (cycle == CYCLE_TO_DIE)
-	// 	{
-	// 		cycle = 0;
-	// 		//check and zero alive processes
-	// 		break;
-	// 	}
-	// 	cycle++;
-	// 	total_cycle++;
-	// }
+	//curse();
+	while (1)
+	{
+		ft_printf("cycle %0.4d | ", total_cycle);
+		run_cycle_step();
+		if (cycle == CYCLE_TO_DIE)
+		{
+			cycle = 0;
+			you_gonna_die_bitch();
+			g_g.period_lives = 0;
+			break;
+		}
+		cycle++;
+		total_cycle++;
+		if (total_cycle == g_g.dump_cycle)
+			print_field();
+		//readkey();
+	}
  	return (0);
 }

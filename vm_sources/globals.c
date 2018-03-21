@@ -12,13 +12,8 @@
 
 #include "vm.h"
 
-long			g_dump_cycle = -1;
-int				g_num_of_players = 0;
-t_champ			g_players[MAX_PLAYERS];
-_Bool			g_taken_index[MAX_PLAYERS];
-unsigned char	*g_field;
-t_process		**g_proc;
-t_func			g_funcs[] =
+t_global	g_g;
+t_func		g_funcs[] =
 {
 	{0x01, &proc_live, 10}
 };

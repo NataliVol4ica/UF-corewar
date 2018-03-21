@@ -37,7 +37,6 @@ typedef struct	s_champ
 
 typedef struct	s_process
 {
-	int					index;
 	unsigned int		*registry;
 	int					pc;
 	_Bool				carry;
@@ -46,5 +45,16 @@ typedef struct	s_process
 	struct s_process	*next;
 	t_f					func;
 }				t_process;
+
+typedef struct	s_global
+{
+	long			dump_cycle;
+	int				num_of_players;
+	t_champ			players[MAX_PLAYERS];
+	_Bool			taken_index[MAX_PLAYERS];
+	unsigned char	*field;
+	t_process		**proc;
+	int				period_lives;
+}				t_global;
 
 #endif

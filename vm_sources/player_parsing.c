@@ -15,9 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-extern int		g_num_of_players;
-extern t_champ	g_players[MAX_PLAYERS];
-extern _Bool	g_taken_index[MAX_PLAYERS];
+extern t_global	g_g;
 
 _Bool		parse_n_flag(int *cur_arg, int ac, char **av)
 {
@@ -34,12 +32,12 @@ _Bool		parse_n_flag(int *cur_arg, int ac, char **av)
 		print_usage();
 	index = ft_atoi(av[*cur_arg]) - 1;
 	if (index < 0 || index > MAX_PLAYERS - 1 ||
-		g_taken_index[index])
+		g_g.taken_index[index])
 		inv_ind = 1;
 	else
 	{
-		g_players[g_num_of_players].index = index;
-		g_taken_index[index] = 1;
+		g_g.players[g_g.num_of_players].index = index;
+		g_g.taken_index[index] = 1;
 	}
 	*cur_arg = *cur_arg + 1;
 	if (*cur_arg >= ac)

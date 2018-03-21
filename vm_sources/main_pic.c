@@ -14,9 +14,7 @@
 # include <stdio.h>
 # include "vm.h"
 
-extern unsigned char	*g_field;
-extern int				g_num_of_players;
-extern t_champ			g_players[MAX_PLAYERS];
+extern t_global	g_g;
 
 void	ft_er_init(void)
 {
@@ -119,7 +117,7 @@ void	make_first_player(void)
 {
 	mvprintw(Y_BAR_PL1, X_BAR_SRT,"%s","Player -1 : ");
 	attron(COLOR_PAIR(1));
-	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12,"%s", g_players[0].name);
+	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12,"%s", g_g.players[0].name);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL1LL, X_BAR_SCL,"%s 0","Last live : ");
 	mvprintw(Y_BAR_PL1LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
@@ -129,7 +127,7 @@ void	make_second_player(void)
 {
 	mvprintw(Y_BAR_PL2, X_BAR_SRT,"%s", "Player -2 : ");
 	attron(COLOR_PAIR(2));
-	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12,"%s", g_players[1].name);
+	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12,"%s", g_g.players[1].name);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL2LL, X_BAR_SCL,"%s 0","Last live : ");
 	mvprintw(Y_BAR_PL2LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
@@ -139,7 +137,7 @@ void	make_third_player(void)
 {
 	mvprintw(Y_BAR_PL3, X_BAR_SRT,"%s","Player -3 : ");
 	attron(COLOR_PAIR(3));
-	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12,"%s", g_players[2].name);
+	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12,"%s", g_g.players[2].name);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL3LL, X_BAR_SCL,"%s 0","Last live : ");
 	mvprintw(Y_BAR_PL3LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
@@ -149,7 +147,7 @@ void	make_fifth_player(void)
 {
 	mvprintw(Y_BAR_PL4, X_BAR_SRT,"%s","Player -4 : ");
 	attron(COLOR_PAIR(4));
-	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12,"%s", g_players[3].name);
+	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12,"%s", g_g.players[3].name);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL4LL, X_BAR_SCL,"%s 0","Last live : ");
 	mvprintw(Y_BAR_PL4LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
@@ -201,9 +199,9 @@ void	make_bar(t_curs *b)
 void	print_color_p1(int *i, t_curs *b)
 {
 	wattron(b->win, COLOR_PAIR(1));
-	while (*i < g_players[0].startpos + g_players[0].field_size)
+	while (*i < g_g.players[0].startpos + g_g.players[0].field_size)
 	{
-		wprintw(b->win, " %02x", g_field[*i]);
+		wprintw(b->win, " %02x", g_g.field[*i]);
 		if (*i % 64 == 63)
 			wprintw(b->win, "\n");
 		(*i)++;
@@ -214,9 +212,9 @@ void	print_color_p1(int *i, t_curs *b)
 void	print_color_p2(int *i, t_curs *b)
 {
 	wattron(b->win, COLOR_PAIR(2));
-	while (*i < g_players[1].startpos + g_players[1].field_size)
+	while (*i < g_g.players[1].startpos + g_g.players[1].field_size)
 	{
-		wprintw(b->win, " %02x", g_field[*i]);
+		wprintw(b->win, " %02x", g_g.field[*i]);
 		if (*i % 64 == 63)
 			wprintw(b->win, "\n");
 		(*i)++;
@@ -227,9 +225,9 @@ void	print_color_p2(int *i, t_curs *b)
 void	print_color_p3(int *i, t_curs *b)
 {
 	wattron(b->win, COLOR_PAIR(3));
-	while (*i < g_players[2].startpos + g_players[2].field_size)
+	while (*i < g_g.players[2].startpos + g_g.players[2].field_size)
 	{
-		wprintw(b->win, " %02x", g_field[*i]);
+		wprintw(b->win, " %02x", g_g.field[*i]);
 		if (*i % 64 == 63)
 			wprintw(b->win, "\n");
 		(*i)++;
@@ -240,9 +238,9 @@ void	print_color_p3(int *i, t_curs *b)
 void	print_color_p4(int *i, t_curs *b)
 {
 	wattron(b->win, COLOR_PAIR(4));
-	while (*i < g_players[3].startpos + g_players[3].field_size)
+	while (*i < g_g.players[3].startpos + g_g.players[3].field_size)
 	{
-		wprintw(b->win, " %02x", g_field[*i]);
+		wprintw(b->win, " %02x", g_g.field[*i]);
 		if (*i % 64 == 63)
 			wprintw(b->win, "\n");
 		(*i)++;
@@ -257,15 +255,15 @@ void	print_map(t_curs *b)
 	int i = -1;
 	while (++i < MEM_SIZE)
 	{
-		if (i == g_players[0].startpos)
+		if (i == g_g.players[0].startpos)
 			print_color_p1(&i, b);
-		else if (i == g_players[1].startpos)
+		else if (i == g_g.players[1].startpos)
 			print_color_p2(&i, b);
-		else if (i == g_players[2].startpos)
+		else if (i == g_g.players[2].startpos)
 			print_color_p3(&i, b);
-		else if (i == g_players[3].startpos)
+		else if (i == g_g.players[3].startpos)
 			print_color_p4(&i, b);
-		wprintw(b->win, " %02x", g_field[i]);
+		wprintw(b->win, " %02x", g_g.field[i]);
 		if (i % 64 == 63)
 			wprintw(b->win, "\n");
 	}
@@ -283,46 +281,46 @@ void	print_cursor(t_curs *b)
 	int y;
 	if (b->pl_nb >= 1)
 	{
-		x = g_players[0].startpos % 64;
-		y = g_players[0].startpos / 64;
+		x = g_g.players[0].startpos % 64;
+		y = g_g.players[0].startpos / 64;
 		wmove(b->win, y, (x * 3));
 		wattron(b->win, COLOR_PAIR(17));
 		wprintw(b->win, " ");
 		wattron(b->win, COLOR_PAIR(21));
-		wprintw(b->win, "%02x", g_field[g_players[0].startpos]);
+		wprintw(b->win, "%02x", g_g.field[g_g.players[0].startpos]);
 		wattron(b->win, COLOR_PAIR(16));
 	}
 	if (b->pl_nb >= 2)
 	{
-		x = g_players[1].startpos % 64;
-		y = g_players[1].startpos / 64;
+		x = g_g.players[1].startpos % 64;
+		y = g_g.players[1].startpos / 64;
 		wmove(b->win, y, (x * 3));
 		wattron(b->win, COLOR_PAIR(17));
 		wprintw(b->win, " ");
 		wattron(b->win, COLOR_PAIR(22));
-		wprintw(b->win, "%02x", g_field[g_players[1].startpos]);
+		wprintw(b->win, "%02x", g_g.field[g_g.players[1].startpos]);
 		wattron(b->win, COLOR_PAIR(16));
 	}
 	if (b->pl_nb >= 3)
 	{
-		x = g_players[2].startpos % 64;
-		y = g_players[2].startpos / 64;
+		x = g_g.players[2].startpos % 64;
+		y = g_g.players[2].startpos / 64;
 		wmove(b->win, y, (x * 3));
 		wattron(b->win, COLOR_PAIR(17));
 		wprintw(b->win, " ");
 		wattron(b->win, COLOR_PAIR(23));
-		wprintw(b->win, "%02x", g_field[g_players[2].startpos]);
+		wprintw(b->win, "%02x", g_g.field[g_g.players[2].startpos]);
 		wattron(b->win, COLOR_PAIR(16));
 	}
 	if (b->pl_nb == 4)
 	{
-		int x = g_players[3].startpos % 64;
-		int y = g_players[3].startpos / 64;
+		int x = g_g.players[3].startpos % 64;
+		int y = g_g.players[3].startpos / 64;
 		wmove(b->win, y, (x * 3));
 		wattron(b->win, COLOR_PAIR(17));
 		wprintw(b->win, " ");
 		wattron(b->win, COLOR_PAIR(24));
-		wprintw(b->win, "%02x", g_field[g_players[3].startpos]);
+		wprintw(b->win, "%02x", g_g.field[g_g.players[3].startpos]);
 		wattron(b->win, COLOR_PAIR(16));
 	}
 	// refresh();
@@ -331,7 +329,7 @@ void	print_cursor(t_curs *b)
 void	init_curs(t_curs **b)
 {
 	*b = ft_memalloc(sizeof(t_curs));
-	(*b)->pl_nb = g_num_of_players;
+	(*b)->pl_nb = g_g.num_of_players;
 	if (!(initscr()))
 		ft_er_init();
 	ft_check_size_win();

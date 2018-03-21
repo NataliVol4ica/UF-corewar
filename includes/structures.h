@@ -14,7 +14,7 @@
 # define STRUCTURES_H
 
 # include "op.h"
-# define NUM_OF_FUNCS 1
+# define NUM_OF_FUNCS 2
 
 typedef void	(*t_f)(void *data);
 typedef struct	s_func

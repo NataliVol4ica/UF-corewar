@@ -39,9 +39,9 @@ void	set_players(void);
 ** PROCESSES
 */
 
-
 void	proc_invalid(void *data);
 void	proc_live(void *data);
+void	proc_load(void *data);
 
 /*
 ** PROC TOOLS

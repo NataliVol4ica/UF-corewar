@@ -15,6 +15,18 @@
 
 extern t_global	g_g;
 
+int		get_two_bits(int pos, int from)
+{
+	int t;
+	int	i;
+
+	t = g_g.field[pos];
+	t = t << from;
+	t = (unsigned char)t;
+	t = t >> (6 - from);
+	return (t);
+}
+
 void	proc_invalid(void *data)
 {
 	t_process	*proc;
@@ -39,6 +51,32 @@ void	proc_live(void *data)
 void	proc_load(void *data)
 {
 	t_process	*proc;
+	int			ret;
+
 	proc = (t_process*)data;
-	proc->pc = (proc->pc + 5) % MEM_SIZE;
-}	
+	ret = get_two_bits(proc->pc, 0);
+	if (ret == T_DIR)
+	{
+		;
+	}
+	else if (ret == T_IND)
+	{
+		;
+	}
+	else
+	{
+		proc_invalid(data);
+		return ;
+	}
+	ret = get_two_bits(proc->pc, 2);
+	if (ret == T_REG)
+	{
+		;
+	}
+	else
+	{
+		proc_invalid(data);
+		return ;
+	}
+	proc->pc = (proc->pc + 6) % MEM_SIZE;
+}

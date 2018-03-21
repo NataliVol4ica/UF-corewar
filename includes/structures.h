@@ -55,6 +55,8 @@ typedef struct	s_global
 	unsigned char	*field;
 	t_process		**proc;
 	int				period_lives;
+	int				cycle_to_die;
+	int				checks;
 }				t_global;
 
 #endif

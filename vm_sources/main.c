@@ -29,7 +29,7 @@ void	parse_command(t_process *p)
 		{
 			p->func = g_funcs[i].func;
 			p->sleep = g_funcs[i].sleep;
-			break;
+			break ;
 		}
 	if (i == NUM_OF_FUNCS)
 	{
@@ -48,7 +48,7 @@ void	run_cycle_step(void)
 	while (proc)
 	{
 		proc->sleep--;
-		ft_printf("prs#%d ind[%d] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
+		//ft_printf("prs#%d ind[%d] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
 		if (proc->sleep == 0)
 		{
 			//erase_old(proc->pc);
@@ -58,6 +58,20 @@ void	run_cycle_step(void)
 		}
 		proc = proc->next;
 	}
+}
+
+void	ctd_check(void)
+{
+	if (g_g.period_lives >= NBR_LIVE || g_g.checks == MAX_CHECKS)
+	{
+		g_g.cycle_to_die -= CYCLE_DELTA;
+		if (g_g.cycle_to_die < 1)
+			g_g.cycle_to_die = 1;
+		g_g.checks = 0;
+		g_g.period_lives = 0;
+		return ;
+	}
+	g_g.checks++;
 }
 
 int		main(int ac, char **av)
@@ -94,14 +108,17 @@ int		main(int ac, char **av)
 	//curse();
 	while (1)
 	{
-		ft_printf("cycle %0.4d | ", total_cycle);
+		if (!*g_g.proc)
+			break;
+		//ft_printf("====|| cycle %0.4d \n", total_cycle);
 		run_cycle_step();
-		if (cycle == CYCLE_TO_DIE)
+		if (cycle == g_g.cycle_to_die)
 		{
+			ft_printf("cycle %d ctdie %d\n", cycle, g_g.cycle_to_die);
 			cycle = 0;
 			you_gonna_die_bitch();
+			ctd_check();
 			g_g.period_lives = 0;
-			break;
 		}
 		cycle++;
 		total_cycle++;

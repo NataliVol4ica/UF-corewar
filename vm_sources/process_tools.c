@@ -48,7 +48,7 @@ void	gen_processes(void)
 		while (++j < g_g.num_of_players)
 			if (g_g.players[j].index == i)
 			{
-				new_process(g_g.players[j].startpos, j, g_g.proc);
+				new_process(g_g.players[j].startpos, j + 1, g_g.proc);
 				break ;
 			}
 	}
@@ -71,6 +71,7 @@ void	you_gonna_die_bitch(void)
 	{
 		if (temp->live)
 		{
+			temp->live = 0;
 			prev = temp;
 			temp = temp->next;
 			continue;

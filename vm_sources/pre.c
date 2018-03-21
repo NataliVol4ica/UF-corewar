@@ -48,4 +48,6 @@ void		init_globals(void)
 	MALL(g_g.proc = (t_process**)malloc(sizeof(t_process*)));
 	*g_g.proc = NULL;
 	g_g.period_lives = 0;
+	g_g.cycle_to_die = CYCLE_TO_DIE;
+	g_g.checks = 0;
 }

@@ -36,4 +36,9 @@ void	proc_live(void *data)
 	//alert player life incr
 }
 
-//void	
+void	proc_load(void *data)
+{
+	t_process	*proc;
+	proc = (t_process*)data;
+	proc->pc = (proc->pc + 5) % MEM_SIZE;
+}	

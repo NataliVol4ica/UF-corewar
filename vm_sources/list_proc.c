@@ -10,12 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vm.h"
+/*#include "vm.h"
 #include <stdlib.h>
 
-/*
-*** use only when we init proc in start
-*/
 
 t_proc		*lst_proc_new_start(t_champ cur, int index)
 {
@@ -31,10 +28,6 @@ t_proc		*lst_proc_new_start(t_champ cur, int index)
 	res->name = ft_strdup(cur.name);
 	return (res);
 }
-
-/*
-*** push back node with proc
-*/
 
 void		lst_proc_push_back(t_proc **alst, t_proc *new)
 {
@@ -53,10 +46,6 @@ void		lst_proc_push_back(t_proc **alst, t_proc *new)
 	}
 }
 
-/*
-*** push front nide with proces
-*/
-
 void		lst_proc_add(t_proc **alst, t_proc *new)
 {
 	if (!alst)
@@ -64,10 +53,6 @@ void		lst_proc_add(t_proc **alst, t_proc *new)
 	new->next = (*alst);
 	(*alst) = new;
 }
-
-/*
-*** kill all dead proces
-*/
 
 void		lst_del_dead_proc(t_proc **alst)
 {
@@ -106,3 +91,4 @@ void		lst_del_dead_proc(t_proc **alst)
 		}
 	}
 }
+*/

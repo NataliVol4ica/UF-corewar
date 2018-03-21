@@ -23,7 +23,7 @@ void		set_players(void)
 
 	i = -1;
 	while (++i < g_g.num_of_players)
-		g_g.players[i].startpos = /*g_g.players[i].index*/i * MEM_SIZE /
+		g_g.players[i].startpos = i * MEM_SIZE /
 			g_g.num_of_players;
 	i = -1;
 	while (++i < g_g.num_of_players)

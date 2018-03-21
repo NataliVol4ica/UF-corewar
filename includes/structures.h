@@ -28,9 +28,9 @@ typedef struct	s_champ
 {
 	int				index;
 	char			*filename;
-	char			name[PROG_NAME_LENGTH];
-	char			comment[COMMENT_LENGTH];
-	unsigned char	field[CHAMP_MAX_SIZE];
+	char			*name;
+	char			*comment;
+	unsigned char	*field;
 	int				field_size;
 	int				startpos;
 }				t_champ;
@@ -51,7 +51,7 @@ typedef struct	s_global
 	long			dump_cycle;
 	int				num_of_players;
 	t_champ			players[MAX_PLAYERS];
-	_Bool			taken_index[MAX_PLAYERS];
+	_Bool			*taken_index;
 	unsigned char	*field;
 	t_process		**proc;
 	int				period_lives;

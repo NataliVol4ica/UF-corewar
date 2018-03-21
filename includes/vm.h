@@ -21,7 +21,8 @@
 # include "encurse.h"
 //# include <ncurses.h>
 
-# include "../libft/includes/libft.h"
+
+void	init_globals(void);
 
 /*
 ** INPUT READING
@@ -41,6 +42,16 @@ void	set_players(void);
 
 void	proc_invalid(void *data);
 void	proc_live(void *data);
+
+/*
+** PROC TOOLS
+*/
+
+void	parse_command(t_process *p);
+void	new_process(int pc, int playernum, t_process **start);
+void	gen_processes(void);
+void	free_proc(t_process *proc);
+void	you_gonna_die_bitch(void);
 
 /*
 ** ERRORS

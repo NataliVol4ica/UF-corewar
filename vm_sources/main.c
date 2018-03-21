@@ -38,41 +38,6 @@ void	parse_command(t_process *p)
 	}
 }
 
-void	new_process(int pc, int playernum, t_process **start)
-{
-	int			i;
-	t_process	*new_proc;
-
-	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
-	MALL(new_proc->registry = (unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER));
-	new_proc->registry[0] = -playernum;
-	new_proc->pc = pc;
-	new_proc->carry = 1;
-	new_proc->live = 0;
-	new_proc->next = *start;
-	*start = new_proc;
-	parse_command(new_proc);
-	//draw_new(new_proc->pc)
-}
-
-void	gen_processes(void)
-{
-	int	i;
-	int j;
-
-	i = -1;
-	while (++i < g_g.num_of_players)
-	{
-		j = -1;
-		while (++j < g_g.num_of_players)
-			if (g_g.players[j].index == i)
-			{
-				new_process(g_g.players[j].startpos, j, g_g.proc);
-				break;
-			}
-	}
-}
-
 void	run_cycle_step(void)
 {
 	int			i;
@@ -93,74 +58,6 @@ void	run_cycle_step(void)
 		}
 		proc = proc->next;
 	}
-}
-
-void	free_proc(t_process *proc)
-{
-	//call death function
-	free(proc->registry);
-	free(proc);
-}
-
-void	you_gonna_die_bitch(void)
-{
-	t_process	*temp;
-	t_process	*prev;
-
-	temp = *g_g.proc;
-	while (temp)
-	{
-		if (temp->live)
-		{
-			prev = temp;
-			temp = temp->next;
-			continue;
-		}
-		if (temp == *g_g.proc)
-		{
-			temp = (*g_g.proc)->next;
-			free_proc(*g_g.proc);
-			*g_g.proc = temp;
-			continue;
-		}
-		temp = temp->next;
-		free_proc(prev->next);
-		prev->next = temp;
-	}
-}
-
-static void	alloc_players(void)
-{
-	int	i;
-	int	j;
-
-	j = -1;
-	while (++j < MAX_PLAYERS)
-	{
-		g_g.players[j].index = -1;
-		i = -1;
-		while (++i < PROG_NAME_LENGTH)
-			g_g.players[j].name[i] = 0;
-		i = -1;
-		while (++i < COMMENT_LENGTH)
-			g_g.players[j].comment[i] = 0;
-		i = -1;
-		while (++i < CHAMP_MAX_SIZE)
-			g_g.players[j].field[i] = 0;
-		g_g.taken_index[j] = 0;
-	}
-}
-
-void	init_globals(void)
-{
-	g_g.dump_cycle = -1;
-	g_g.num_of_players = 0;
-	alloc_players();
-	MALL(g_g.field =
-		(unsigned char*)ft_memalloc(sizeof(unsigned char) * MEM_SIZE));
-	MALL(g_g.proc = (t_process**)malloc(sizeof(t_process*)));
-	*g_g.proc = NULL;
-	g_g.period_lives = 0;
 }
 
 int		main(int ac, char **av)

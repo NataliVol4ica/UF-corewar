@@ -10,13 +10,15 @@ VMSRCDIR = ./vm_sources
 HFILES = $(patsubst %, $(INCDIR)/%.h, $(HEADERS))
 
 VMFILENAMES =	main \
+				pre \
 				errors \
 				globals \
 				player_reading \
 				player_parsing \
 				print_tools \
-				list_proc \
+				process_tools \
 				commands \
+				list_proc \
 				main_pic
 
 VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES))

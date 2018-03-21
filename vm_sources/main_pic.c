@@ -10,9 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "encurse.h"
-# include <stdio.h>
-# include "vm.h"
+#include "libft.h"
+#include "encurse.h"
+#include <stdio.h>
+#include "vm.h"
 
 extern t_global	g_g;
 

@@ -32,7 +32,7 @@ void	proc_invalid(void *data)
 	t_process	*proc;
 
 	proc = (t_process*)data;
-	proc->pc = (proc->pc + 2) % MEM_SIZE;
+	proc->pc = (proc->pc + 1) % MEM_SIZE;
 	//alert position movement
 }
 
@@ -65,7 +65,7 @@ void	proc_load(void *data)
 	}
 	else
 	{
-		proc_invalid(data);
+		proc->pc = (proc->pc + 2) % MEM_SIZE;
 		return ;
 	}
 	ret = get_two_bits(proc->pc, 2);
@@ -75,7 +75,7 @@ void	proc_load(void *data)
 	}
 	else
 	{
-		proc_invalid(data);
+		proc->pc = (proc->pc + 2) % MEM_SIZE;
 		return ;
 	}
 	proc->pc = (proc->pc + 6) % MEM_SIZE;

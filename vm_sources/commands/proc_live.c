@@ -31,4 +31,5 @@ void	proc_live(void *data)
 	ft_printf("(%s) is alive.\n", g_g.players[l].name);
 	g_g.last_live = l;
 	g_g.live[l]++;
+	//////
 }

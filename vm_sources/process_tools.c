@@ -33,7 +33,8 @@ void	new_process(int pc, int playernum)
 	new_proc->next = *g_g.proc;
 	*g_g.proc = new_proc;
 	parse_command(new_proc);
-	//draw_new(new_proc->pc)
+	if (g_g.to_visualise ==1)
+		draw_new(new_proc->pc);
 }
 
 void	copy_process(int pc, t_process *proc)
@@ -76,9 +77,11 @@ void	gen_processes(void)
 
 void	free_proc(t_process *proc)
 {
-	//call death function
+	if (g_g.to_visualise)
+		draw_new(proc->pc);
 	free(proc->registry);
 	free(proc);
+
 }
 
 void	print_winner(void)
@@ -118,4 +121,5 @@ void	you_gonna_die_bitch(void)
 	i = -1;
 	while (++i < g_g.num_of_players)
 		g_g.live[i] = 0;
+	//////
 }

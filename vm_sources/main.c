@@ -53,11 +53,13 @@ void	run_cycle_step(void)
 		if (proc->sleep == 0)
 		{
 			//erase_old(proc->pc);
-			draw_new(proc->pc);
+			if (g_g.to_visualise ==1)
+				draw_new(proc->pc);
 			proc->func((void*)proc);
 			//ft_printf("parsing ");
 			parse_command(proc);
-			draw_new(proc->pc);
+			if (g_g.to_visualise ==1)
+				draw_new(proc->pc);
 			//ft_printf("finished\n");
 		}
 		proc = proc->next;
@@ -73,9 +75,11 @@ void	ctd_check(void)
 			g_g.cycle_to_die = 1;
 		g_g.checks = 0;
 		g_g.period_lives = 0;
+	//cycle to die //chechs
 		return ;
 	}
 	g_g.checks++;
+	//chechs
 }
 
 int		main(int ac, char **av)
@@ -112,9 +116,11 @@ int		main(int ac, char **av)
 	gen_processes();
 	cycle = 0;
 	total_cycle = 0;
-	curse();
+	if (g_g.to_visualise)
+		curse();
 	while (1)
 	{
+	if (g_g.to_visualise)
 		g_b->cycle += 1;
 		if (!*g_g.proc)
 			break;
@@ -132,10 +138,14 @@ int		main(int ac, char **av)
 		total_cycle++;
 		if (total_cycle == g_g.dump_cycle)
 			print_field();
+	if (g_g.to_visualise ==1)
 		readkey();
 	}
-	pashalka();
-	exit_curse();
+	if (g_g.to_visualise)
+	{
+		pashalka();
+		exit_curse();
+	}
 	print_winner();
  	return (0);
 }

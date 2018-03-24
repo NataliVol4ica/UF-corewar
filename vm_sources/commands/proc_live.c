@@ -18,17 +18,19 @@ extern t_global	g_g;
 void	proc_live(void *data)
 {
 	t_process		*proc;
-	unsigned char	l;
+	unsigned int	l;
 
 	proc = (t_process*)data;
 	proc->live++;
-	proc->pc = set_pos(proc->pc + 5);
 	g_g.period_lives++;
 	l = get_int(proc->pc + 1, 4);
+	ft_printf("l %0.8x\n", l);
+	l = -(l + 1);
+	proc->pc = set_pos(proc->pc + 5);
 	if (l >= g_g.num_of_players)
 		return ;
-//	ft_printf("A process shows that player %d ", l);
-//	ft_printf("(%s) is alive.\n", g_g.players[l].name);
+	ft_printf("A process shows that player %d ", l);
+	ft_printf("(%s) is alive.\n", g_g.players[l].name);
 	g_g.last_live = l;
 	g_g.live[l]++;
 	//////

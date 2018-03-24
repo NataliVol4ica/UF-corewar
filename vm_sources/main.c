@@ -39,7 +39,7 @@ void	parse_command(t_process *p)
 	}
 }
 
-void	run_cycle_step(void)
+void	run_cycle_step(int cycle)
 {
 	int			i;
 	t_process	*proc;
@@ -56,6 +56,7 @@ void	run_cycle_step(void)
 			if (g_g.to_visualise ==1)
 				draw_new(proc->pc);
 			proc->func((void*)proc);
+			ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", cycle + 1, proc->pc, g_g.field[proc->pc]);
 			//ft_printf("parsing ");
 			parse_command(proc);
 			if (g_g.to_visualise ==1)
@@ -125,7 +126,7 @@ int		main(int ac, char **av)
 		if (!*g_g.proc)
 			break;
 		//ft_printf("====|| cycle %0.4d \n", total_cycle);
-		run_cycle_step();
+		run_cycle_step(total_cycle);
 		if (cycle == g_g.cycle_to_die)
 		{
 			//ft_printf("cycle %d ctdie %d\n", cycle, g_g.cycle_to_die);
@@ -138,8 +139,10 @@ int		main(int ac, char **av)
 		total_cycle++;
 		if (total_cycle == g_g.dump_cycle)
 			print_field();
-	if (g_g.to_visualise ==1)
-		readkey();
+		if (g_g.to_visualise)
+			readkey();
+		if (total_cycle == 500)
+			exit (0);
 	}
 	if (g_g.to_visualise)
 	{

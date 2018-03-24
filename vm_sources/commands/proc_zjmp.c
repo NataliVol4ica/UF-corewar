@@ -21,5 +21,9 @@ void			proc_zjump(void *data)
 
 	proc = (t_process*)data;
 	//ft_printf("field %#x\n", get_field_val(proc->pc));
-	proc->pc = set_pos(proc->pc + get_int(proc->pc + 1, 2));
+	if (proc->carry)
+		proc->pc = set_pos(proc->pc + get_int(proc->pc + 1, 2));
+	else
+		proc->pc = set_pos(pros->pc + 3);
+	proc->carry = 0;
 }

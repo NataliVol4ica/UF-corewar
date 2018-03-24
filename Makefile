@@ -15,7 +15,12 @@ VMCMDFNAMES = 	proc_invalid \
 				proc_load \
 				proc_store \
 				proc_zjmp \
-				proc_fork
+				proc_fork \
+				proc_add \
+				proc_sub \
+				proc_and \
+				proc_or \
+				proc_xor
 
 VMCCMDFILES = $(patsubst %, $(VMSRCDIR)/$(VMCMDSRCDIR)/%.c, $(VMCMDFNAMES))
 VMOCMDFILES = $(patsubst %, $(ODIR)/$(VMCMDSRCDIR)/%.o, $(VMCMDFNAMES))

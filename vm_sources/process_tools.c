@@ -109,9 +109,6 @@ void	you_gonna_die_bitch(void)
 			temp = (*g_g.proc)->next;
 			free_proc(*g_g.proc);
 			*g_g.proc = temp;
-			g_g.live_processes--;
-			if (g_g.live_processes == 0)
-				print_winner();
 			continue;
 		}
 		temp = temp->next;

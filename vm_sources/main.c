@@ -98,8 +98,11 @@ int		main(int ac, char **av)
 			print_usage();
 		cur_arg++;
 	}
-	//parse additional flags here
-	read_players(cur_arg, ac, av);
+	if (!ft_strcmp("-v", av[cur_arg]))
+	{
+		cur_arg++;
+		g_g.to_visualise = 1;
+	}	read_players(cur_arg, ac, av);
 	numerate_remaining_players();
 	validate_numeration();
 	set_players();
@@ -133,5 +136,6 @@ int		main(int ac, char **av)
 	}
 	pashalka();
 	exit_curse();
+	print_winner();
  	return (0);
 }

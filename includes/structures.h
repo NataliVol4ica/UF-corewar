@@ -58,8 +58,8 @@ typedef struct	s_global
 	int				period_lives;
 	int				cycle_to_die;
 	int				checks;
-	int				live_processes;
 	unsigned char	last_live;
+	_Bool			to_visualise;
 }				t_global;
 
 typedef struct	s_codes

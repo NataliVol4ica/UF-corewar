@@ -22,7 +22,7 @@
 //# include <ncurses.h>
 
 # define UCHAR unsigned char
-# define NUM_OF_FUNCS 5
+# define NUM_OF_FUNCS 10
 
 # define COMMAND 1
 # define CODING_BYTE 1
@@ -31,6 +31,7 @@
 # define TIND 3
 
 void	init_globals(void);
+void	print_winner(void);
 
 /*
 ** INPUT READING
@@ -59,6 +60,11 @@ void	proc_load(void *data);
 void	proc_store(void *data);
 void	proc_zjump(void *data);
 void	proc_fork(void *data);
+void	proc_add(void *data);
+void	proc_sub(void *data);
+void	proc_and(void *data);
+void	proc_or(void *data);
+void	proc_xor(void *data);
 
 /*
 ** PROC TOOLS

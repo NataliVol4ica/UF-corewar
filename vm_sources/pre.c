@@ -55,6 +55,6 @@ void		init_globals(void)
 	g_g.period_lives = 0;
 	g_g.cycle_to_die = CYCLE_TO_DIE;
 	g_g.checks = 0;
-	g_g.live_processes = 0;
 	g_g.last_live = 0;
+	g_g.to_visualise = 0;
 }

@@ -24,6 +24,6 @@ void			proc_zjump(void *data)
 	if (proc->carry)
 		proc->pc = set_pos(proc->pc + get_int(proc->pc + 1, 2));
 	else
-		proc->pc = set_pos(pros->pc + 3);
+		proc->pc = set_pos(proc->pc + 3);
 	proc->carry = 0;
 }

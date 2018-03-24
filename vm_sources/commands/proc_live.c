@@ -27,8 +27,8 @@ void	proc_live(void *data)
 	l = get_int(proc->pc + 1, 4);
 	if (l >= g_g.num_of_players)
 		return ;
-	ft_printf("A process shows that player %d ", l);
-	ft_printf("(%s) is alive.\n", g_g.players[l].name);
+//	ft_printf("A process shows that player %d ", l);
+//	ft_printf("(%s) is alive.\n", g_g.players[l].name);
 	g_g.last_live = l;
 	g_g.live[l]++;
 	//////

@@ -22,6 +22,8 @@ unsigned char	get_field_val(int pos)
 void			set_field_val(int pos, unsigned char val)
 {
 	g_g.field[pos % MEM_SIZE] = val;
+	if (g_g.to_visualise == 1)
+		load_player(pos % MEM_SIZE);
 }
 
 int				set_pos(int pos)

@@ -115,8 +115,8 @@ void	make_first_player(void)
 	attron(COLOR_PAIR(1));
 	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12,"%s", g_g.players[0].name);
 	attron(COLOR_PAIR(15));
-	mvprintw(Y_BAR_PL1LL, X_BAR_SCL,"%s 0","Last live : ");
-	mvprintw(Y_BAR_PL1LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
+	mvprintw(Y_BAR_PL1LL, X_BAR_SCL,"%s","Last live : ");
+	mvprintw(Y_BAR_PL1LIC, X_BAR_SCL,"%s","Lives in current period : ");
 }
 
 void	make_second_player(void)
@@ -125,8 +125,8 @@ void	make_second_player(void)
 	attron(COLOR_PAIR(2));
 	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12,"%s", g_g.players[1].name);
 	attron(COLOR_PAIR(15));
-	mvprintw(Y_BAR_PL2LL, X_BAR_SCL,"%s 0","Last live : ");
-	mvprintw(Y_BAR_PL2LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
+	mvprintw(Y_BAR_PL2LL, X_BAR_SCL,"%s","Last live : ");
+	mvprintw(Y_BAR_PL2LIC, X_BAR_SCL,"%s","Lives in current period : ");
 }
 
 void	make_third_player(void)
@@ -135,8 +135,8 @@ void	make_third_player(void)
 	attron(COLOR_PAIR(3));
 	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12,"%s", g_g.players[2].name);
 	attron(COLOR_PAIR(15));
-	mvprintw(Y_BAR_PL3LL, X_BAR_SCL,"%s 0","Last live : ");
-	mvprintw(Y_BAR_PL3LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
+	mvprintw(Y_BAR_PL3LL, X_BAR_SCL,"%s","Last live : ");
+	mvprintw(Y_BAR_PL3LIC, X_BAR_SCL,"%s","Lives in current period : ");
 }
 
 void	make_fifth_player(void)
@@ -145,8 +145,8 @@ void	make_fifth_player(void)
 	attron(COLOR_PAIR(4));
 	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12,"%s", g_g.players[3].name);
 	attron(COLOR_PAIR(15));
-	mvprintw(Y_BAR_PL4LL, X_BAR_SCL,"%s 0","Last live : ");
-	mvprintw(Y_BAR_PL4LIC, X_BAR_SCL,"%s 0","Lives in current period : ");
+	mvprintw(Y_BAR_PL4LL, X_BAR_SCL,"%s","Last live : ");
+	mvprintw(Y_BAR_PL4LIC, X_BAR_SCL,"%s","Lives in current period : ");
 }
 
 void	show_players(void)
@@ -184,12 +184,12 @@ void	make_bar(void)
 	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", "** PAUSED ** ");
 	mvprintw(Y_BAR_SECL, X_BAR_SRT,"%s %d", "Cycles/second limit : ", g_b->sleep);
 	mvprintw(Y_BAR_CYCL, X_BAR_SRT,"%s %d","Cycle :", g_b->cycle);
-	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s 0","Processes : ");
+	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s","Processes : ");
 	show_players();
-	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT,"%s","CYCLE_TO_DIE : 1536");
-	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT,"%s","CYCLE_DELTA : 50");
-	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT,"%s","NBR_LIVE : 21");
-	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT,"%s","MAX_CHECKS : 10");
+	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT,"%s%d ","CYCLE_TO_DIE : ", CYCLE_TO_DIE);
+	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT,"%s %d","CYCLE_DELTA : ", CYCLE_DELTA);
+	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT,"%s %d   ","NBR_LIVE :    ", NBR_LIVE);
+	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT,"%s  %d","MAX_CHECKS : ", MAX_CHECKS);
 }
 
 void	print_color_p1(int *i)
@@ -434,7 +434,7 @@ void	draw_new(int index)
 	wrefresh(g_b->win);
 }
 
-void	load_player(int index, int player)
+void	load_player(int index/*, int player*/)
 {
 	int x;
 	int y;
@@ -444,7 +444,7 @@ void	load_player(int index, int player)
 	x = (index % 64) * 3;
 	y = index / 64;
 	wmove(g_b->win, y, x);
-	wattron(g_b->win, COLOR_PAIR(2));
+	wattron(g_b->win, COLOR_PAIR(15));
 	while (++i < REG_SIZE)
 	{
 		wprintw(g_b->win, " %02x", g_g.field[index]);
@@ -463,14 +463,34 @@ void	redraw_bar(void)
 {
 	refresh();
 	attron(COLOR_PAIR(15) | A_BOLD);
-//	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", "** PAUSED ** ");
 	mvprintw(Y_BAR_SECL, X_BAR_SRT + 23,"%d ", g_b->sleep);
 	mvprintw(Y_BAR_CYCL, X_BAR_SRT + 8,"%d", g_b->cycle);
+	if (g_b->pl_nb >= 1)
+	{
+//		mvprintw(Y_BAR_PL1LL, X_BAR_SCL + 26,"%d", g_g.live[0]);
+		mvprintw(Y_BAR_PL1LIC, X_BAR_SCL + 26,"%d",g_g.live[0]);
+	}
+	if (g_b->pl_nb >= 2)
+	{
+//		mvprintw(Y_BAR_PL2LL, X_BAR_SCL + 26,"%d", g_g.live[1]);
+		mvprintw(Y_BAR_PL2LIC, X_BAR_SCL + 26,"%d", g_g.live[1]);
+	}
+	if (g_b->pl_nb >= 3)
+	{
+		mvprintw(Y_BAR_PL3LL, X_BAR_SCL + 26,"%d", g_g.live[2]);
+//		mvprintw(Y_BAR_PL3LIC, X_BAR_SCL + 26,"%d",);
+	}
+	if (g_b->pl_nb == 4)
+	{
+		mvprintw(Y_BAR_PL4LL, X_BAR_SCL + 26,"%d", g_g.live[3]);
+//		mvprintw(Y_BAR_PL4LIC, X_BAR_SCL + 26,"%d",);
+	}
 //	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s 0","Processes : ");
-//	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT,"%s","CYCLE_TO_DIE : 1536");
-//	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT,"%s","CYCLE_DELTA : 50");
-//	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT,"%s","NBR_LIVE : 21");
-//	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT,"%s","MAX_CHECKS : 10");
+	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT + 15,"%d ", g_g.cycle_to_die);
+	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT + 15, "%d " ,CYCLE_DELTA);
+	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT + 15, "%d ", NBR_LIVE);
+	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT + 14, " %d  ", MAX_CHECKS - g_g.checks);
+	wrefresh(g_b->win);
 }
 
 /*
@@ -519,6 +539,8 @@ void	pashalka(void)
 	wattron(g_b->win, COLOR_PAIR(2));
 	while ((ret = get_next_line(fd, &line)))
 	{
+		if (ret == 0)
+			exit(0);
 		mvwprintw(g_b->win, y, 0,"%s", line);
 		free(line);
 		y++;

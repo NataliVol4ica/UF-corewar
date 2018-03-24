@@ -78,7 +78,7 @@ void			draw_new(int index);
 void			readkey(void);
 void			redraw_bar(void);
 void			hooks(void);
-void			load_player(int index, int player);
+void			load_player(int index/*, int player*/);
 void			pashalka(void);
 
 #endif

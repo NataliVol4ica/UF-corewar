@@ -120,8 +120,8 @@ int		main(int ac, char **av)
 		curse();
 	while (1)
 	{
-	if (g_g.to_visualise)
-		g_b->cycle += 1;
+		if (g_g.to_visualise)
+			++g_b->cycle/* += 1*/;
 		if (!*g_g.proc)
 			break;
 		//ft_printf("====|| cycle %0.4d \n", total_cycle);

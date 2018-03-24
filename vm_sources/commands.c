@@ -15,68 +15,57 @@
 
 extern t_global	g_g;
 
-int		get_two_bits(int pos, int from)
+int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs)
 {
-	int t;
-	int	i;
+	int		total;
+	int		i;
 
-	t = g_g.field[pos];
-	t = t << from;
-	t = (unsigned char)t;
-	t = t >> (6 - from);
-	return (t);
-}
-
-void	proc_invalid(void *data)
-{
-	t_process	*proc;
-
-	proc = (t_process*)data;
-	proc->pc = (proc->pc + 1) % MEM_SIZE;
-	//alert position movement
-}
-
-void	proc_live(void *data)
-{
-	t_process	*proc;
-
-	proc = (t_process*)data;
-	proc->live++;
-	proc->pc = (proc->pc + 5) % MEM_SIZE;
-	g_g.period_lives++;
-	//alert pos movement
-	//alert player life incr
-}
-
-void	proc_load(void *data)
-{
-	t_process	*proc;
-	int			ret;
-
-	proc = (t_process*)data;
-	ret = get_two_bits(proc->pc, 0);
-	if (ret == T_DIR)
+	total = COMMAND;
+	total += has_coding ? CODING_BYTE : 0;
+	i = -1;
+	while (++i < numofargs)
 	{
-		;
+		if (c_b.t[i] == TREG)
+			total += T_REG;
+		else if (c_b.t[i] == TDIR)
+			total += T_DIR;
+		else
+			total += T_IND;
 	}
-	else if (ret == T_IND)
+	return (total);
+}
+
+int		get_int(int pos, int len)
+{
+	int ans;
+	int i;
+
+	ans = 0;
+	i = -1;
+	while (++i < len)
+		ans = (ans << 8) + get_field_val(pos + i);
+	return (ans);
+}
+
+_Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip)
+{
+	//ft_printf("toskip %d\n", *toskip);
+	if (code == TREG)
 	{
-		;
+		*arg = get_int(proc->pc + *toskip, T_REG);
+		if (*arg >= REG_NUMBER)
+			return (0);
+		*toskip = *toskip + T_REG;
+	}
+	else if (code == TDIR)
+	{
+		*arg = get_int(proc->pc + *toskip, T_DIR);
+		*toskip = *toskip + T_DIR;
 	}
 	else
 	{
-		proc->pc = (proc->pc + 2) % MEM_SIZE;
-		return ;
+		*arg = get_int(proc->pc + *toskip, T_IND);
+		*toskip = *toskip + T_IND;
 	}
-	ret = get_two_bits(proc->pc, 2);
-	if (ret == T_REG)
-	{
-		;
-	}
-	else
-	{
-		proc->pc = (proc->pc + 2) % MEM_SIZE;
-		return ;
-	}
-	proc->pc = (proc->pc + 6) % MEM_SIZE;
+	return (1);
 }

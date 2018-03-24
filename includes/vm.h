@@ -21,6 +21,14 @@
 # include "encurse.h"
 //# include <ncurses.h>
 
+# define UCHAR unsigned char
+# define NUM_OF_FUNCS 3
+
+# define COMMAND 1
+# define CODING_BYTE 1
+# define TREG 1
+# define TDIR 2
+# define TIND 3
 
 void	init_globals(void);
 
@@ -39,9 +47,15 @@ void	set_players(void);
 ** PROCESSES
 */
 
+int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs);
+int		get_int(int pos, int len);
+_Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip);
+_Bool	parse_long_arg(int code, t_process *proc, int *arg, int *toskip);
+
 void	proc_invalid(void *data);
 void	proc_live(void *data);
 void	proc_load(void *data);
+void	proc_store(void *data);
 
 /*
 ** PROC TOOLS
@@ -52,6 +66,15 @@ void	new_process(int pc, int playernum, t_process **start);
 void	gen_processes(void);
 void	free_proc(t_process *proc);
 void	you_gonna_die_bitch(void);
+
+/*
+** FIELD TOOLS
+*/
+
+UCHAR	get_field_val(int pos);
+void	set_field_val(int pos, unsigned char val);
+int		set_pos(int pos);
+t_codes	coding_byte(int pos);
 
 /*
 ** ERRORS

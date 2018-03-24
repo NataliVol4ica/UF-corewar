@@ -1,21 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   globals.c                                          :+:      :+:    :+:   */
+/*   proc_invalid.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkolosov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/16 16:11:55 by nkolosov          #+#    #+#             */
-/*   Updated: 2018/03/16 16:11:55 by nkolosov         ###   ########.fr       */
+/*   Created: 2018/03/19 14:29:56 by nkolosov          #+#    #+#             */
+/*   Updated: 2018/03/19 14:29:57 by nkolosov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "vm.h"
 
-t_global	g_g;
-t_func		g_funcs[] =
+extern t_global	g_g;
+
+void	proc_invalid(void *data)
 {
-	{0x01, &proc_live, 10},
-	{0x02, &proc_load, 5},
-	{0x03, &proc_store, 5}
-};
+	t_process	*proc;
+
+	proc = (t_process*)data;
+	proc->pc = set_pos(proc->pc + 1);
+}

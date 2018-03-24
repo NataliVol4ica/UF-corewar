@@ -46,8 +46,11 @@ void		init_globals(void)
 	MALL(g_g.field =
 		(unsigned char*)ft_memalloc(sizeof(unsigned char) * MEM_SIZE));
 	MALL(g_g.proc = (t_process**)malloc(sizeof(t_process*)));
+	MALL(g_g.live = (int*)ft_memalloc(sizeof(int) * MAX_PLAYERS));
 	*g_g.proc = NULL;
 	g_g.period_lives = 0;
 	g_g.cycle_to_die = CYCLE_TO_DIE;
 	g_g.checks = 0;
+	g_g.live_processes = 0;
+	g_g.last_live = 0;
 }

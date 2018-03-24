@@ -9,6 +9,15 @@ INCDIR = ./includes
 VMSRCDIR = ./vm_sources
 HFILES = $(patsubst %, $(INCDIR)/%.h, $(HEADERS))
 
+VMCMDSRCDIR = commands
+VMCMDFNAMES = 	proc_invalid \
+				proc_live \
+				proc_load \
+				proc_store
+
+VMCCMDFILES = $(patsubst %, $(VMSRCDIR)/$(VMCMDSRCDIR)/%.c, $(VMCMDFNAMES))
+VMOCMDFILES = $(patsubst %, $(ODIR)/$(VMCMDSRCDIR)/%.o, $(VMCMDFNAMES))
+
 VMFILENAMES =	main \
 				pre \
 				errors \
@@ -17,12 +26,13 @@ VMFILENAMES =	main \
 				player_parsing \
 				print_tools \
 				process_tools \
+				field_tools \
 				commands \
 				list_proc \
 				main_pic
 
-VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES))
-VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES))
+VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES)) $(VMCCMDFILES)
+VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES)) $(VMOCMDFILES)
 
 LIBDIR = ./libft
 LIBFT = $(LIBDIR)/libft.a
@@ -62,6 +72,7 @@ $(ODIR)/%.o: $(VMSRCDIR)/%.c $(HFILES) $(LIBFT)
 
 $(ODIR):
 	@mkdir -p $(ODIR)
+	@mkdir -p $(ODIR)/$(VMCMDSRCDIR)
 
 $(LIBFT):
 	@make -C $(LIBDIR)

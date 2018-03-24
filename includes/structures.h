@@ -14,7 +14,6 @@
 # define STRUCTURES_H
 
 # include "op.h"
-# define NUM_OF_FUNCS 2
 
 typedef void	(*t_f)(void *data);
 typedef struct	s_func
@@ -38,6 +37,7 @@ typedef struct	s_champ
 typedef struct	s_process
 {
 	unsigned int		*registry;
+	unsigned int		index;
 	int					pc;
 	_Bool				carry;
 	int					live;
@@ -51,12 +51,20 @@ typedef struct	s_global
 	long			dump_cycle;
 	int				num_of_players;
 	t_champ			players[MAX_PLAYERS];
+	int				*live;
 	_Bool			*taken_index;
 	unsigned char	*field;
 	t_process		**proc;
 	int				period_lives;
 	int				cycle_to_die;
 	int				checks;
+	int				live_processes;
+	unsigned char	last_live;
 }				t_global;
+
+typedef struct	s_codes
+{
+	int	t[3];
+}				t_codes;
 
 #endif

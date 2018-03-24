@@ -48,13 +48,15 @@ void	run_cycle_step(void)
 	while (proc)
 	{
 		proc->sleep--;
-		//ft_printf("prs#%d ind[%d] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
+		//ft_printf("prs#%d ind[%x] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
 		if (proc->sleep == 0)
 		{
 			//erase_old(proc->pc);
 			proc->func((void*)proc);
+			//ft_printf("parsing ");
 			parse_command(proc);
 			//draw_new(proc->pc);
+			//ft_printf("finished\n");
 		}
 		proc = proc->next;
 	}

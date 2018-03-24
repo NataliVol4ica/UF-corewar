@@ -18,12 +18,25 @@ extern t_global	g_g;
 void			proc_aff(void *data)
 {
 	t_process	*proc;
+	t_codes		cod_b;
+	int			arg[1];
+	int			toskip;
 
+	toskip = COMMAND;
 	proc = (t_process*)data;
-	//ft_printf("field %#x\n", get_field_val(proc->pc));
-	if (proc->carry)
-		proc->pc = set_pos(proc->pc + get_int(proc->pc + 1, 2));
-	else
-		proc->pc = set_pos(proc->pc + 3);
+	cod_b = coding_byte(proc->pc + toskip);
+	toskip += CODING_BYTE;
+	if (cod_b.t[0] != TREG)
+	{
+		proc->pc = set_pos(proc->pc + 2);
+		return ;
+	}
+	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip))
+	{
+		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 2));
+		return ;
+	}
+	ft_printf("%c\n", proc->registy[arg[0]]);
+	proc->pc = set_pos(proc->pc + 3);
 	proc->carry = 0;
 }

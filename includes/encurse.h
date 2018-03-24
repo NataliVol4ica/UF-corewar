@@ -55,21 +55,30 @@
 
 typedef	struct	s_curs
 {
-	WINDOW *win;
+	WINDOW		*win;
 	int			pl_nb;
 	int			bar_y_st;
 	int 		key;
 	int			pause;
+	int 		cycle;
+	uint32_t	sleep;
+	uint8_t		timeout;
 }				t_curs;
 
-void	ft_er_init(void);
-void	ft_check_size_win(void);
-void	colors(void);
-void	make_border(t_curs *b);
-void	make_bar(t_curs *b);
-void	show_players(t_curs *b);
-void	init_curs(t_curs **b);
-void	exit_curse(t_curs *b);
-int		curse(void);
+void			ft_er_init(void);
+void			ft_check_size_win(void);
+void			colors(void);
+void			make_border(void);
+void			make_bar(void);
+void			show_players(void);
+void			init_curs(void);
+void			exit_curse(void);
+void			curse(void);
+void			draw_new(int index);
+void			readkey(void);
+void			redraw_bar(void);
+void			hooks(void);
+void			load_player(int index, int player);
+void			pashalka(void);
 
 #endif

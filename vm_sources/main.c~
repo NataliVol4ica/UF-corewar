@@ -18,7 +18,6 @@
 
 extern t_global	g_g;
 extern t_func	g_funcs[];
-extern t_curs	*g_b;
 
 void	parse_command(t_process *p)
 {
@@ -49,15 +48,14 @@ void	run_cycle_step(void)
 	while (proc)
 	{
 		proc->sleep--;
-		//ft_printf("prs#%d ind[%x] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
+		ft_printf("prs#%d ind[%x] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
 		if (proc->sleep == 0)
 		{
 			//erase_old(proc->pc);
-			draw_new(proc->pc);
 			proc->func((void*)proc);
 			//ft_printf("parsing ");
 			parse_command(proc);
-			draw_new(proc->pc);
+			//draw_new(proc->pc);
 			//ft_printf("finished\n");
 		}
 		proc = proc->next;
@@ -109,10 +107,9 @@ int		main(int ac, char **av)
 	gen_processes();
 	cycle = 0;
 	total_cycle = 0;
-	curse();
+	//curse();
 	while (1)
 	{
-		g_b->cycle += 1;
 		if (!*g_g.proc)
 			break;
 		//ft_printf("====|| cycle %0.4d \n", total_cycle);
@@ -129,9 +126,7 @@ int		main(int ac, char **av)
 		total_cycle++;
 		if (total_cycle == g_g.dump_cycle)
 			print_field();
-		readkey();
+		//readkey();
 	}
-	pashalka();
-	exit_curse();
  	return (0);
 }

@@ -13,6 +13,7 @@
 #include "vm.h"
 
 t_global	g_g;
+t_curs		*g_b;
 t_func		g_funcs[] =
 {
 	{0x01, &proc_live, 10},

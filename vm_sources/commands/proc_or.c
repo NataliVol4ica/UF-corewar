@@ -26,7 +26,7 @@ void			proc_or(void *data)
 	proc = (t_process*)data;
 	cod_b = coding_byte(proc->pc + toskip);
 	toskip += CODING_BYTE;
-	ft_printf("field %#x : %b %b %b\n", get_field_val(proc->pc), cod_b.t[0], cod_b.t[1], cod_b.t[2]);
+	//ft_printf("field %#x : %b %b %b\n", get_field_val(proc->pc), cod_b.t[0], cod_b.t[1], cod_b.t[2]);
 	if (cod_b.t[0] != TREG || cod_b.t[1] != TREG || cod_b.t[2] != TREG)
 	{
 		proc->pc = set_pos(proc->pc + toskip);

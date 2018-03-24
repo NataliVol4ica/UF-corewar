@@ -49,6 +49,7 @@ void	set_players(void);
 
 int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs);
 int		get_int(int pos, int len);
+void	set_int(int pos, int len, int val);
 _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip);
 _Bool	parse_long_arg(int code, t_process *proc, int *arg, int *toskip);
 

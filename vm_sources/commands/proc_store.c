@@ -27,7 +27,7 @@ void			proc_store(void *data)
 	cod_b = coding_byte(proc->pc + toskip);
 	toskip += CODING_BYTE;
 	ft_printf("field %#x : %b %b %b\n", get_field_val(proc->pc), cod_b.t[0], cod_b.t[1], cod_b.t[2]);
-	if ((cod_b.t[0] != TDIR && cod_b.t[0] != TIND) || cod_b.t[1] != TREG)
+	if (cod_b.t[0] != TREG || (cod_b.t[1] != TREG && cod_b.t[1] != TIND))
 	{
 		proc->pc = set_pos(proc->pc + toskip);
 		return ;
@@ -38,10 +38,9 @@ void			proc_store(void *data)
 		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 2));
 		return ;
 	}
-	if (cod_b.t[0] == TIND)
-		arg[0] = get_int(proc->pc + (arg[0]) % IDX_MOD, 4);
-	proc->registry[arg[1]] = arg[0];
-	if (arg[0] == 0)
-		proc->carry = 1;
+	if (cod_b.t[1] == TREG)
+		proc->registry[arg[1]] = proc->registry[arg[0]];
+	else
+		set_int(proc->pc + (arg[1] % IDX_MOD), 4, proc->registry[arg[0]]);
 	proc->pc = set_pos(proc->pc + toskip);
 }

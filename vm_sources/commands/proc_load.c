@@ -35,13 +35,9 @@ void			proc_load(void *data)
 	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip))
 	{
-		//ft_printf("arg1 %x\n", arg[0]);
-		//ft_printf("arg2 %x\n", arg[1]);
 		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 2));
 		return ;
 	}
-	//ft_printf("arg1 %x\n", arg[0]);
-	//ft_printf("arg2 %x\n", arg[1]);
 	if (cod_b.t[0] == TIND)
 		arg[0] = get_int(proc->pc + (arg[0]) % IDX_MOD, 4);
 	proc->registry[arg[1]] = arg[0];

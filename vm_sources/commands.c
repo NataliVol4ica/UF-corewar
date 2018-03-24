@@ -47,6 +47,19 @@ int		get_int(int pos, int len)
 	return (ans);
 }
 
+void	set_int(int pos, int len, int val)
+{
+	int i;
+
+	i = len;
+	while (i > 0)
+	{
+		i--;
+		set_field_val(pos + i, val);
+		val = (val >> 8);
+	}
+}
+
 _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip)
 {
 	//ft_printf("toskip %d\n", *toskip);

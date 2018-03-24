@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   proc_store.c                                       :+:      :+:    :+:   */
+/*   proc_zjmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nkolosov <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -20,6 +20,6 @@ void			proc_zjump(void *data)
 	t_process	*proc;
 
 	proc = (t_process*)data;
-	ft_printf("field %#x\n", get_field_val(proc->pc));
+	//ft_printf("field %#x\n", get_field_val(proc->pc));
 	proc->pc = set_pos(proc->pc + get_int(proc->pc + 1, 2));
 }

@@ -18,9 +18,8 @@
 
 extern t_global	g_g;
 
-void	new_process(int pc, int playernum, t_process **start)
+void	new_process(int pc, int playernum)
 {
-	int			i;
 	t_process	*new_proc;
 
 	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
@@ -31,10 +30,30 @@ void	new_process(int pc, int playernum, t_process **start)
 	new_proc->pc = pc;
 	new_proc->carry = 1;
 	new_proc->live = 0;
-	new_proc->next = *start;
-	*start = new_proc;
+	new_proc->next = *g_g.proc;
+	*g_g.proc = new_proc;
 	parse_command(new_proc);
 	//draw_new(new_proc->pc)
+}
+
+void	copy_process(int pc, t_process *proc)
+{
+	int			i;
+	t_process	*new_proc;
+
+	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
+	MALL(new_proc->registry =
+		(unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER));
+	new_proc->index = proc->index;
+	i = -1;
+	while (++i < REG_NUMBER)
+		new_proc->registry[i] = proc->registry[i];
+	new_proc->pc = pc;
+	new_proc->carry = proc->carry;
+	new_proc->live = 0;
+	new_proc->next = *g_g.proc;
+	*g_g.proc = new_proc;
+	parse_command(new_proc);
 }
 
 void	gen_processes(void)
@@ -49,7 +68,7 @@ void	gen_processes(void)
 		while (++j < g_g.num_of_players)
 			if (g_g.players[j].index == i)
 			{
-				new_process(g_g.players[j].startpos, j + 1, g_g.proc);
+				new_process(g_g.players[j].startpos, j + 1);
 				break ;
 			}
 	}

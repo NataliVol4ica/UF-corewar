@@ -22,7 +22,7 @@
 //# include <ncurses.h>
 
 # define UCHAR unsigned char
-# define NUM_OF_FUNCS 4
+# define NUM_OF_FUNCS 5
 
 # define COMMAND 1
 # define CODING_BYTE 1
@@ -58,13 +58,15 @@ void	proc_live(void *data);
 void	proc_load(void *data);
 void	proc_store(void *data);
 void	proc_zjump(void *data);
+void	proc_fork(void *data);
 
 /*
 ** PROC TOOLS
 */
 
 void	parse_command(t_process *p);
-void	new_process(int pc, int playernum, t_process **start);
+void	new_process(int pc, int playernum);
+void	copy_process(int pc, t_process *proc);
 void	gen_processes(void);
 void	free_proc(t_process *proc);
 void	you_gonna_die_bitch(void);

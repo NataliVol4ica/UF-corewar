@@ -48,7 +48,7 @@ void	run_cycle_step(void)
 	while (proc)
 	{
 		proc->sleep--;
-		//ft_printf("prs#%d ind[%x] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
+		ft_printf("prs#%d ind[%x] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
 		if (proc->sleep == 0)
 		{
 			//erase_old(proc->pc);
@@ -116,7 +116,7 @@ int		main(int ac, char **av)
 		run_cycle_step();
 		if (cycle == g_g.cycle_to_die)
 		{
-			ft_printf("cycle %d ctdie %d\n", cycle, g_g.cycle_to_die);
+			//ft_printf("cycle %d ctdie %d\n", cycle, g_g.cycle_to_die);
 			cycle = 0;
 			you_gonna_die_bitch();
 			ctd_check();

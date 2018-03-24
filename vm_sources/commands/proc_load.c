@@ -43,6 +43,5 @@ void			proc_load(void *data)
 	proc->registry[arg[1]] = arg[0];
 	if (arg[0] == 0)
 		proc->carry = 1;
-	ft_printf("%x\n", proc->registry[3]);
 	proc->pc = set_pos(proc->pc + toskip);
 }

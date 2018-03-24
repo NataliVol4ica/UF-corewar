@@ -13,7 +13,8 @@ VMCMDSRCDIR = commands
 VMCMDFNAMES = 	proc_invalid \
 				proc_live \
 				proc_load \
-				proc_store
+				proc_store \
+				proc_zjmp
 
 VMCCMDFILES = $(patsubst %, $(VMSRCDIR)/$(VMCMDSRCDIR)/%.c, $(VMCMDFNAMES))
 VMOCMDFILES = $(patsubst %, $(ODIR)/$(VMCMDSRCDIR)/%.o, $(VMCMDFNAMES))

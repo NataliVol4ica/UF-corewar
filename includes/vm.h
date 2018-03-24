@@ -22,7 +22,7 @@
 //# include <ncurses.h>
 
 # define UCHAR unsigned char
-# define NUM_OF_FUNCS 3
+# define NUM_OF_FUNCS 4
 
 # define COMMAND 1
 # define CODING_BYTE 1
@@ -57,6 +57,7 @@ void	proc_invalid(void *data);
 void	proc_live(void *data);
 void	proc_load(void *data);
 void	proc_store(void *data);
+void	proc_zjump(void *data);
 
 /*
 ** PROC TOOLS

@@ -24,7 +24,7 @@ void	proc_live(void *data)
 	proc->live++;
 	g_g.period_lives++;
 	l = get_int(proc->pc + 1, 4);
-	ft_printf("l %0.8x\n", l);
+	//ft_printf("l %0.8x\n", l);
 	l = -(l + 1);
 	proc->pc = set_pos(proc->pc + 5);
 	if (l >= g_g.num_of_players)

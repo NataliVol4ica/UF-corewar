@@ -41,7 +41,7 @@ void			proc_load(void *data)
 	if (cod_b.t[0] == TIND)
 		arg[0] = get_int(proc->pc + (arg[0] % IDX_MOD), 4);
 	proc->registry[arg[1]] = arg[0];
-	if (arg[0] == 0)
+	if (arg[1] == 0)
 		proc->carry = 1;
 	//ft_printf("reg %d is %0.8x\n", arg[1], proc->registry[arg[1]]);
 	proc->pc = set_pos(proc->pc + toskip);

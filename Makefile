@@ -10,17 +10,23 @@ VMSRCDIR = ./vm_sources
 HFILES = $(patsubst %, $(INCDIR)/%.h, $(HEADERS))
 
 VMCMDSRCDIR = commands
-VMCMDFNAMES = 	proc_invalid \
-				proc_live \
-				proc_load \
-				proc_store \
-				proc_zjmp \
-				proc_fork \
-				proc_add \
-				proc_sub \
-				proc_and \
-				proc_or \
-				proc_xor
+VMCMDFNAMES = 	proc_00_invalid \
+				proc_01_live \
+				proc_02_load \
+				proc_03_store \
+				proc_04_add \
+				proc_05_sub \
+				proc_06_and \
+				proc_07_or \
+				proc_08_xor \
+				proc_09_zjmp \
+				proc_10_ldi \
+				proc_11_sti \
+				proc_12_fork \
+				proc_13_load_long \
+				proc_14_ldi_long \
+				proc_15_fork_long \
+				proc_16_aff
 
 VMCCMDFILES = $(patsubst %, $(VMSRCDIR)/$(VMCMDSRCDIR)/%.c, $(VMCMDFNAMES))
 VMOCMDFILES = $(patsubst %, $(ODIR)/$(VMCMDSRCDIR)/%.o, $(VMCMDFNAMES))
@@ -29,14 +35,15 @@ VMFILENAMES =	main \
 				pre \
 				errors \
 				globals \
+				input_parsing \
 				player_reading \
 				player_parsing \
 				print_tools \
 				process_tools \
+				cycle_tools \
 				field_tools \
 				commands \
-				list_proc \
-				main_pic
+				main_pic \
 
 VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES)) $(VMCCMDFILES)
 VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES)) $(VMOCMDFILES)

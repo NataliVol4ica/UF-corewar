@@ -17,6 +17,7 @@
 #include <ncurses.h>
 
 extern t_global	g_g;
+extern t_func	g_funcs[];
 
 void	new_process(int pc, int playernum)
 {
@@ -84,42 +85,21 @@ void	free_proc(t_process *proc)
 
 }
 
-void	print_winner(void)
+void	parse_command(t_process *p)
 {
-	ft_printf("Player %d ", g_g.last_live + 1);
-	ft_printf("(%s) won.\n", g_g.players[g_g.last_live].name);
-	exit(0);
-}
+	int i;
 
-void	you_gonna_die_bitch(void)
-{
-	t_process	*temp;
-	t_process	*prev;
-	int			i;
-
-	temp = *g_g.proc;
-	while (temp)
-	{
-		if (temp->live)
-		{
-			temp->live = 0;
-			prev = temp;
-			temp = temp->next;
-			continue;
-		}
-		if (temp == *g_g.proc)
-		{
-			temp = (*g_g.proc)->next;
-			free_proc(*g_g.proc);
-			*g_g.proc = temp;
-			continue;
-		}
-		temp = temp->next;
-		free_proc(prev->next);
-		prev->next = temp;
-	}
 	i = -1;
-	while (++i < g_g.num_of_players)
-		g_g.live[i] = 0;
-	//////
+	while (++i < NUM_OF_FUNCS)
+		if (g_g.field[p->pc] == g_funcs[i].hex)
+		{
+			p->func = g_funcs[i].func;
+			p->sleep = g_funcs[i].sleep;
+			break ;
+		}
+	if (i == NUM_OF_FUNCS)
+	{
+		p->func = &proc_invalid;
+		p->sleep = 1;
+	}
 }

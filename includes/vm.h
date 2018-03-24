@@ -15,14 +15,12 @@
 
 # define MALL(x) if (!(x)) mall_error()
 
-//# include <ncurses.h>
 # include "structures.h"
-# include "proc.h"
 # include "encurse.h"
-//# include <ncurses.h>
 
 # define UCHAR unsigned char
-# define NUM_OF_FUNCS 10
+# define UINT unsigned int
+# define NUM_OF_FUNCS 16
 
 # define COMMAND 1
 # define CODING_BYTE 1
@@ -32,11 +30,16 @@
 
 void	init_globals(void);
 void	print_winner(void);
+void	print_field(void);
+void	you_gonna_die_bitch(void);
+void	run_cycle_step(int cycle);
+void	ctd_check(void);
 
 /*
 ** INPUT READING
 */
 
+void	parse_input(int ac, char **av);
 void	parse_player(char *name, t_champ *player);
 _Bool	parse_n_flag(int *cur_arg, int ac, char **av);
 void	read_players(int cur_arg, int ac, char **av);
@@ -48,23 +51,23 @@ void	set_players(void);
 ** PROCESSES
 */
 
-int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs);
-int		get_int(int pos, int len);
-void	set_int(int pos, int len, int val);
-_Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip);
-_Bool	parse_long_arg(int code, t_process *proc, int *arg, int *toskip);
-
 void	proc_invalid(void *data);
 void	proc_live(void *data);
 void	proc_load(void *data);
 void	proc_store(void *data);
-void	proc_zjump(void *data);
-void	proc_fork(void *data);
 void	proc_add(void *data);
 void	proc_sub(void *data);
 void	proc_and(void *data);
 void	proc_or(void *data);
 void	proc_xor(void *data);
+void	proc_zjump(void *data);
+void	proc_ldi(void *data);
+void	proc_sti(void *data);
+void	proc_fork(void *data);
+void	proc_load_long(void *data);
+void	proc_ldi_long(void *data);
+void	proc_fork_long(void *data);
+void	proc_aff(void *data);
 
 /*
 ** PROC TOOLS
@@ -75,7 +78,6 @@ void	new_process(int pc, int playernum);
 void	copy_process(int pc, t_process *proc);
 void	gen_processes(void);
 void	free_proc(t_process *proc);
-void	you_gonna_die_bitch(void);
 
 /*
 ** FIELD TOOLS
@@ -85,6 +87,10 @@ UCHAR	get_field_val(int pos);
 void	set_field_val(int pos, unsigned char val);
 int		set_pos(int pos);
 t_codes	coding_byte(int pos);
+int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs);
+UINT	get_int(int pos, int len);
+void	set_int(int pos, int len, UINT val);
+_Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip);
 
 /*
 ** ERRORS
@@ -102,6 +108,5 @@ void	file_error(char *filename);
 ** print field
 */
 
-void		print_field(void);
 //int		curse(void);
 #endif

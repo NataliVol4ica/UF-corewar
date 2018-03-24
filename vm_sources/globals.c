@@ -25,5 +25,11 @@ t_func		g_funcs[] =
 	{0x07, &proc_or, 6},
 	{0x08, &proc_xor, 6},
 	{0x09, &proc_zjump, 20},
+	{0x10, &proc_ldi, 25},
+	{0x11, &proc_sti, 25},
 	{0x12, &proc_fork, 800},
+	{0x13, &proc_load_long, 10},
+	{0x14, &proc_ldi_long, 50},
+	{0x15, &proc_fork_long, 1000},
+	{0x16, &proc_aff, 2}
 };

@@ -37,7 +37,6 @@ void	new_process(int pc, int playernum)
 	parse_command(new_proc);
 	if (g_g.to_visualise ==1)
 		draw_new(new_proc->pc);
-	g_g.num_of_processes++;
 }
 
 void	copy_process(int pc, t_process *proc)

@@ -36,7 +36,10 @@ void			proc_aff(void *data)
 		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 2));
 		return ;
 	}
-	ft_printf("%c\n", proc->registry[arg[0]]);
+	if (!g_g.to_visualise)
+	{
+		ft_printf("%c\n", proc->registry[arg[0]]);
+	}
 	proc->pc = set_pos(proc->pc + 3);
 	proc->carry = 0;
 }

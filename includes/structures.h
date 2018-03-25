@@ -62,6 +62,7 @@ typedef struct	s_global
 	int				checks;
 	unsigned char	last_live;
 	_Bool			to_visualise;
+	int				num_of_processes;
 }				t_global;
 
 typedef struct	s_codes

@@ -23,6 +23,7 @@ void	new_process(int pc, int playernum)
 {
 	t_process	*new_proc;
 
+	g_g.num_of_processes++;
 	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
 	MALL(new_proc->registry =
 		(unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER));
@@ -36,6 +37,7 @@ void	new_process(int pc, int playernum)
 	parse_command(new_proc);
 	if (g_g.to_visualise ==1)
 		draw_new(new_proc->pc);
+	g_g.num_of_processes++;
 }
 
 void	copy_process(int pc, t_process *proc)
@@ -43,6 +45,7 @@ void	copy_process(int pc, t_process *proc)
 	int			i;
 	t_process	*new_proc;
 
+	g_g.num_of_processes++;
 	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
 	MALL(new_proc->registry =
 		(unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER));
@@ -80,11 +83,11 @@ void	gen_processes(void)
 
 void	free_proc(t_process *proc)
 {
+	g_g.num_of_processes--;
 	if (g_g.to_visualise)
 		draw_new(proc->pc);
 	free(proc->registry);
 	free(proc);
-
 }
 
 void	parse_command(t_process *p)

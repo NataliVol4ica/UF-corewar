@@ -57,4 +57,5 @@ void		init_globals(void)
 	g_g.checks = 0;
 	g_g.last_live = 0;
 	g_g.to_visualise = 0;
+	g_g.num_of_processes = 0;
 }

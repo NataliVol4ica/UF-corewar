@@ -358,6 +358,15 @@ void	exit_curse(void)
 	exit (0);
 }
 
+void	exit_curse_main(void)
+{
+	delwin(g_b->win);
+	endwin();
+//	system("kill $(pgrep afplay)");
+//	system("kill $(pgrep afplay)");
+	free(g_b);
+}
+
 // void	erase_old(int index, t_curs *b)
 // {
 // 	int x;
@@ -371,7 +380,7 @@ void	exit_curse(void)
 // //	close(fd);
 // }
 
-void	draw_new(int index)
+void	swap_cursor(int index)
 {
 	int x;
 	int y;
@@ -434,6 +443,20 @@ void	draw_new(int index)
 	wrefresh(g_b->win);
 }
 
+void	draw_new(int index)
+{
+	g_b->map[index] += 1;
+	if (g_b->map[index] == 1)
+		swap_cursor(index);
+}
+
+void	erace_old(int index)
+{
+	g_b->map[index] -= 1;
+	if (g_b->map[index] == 0)
+		swap_cursor(index);
+}
+
 void	load_player(int index/*, int player*/)
 {
 	int x;
@@ -485,7 +508,7 @@ void	redraw_bar(void)
 		mvprintw(Y_BAR_PL4LL, X_BAR_SCL + 26,"%d", g_g.live[3]);
 //		mvprintw(Y_BAR_PL4LIC, X_BAR_SCL + 26,"%d",);
 	}
-//	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s 0","Processes : ");
+	mvprintw(Y_BAR_PROC, X_BAR_SRT + 15,"%d", g_g.num_of_processes);
 	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT + 15,"%d ", g_g.cycle_to_die);
 	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT + 15, "%d " ,CYCLE_DELTA);
 	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT + 15, "%d ", NBR_LIVE);
@@ -501,9 +524,9 @@ void		hotkey(void)
 {
 	if (g_b->key == 27)
 		exit_curse();
- 	if (g_b->key == 49 && g_b->sleep > 10000)
-		g_b->sleep -= 10000;
-	if (g_b->key == 50 && g_b->sleep < 600000)
+ 	if (g_b->key == 49 && g_b->sleep > 5000)
+		g_b->sleep -= 5000;
+	if (g_b->key == 50 && g_b->sleep < 200000)
 		g_b->sleep += 10000;
 	redraw_bar();
 }
@@ -547,7 +570,7 @@ void	pashalka(void)
 	}
 	close(fd);
 	wrefresh(g_b->win);
-	system("kill $(pgrep afplay)");
+	// system("kill $(pgrep afplay)");
 	system("afplay mp3/mario.mp3");
 }
 

@@ -13,7 +13,6 @@
 #ifndef ENCURSE_H
 # define ENCURSE_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <ncurses.h>
 
@@ -63,6 +62,7 @@ typedef	struct	s_curs
 	int 		cycle;
 	uint32_t	sleep;
 	uint8_t		timeout;
+	int8_t 		*map;
 }				t_curs;
 
 void			ft_er_init(void);
@@ -75,10 +75,13 @@ void			init_curs(void);
 void			exit_curse(void);
 void			curse(void);
 void			draw_new(int index);
+void			erace_old(int index);
+void			swap_cursor(int index);
 void			readkey(void);
 void			redraw_bar(void);
 void			hooks(void);
 void			load_player(int index/*, int player*/);
 void			pashalka(void);
+void			exit_curse_main(void);
 
 #endif

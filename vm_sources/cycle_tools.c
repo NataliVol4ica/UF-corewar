@@ -50,7 +50,6 @@ void	you_gonna_die_bitch(void)
 	i = -1;
 	while (++i < g_g.num_of_players)
 		g_g.live[i] = 0;
-	//////
 }
 
 void	run_cycle_step(int cycle)
@@ -67,8 +66,9 @@ void	run_cycle_step(int cycle)
 		if (proc->sleep == 0)
 		{
 			//erase_old(proc->pc);
-			if (g_g.to_visualise ==1)
-				draw_new(proc->pc);
+			if (g_g.to_visualise)
+				erace_old(proc->pc);	
+			//	draw_new(proc->pc);
 			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", cycle + 1, proc->pc, g_g.field[proc->pc]);
 			//ft_printf("parsing ");
 			proc->func((void*)proc);

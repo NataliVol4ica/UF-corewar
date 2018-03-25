@@ -71,7 +71,7 @@ int		main(int ac, char **av)
 	if (g_g.to_visualise)
 	{
 		pashalka();
-		exit_curse();
+		exit_curse_main();
 	}
 	print_winner();
  	return (0);

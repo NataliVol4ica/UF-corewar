@@ -21,6 +21,7 @@ typedef struct	s_func
 	int		hex;
 	t_f		func;
 	int		sleep;
+	int		label_size;
 }				t_func;
 
 typedef struct	s_champ
@@ -44,6 +45,7 @@ typedef struct	s_process
 	int					sleep;
 	struct s_process	*next;
 	t_f					func;
+	int					label_size;
 }				t_process;
 
 typedef struct	s_global

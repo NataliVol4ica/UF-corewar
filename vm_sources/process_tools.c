@@ -97,11 +97,13 @@ void	parse_command(t_process *p)
 		{
 			p->func = g_funcs[i].func;
 			p->sleep = g_funcs[i].sleep;
+			p->label_size = g_funcs[i].label_size;
 			break ;
 		}
 	if (i == NUM_OF_FUNCS)
 	{
 		p->func = &proc_invalid;
 		p->sleep = 1;
+		p->label_size = 0;
 	}
 }

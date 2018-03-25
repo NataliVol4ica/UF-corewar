@@ -72,8 +72,8 @@ _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip)
 	}
 	else if (code == TDIR)
 	{
-		*arg = get_int(proc->pc + *toskip, T_DIR);
-		*toskip = *toskip + T_DIR;
+		*arg = get_int(proc->pc + *toskip, proc->label_size);
+		*toskip = *toskip + proc->label_size;
 	}
 	else
 	{

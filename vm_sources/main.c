@@ -65,7 +65,7 @@ int		main(int ac, char **av)
 			print_field();
 		if (g_g.to_visualise)
 			readkey();
-		//if (total_cycle == 500)
+		//if (total_cycle == 1500)
 		//	exit(0);
 	}
 	if (g_g.to_visualise)

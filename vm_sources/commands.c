@@ -51,6 +51,7 @@ void	set_int(int pos, int len, UINT val)
 {
 	int i;
 
+	ft_printf("trouble here \n");
 	i = len;
 	while (i > 0)
 	{

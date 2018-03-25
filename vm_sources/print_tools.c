@@ -34,7 +34,7 @@ void		set_players(void)
 	}
 }
 
-void		print_field(void)
+void		print_participants(void)
 {
 	int	i;
 
@@ -49,6 +49,12 @@ void		print_field(void)
 		ft_printf("\tComment: \"%.*s\"\n", COMMENT_LENGTH,
 			g_g.players[i].comment);
 	}
+}
+
+void		print_field(void)
+{
+	int	i;
+	
 	ft_printf("\n ||    FIELD:     || \n");
 	i = -1;
 	while (++i < MEM_SIZE)
@@ -59,5 +65,5 @@ void		print_field(void)
 		if (i % 64 == 63)
 			ft_printf("\n");
 	}
-	exit(0);
+	//exit(0);
 }

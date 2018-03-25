@@ -56,6 +56,8 @@ void	copy_process(int pc, t_process *proc)
 	new_proc->next = *g_g.proc;
 	*g_g.proc = new_proc;
 	parse_command(new_proc);
+	if (g_g.to_visualise ==1)
+		draw_new(new_proc->pc);
 }
 
 void	gen_processes(void)

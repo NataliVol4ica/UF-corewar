@@ -52,7 +52,7 @@ void	copy_process(int pc, t_process *proc)
 		new_proc->registry[i] = proc->registry[i];
 	new_proc->pc = pc;
 	new_proc->carry = proc->carry;
-	new_proc->live = 0;
+	new_proc->live = proc->live;
 	new_proc->next = *g_g.proc;
 	*g_g.proc = new_proc;
 	parse_command(new_proc);

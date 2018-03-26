@@ -84,12 +84,12 @@ void	free_proc(t_process *proc);
 */
 
 UCHAR	get_field_val(int pos);
-void	set_field_val(int pos, unsigned char val);
+void	set_field_val(int pos, unsigned char val, int playernum);
 int		set_pos(int pos);
 t_codes	coding_byte(int pos);
 int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs);
 UINT	get_int(int pos, int len);
-void	set_int(int pos, int len, UINT val);
+void	set_int(int pos, int len, UINT val, int playernum);
 _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip);
 
 /*
@@ -104,9 +104,4 @@ void	invalid_palyer_index(char *str);
 void	invalid_champion(char *str);
 void	file_error(char *filename);
 
-/*
-** print field
-*/
-
-//int		curse(void);
 #endif

@@ -19,11 +19,11 @@ unsigned char	get_field_val(int pos)
 	return (g_g.field[pos % MEM_SIZE]);
 }
 
-void			set_field_val(int pos, unsigned char val)
+void			set_field_val(int pos, unsigned char val, int playernum)
 {
 	g_g.field[pos % MEM_SIZE] = val;
 	if (g_g.to_visualise == 1)
-		load_player(pos % MEM_SIZE);
+		load_player(pos % MEM_SIZE, playernum);
 }
 
 int				set_pos(int pos)

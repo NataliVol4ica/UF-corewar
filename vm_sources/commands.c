@@ -47,7 +47,7 @@ UINT	get_int(int pos, int len)
 	return (ans);
 }
 
-void	set_int(int pos, int len, UINT val)
+void	set_int(int pos, int len, UINT val, int playernum)
 {
 	int i;
 
@@ -55,7 +55,7 @@ void	set_int(int pos, int len, UINT val)
 	while (i > 0)
 	{
 		i--;
-		set_field_val(pos + i, val);
+		set_field_val(pos + i, val, playernum);
 		val = (val >> 8);
 	}
 }

@@ -9,6 +9,12 @@ INCDIR = ./includes
 VMSRCDIR = ./vm_sources
 HFILES = $(patsubst %, $(INCDIR)/%.h, $(HEADERS))
 
+VMCMDENCDIR = encurse
+VMDENCNAMES = main_pic 
+
+VMCENCFILES = $(patsubst %, $(VMSRCDIR)/$(VMCMDENCDIR)/%.c, $(VMDENCNAMES))
+VMOENCFILES = $(patsubst %, $(ODIR)/$(VMCMDENCDIR)/%.o, $(VMDENCNAMES))
+
 VMCMDSRCDIR = commands
 VMCMDFNAMES = 	proc_00_invalid \
 				proc_01_live \
@@ -42,11 +48,11 @@ VMFILENAMES =	main \
 				process_tools \
 				cycle_tools \
 				field_tools \
-				commands \
-				main_pic \
+				commands
 
-VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES)) $(VMCCMDFILES)
-VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES)) $(VMOCMDFILES)
+VMCFILES = $(patsubst %, $(VMSRCDIR)/%.c, $(VMFILENAMES)) $(VMCCMDFILES) $(VMCENCFILES)
+VMOFILES = $(patsubst %, $(ODIR)/%.o, $(VMFILENAMES)) $(VMOCMDFILES) $(VMOENCFILES)
+
 
 LIBDIR = ./libft
 LIBFT = $(LIBDIR)/libft.a
@@ -87,7 +93,7 @@ $(ODIR)/%.o: $(VMSRCDIR)/%.c $(HFILES) $(LIBFT)
 $(ODIR):
 	@mkdir -p $(ODIR)
 	@mkdir -p $(ODIR)/$(VMCMDSRCDIR)
-
+	@mkdir -p $(ODIR)/$(VMCMDENCDIR)
 $(LIBFT):
 	@make -C $(LIBDIR)
 

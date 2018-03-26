@@ -30,7 +30,7 @@ void	new_process(int pc, int playernum)
 	new_proc->index = playernum - 1;
 	new_proc->registry[0] = -playernum;
 	new_proc->pc = pc;
-	new_proc->carry = 1;
+	new_proc->carry = 0;
 	new_proc->live = 0;
 	new_proc->next = *g_g.proc;
 	*g_g.proc = new_proc;
@@ -60,6 +60,8 @@ void	copy_process(int pc, t_process *proc)
 	parse_command(new_proc);
 	if (g_g.to_visualise ==1)
 		draw_new(new_proc->pc);
+	//ft_printf("NEW PROCESS pc [%0.4d] |%0.2x|\n", new_proc->pc, g_g.field[new_proc->pc]);
+
 }
 
 void	gen_processes(void)

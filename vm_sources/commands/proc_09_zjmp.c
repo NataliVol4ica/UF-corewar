@@ -23,8 +23,7 @@ void			proc_zjump(void *data)
 	//ft_printf("field %#x\n", get_field_val(proc->pc));
 	//ft_printf("gonna jump. carry %d\n", proc->carry);
 	if (proc->carry)
-		proc->pc = set_pos(proc->pc + get_int(proc->pc + 1, 2));
+		proc->pc = set_pos(proc->pc + (get_int(proc->pc + 1, 2)) % IDX_MOD);
 	else
 		proc->pc = set_pos(proc->pc + 3);
-	proc->carry = 0;
 }

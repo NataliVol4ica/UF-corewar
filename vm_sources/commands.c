@@ -15,7 +15,7 @@
 
 extern t_global	g_g;
 
-int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs)
+int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs, int td)
 {
 	int		total;
 	int		i;
@@ -28,8 +28,8 @@ int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs)
 		if (c_b.t[i] == TREG)
 			total += T_REG;
 		else if (c_b.t[i] == TDIR)
-			total += T_DIR;
-		else
+			total += td;
+		else if (c_b.t[i] == TIND)
 			total += T_IND;
 	}
 	return (total);
@@ -74,10 +74,12 @@ _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip)
 	{
 		*arg = get_int(proc->pc + *toskip, proc->label_size);
 		*toskip = *toskip + proc->label_size;
+		if (proc->label_size == 2)
+			*arg = (short int)*arg;
 	}
 	else
 	{
-		*arg = get_int(proc->pc + *toskip, T_IND);
+		*arg = (short int)(get_int(proc->pc + *toskip, T_IND));
 		*toskip = *toskip + T_IND;
 	}
 	return (1);

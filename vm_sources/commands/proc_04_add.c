@@ -36,11 +36,13 @@ void			proc_add(void *data)
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip) ||
 		!parse_arg(cod_b.t[2], proc, &arg[2], &toskip))
 	{
-		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 3));
+		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
 		return ;
 	}
 	proc->registry[arg[2]] = proc->registry[arg[0]] + proc->registry[arg[1]];
-	//if (proc->registry[arg[2]] == 0)
-	proc->carry = 1;
+	if (proc->registry[arg[2]] == 0)
+		proc->carry = 1;
+	else
+		proc->carry = 0;
 	proc->pc = set_pos(proc->pc + toskip);
 }

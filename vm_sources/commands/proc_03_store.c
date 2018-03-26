@@ -35,7 +35,7 @@ void			proc_store(void *data)
 	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip))
 	{
-		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 2));
+		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
 	if (cod_b.t[1] == TREG)

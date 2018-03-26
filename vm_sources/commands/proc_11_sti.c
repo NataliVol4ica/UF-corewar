@@ -37,18 +37,23 @@ void			proc_sti(void *data)
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip) ||
 		!parse_arg(cod_b.t[2], proc, &arg[2], &toskip))
 	{
-		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 2));
+		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
+	
 	arg[0] = proc->registry[arg[0]];
 
 	if (cod_b.t[1] == TREG)
 		arg[1] = proc->registry[arg[1]];
 	else if (cod_b.t[1] == TIND)
-		arg[1] = get_int(proc->pc + arg[1], 4);
+			arg[1] = get_int(proc->pc + (arg[1]) % IDX_MOD, 4);
 
 	if (cod_b.t[2] == TREG)
 		arg[2] = proc->registry[arg[2]];
-	set_int(proc->pc + (arg[0] + arg[1]) % IDX_MOD, 4, arg[2], proc->index);
+	//ft_printf("args %0.4x %0.4x %0.4x\n", arg[0], arg[1], arg[2]);
+	//ft_printf("%hd\n", 0xffb6);
+	//ft_printf("args2 %0.4x %0.4x %0.4x\n", arg[0], arg[1], arg[2]);
+	//ft_printf("sum %0.4x\n", (arg[0] + arg[1]) % IDX_MOD);
+	set_int(proc->pc + (arg[1] + arg[2]) % IDX_MOD, 4, arg[0], proc->index);
 	proc->pc = set_pos(proc->pc + toskip);
 }

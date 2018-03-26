@@ -35,7 +35,7 @@ void			proc_load(void *data)
 	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip))
 	{
-		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 2));
+		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
 	if (cod_b.t[0] == TIND)
@@ -43,6 +43,8 @@ void			proc_load(void *data)
 	proc->registry[arg[1]] = arg[0];
 	if (proc->registry[arg[1]] == 0)
 		proc->carry = 1;
+	else
+		proc->carry = 0;
 	//ft_printf("reg %d is %0.8x\n", arg[1], proc->registry[arg[1]]);
 	proc->pc = set_pos(proc->pc + toskip);
 }

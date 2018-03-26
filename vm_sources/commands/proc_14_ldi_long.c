@@ -36,7 +36,7 @@ void			proc_ldi_long(void *data)
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip) ||
 		!parse_arg(cod_b.t[2], proc, &arg[2], &toskip))
 	{
-		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 3));
+		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
 		return ;
 	}
 
@@ -48,8 +48,10 @@ void			proc_ldi_long(void *data)
 	if (cod_b.t[1] == TREG)
 		arg[1] = proc->registry[arg[1]];
 
-	proc->registry[arg[2]] = get_int(proc->pc + arg[0] + arg[1], 4);
-	if (arg[2] == 0)
+	proc->registry[arg[2]] = get_int(proc->pc + (arg[0] + arg[1]) % IDX_MOD, 4);
+	if (proc->registry[arg[2]])
 		proc->carry = 1;
+	else
+		proc->carry = 0;
 	proc->pc = set_pos(proc->pc + toskip);
 }

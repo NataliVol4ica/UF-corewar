@@ -17,21 +17,21 @@ extern t_global	g_g;
 unsigned char	get_field_val(int pos)
 {
 	//ft_printf("WTF?! [%d] %0.2x\n", pos % MEM_SIZE, g_g.field[pos % MEM_SIZE]);
-	return (g_g.field[pos % MEM_SIZE]);
+	return (g_g.field[(MEM_SIZE + pos) % MEM_SIZE]);
 }
 
 void			set_field_val(int pos, unsigned char val, int playernum)
 {
 	if (TOCOMMENT)
-		ft_printf("player #%d rewriting %0.2x to %0.2x at %d\n", playernum, g_g.field[pos % MEM_SIZE], val, pos % MEM_SIZE);
-	g_g.field[pos % MEM_SIZE] = val;
+		ft_printf("player #%d rewriting %0.2x to %0.2x at %d\n", playernum, g_g.field[(MEM_SIZE + pos) % MEM_SIZE], val, (MEM_SIZE + pos) % MEM_SIZE);
+	g_g.field[(MEM_SIZE + pos) % MEM_SIZE] = val;
 	if (g_g.to_visualise == 1)
-		load_player(pos % MEM_SIZE, playernum);
+		load_player((MEM_SIZE + pos) % MEM_SIZE, playernum);
 }
 
 int				set_pos(int pos)
 {
-	return (pos % MEM_SIZE);
+	return ((MEM_SIZE + pos) % MEM_SIZE);
 }
 
 static int		get_two_bits(int pos, int from)

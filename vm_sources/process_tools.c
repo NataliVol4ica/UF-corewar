@@ -26,9 +26,9 @@ void	new_process(int pc, int playernum)
 	g_g.num_of_processes++;
 	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
 	MALL(new_proc->registry =
-		(unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER));
+		(unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER + 1));
 	new_proc->index = playernum - 1;
-	new_proc->registry[0] = -playernum;
+	new_proc->registry[1] = -playernum;
 	new_proc->pc = pc;
 	new_proc->carry = 0;
 	new_proc->live = 0;
@@ -48,10 +48,10 @@ void	copy_process(int pc, t_process *proc)
 	g_g.num_of_processes++;
 	MALL(new_proc = (t_process*)ft_memalloc(sizeof(t_process)));
 	MALL(new_proc->registry =
-		(unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER));
+		(unsigned int*)ft_memalloc(sizeof(unsigned int) * REG_NUMBER + 1));
 	new_proc->index = proc->index;
-	i = -1;
-	while (++i < REG_NUMBER)
+	i = 0;
+	while (++i <= REG_NUMBER)
 		new_proc->registry[i] = proc->registry[i];
 	new_proc->pc = pc;
 	new_proc->carry = proc->carry;

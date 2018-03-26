@@ -36,19 +36,21 @@ void			proc_xor(void *data)
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip) ||
 		!parse_arg(cod_b.t[2], proc, &arg[2], &toskip))
 	{
-		proc->pc = set_pos(proc->pc +  + count_total_skip(cod_b, 1, 3));
+		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
 		return ;
 	}
 	if (cod_b.t[0] == TREG)
 		arg[0] = proc->registry[arg[0]];
 	else if (cod_b.t[0] == TIND)
-		arg[0] = get_int(proc->pc + arg[0] /*% IDX_MOD*/, 4); // ? IDX_MOD
+		arg[0] = get_int(proc->pc + arg[0] % IDX_MOD, 4);
 	if (cod_b.t[1] == TREG)
 		arg[1] = proc->registry[arg[0]];
 	else if (cod_b.t[1] == TIND)
-		arg[1] = get_int(proc->pc + arg[1] /*% IDX_MOD*/, 4); // ? IDX_MOD
+		arg[1] = get_int(proc->pc + arg[1] % IDX_MOD, 4);
 	proc->registry[arg[2]] =  arg[0] ^ arg[1];
 	if (proc->registry[arg[2]] == 0)
 		proc->carry = 1;
+	else
+		proc->carry = 0;
 	proc->pc = set_pos(proc->pc + toskip);
 }

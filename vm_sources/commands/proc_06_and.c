@@ -42,11 +42,11 @@ void			proc_and(void *data)
 	if (cod_b.t[0] == TREG)
 		arg[0] = proc->registry[arg[0]];
 	else if (cod_b.t[0] == TIND)
-		arg[0] = get_int(proc->pc + arg[0] % IDX_MOD, 4);
+		arg[0] = get_int(proc->pc + (short)(arg[0]) % IDX_MOD, 4);
 	if (cod_b.t[1] == TREG)
 		arg[1] = proc->registry[arg[0]];
 	else if (cod_b.t[1] == TIND)
-		arg[1] = get_int(proc->pc + arg[1] % IDX_MOD, 4);
+		arg[1] = get_int(proc->pc + (short)(arg[1]) % IDX_MOD, 4);
 	proc->registry[arg[2]] =  arg[0] & arg[1];
 	if (proc->registry[arg[2]] == 0)
 		proc->carry = 1;

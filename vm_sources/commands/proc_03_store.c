@@ -41,6 +41,6 @@ void			proc_store(void *data)
 	if (cod_b.t[1] == TREG)
 		proc->registry[arg[1]] = proc->registry[arg[0]];
 	else
-		set_int(proc->pc + (arg[1] % IDX_MOD), 4, proc->registry[arg[0]], proc->index);
+		set_int(proc->pc + ((short)(arg[1]) % IDX_MOD), 4, proc->registry[arg[0]], proc->index);
 	proc->pc = set_pos(proc->pc + toskip);
 }

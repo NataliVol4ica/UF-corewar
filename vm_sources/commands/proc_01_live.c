@@ -29,8 +29,15 @@ void	proc_live(void *data)
 	proc->pc = set_pos(proc->pc + 5);
 	if (l >= g_g.num_of_players)
 		return ;
-	ft_printf("A process shows that player %d ", l);
-	ft_printf("(%s) is alive.\n", g_g.players[l].name);
+	if (!g_g.to_visualise)
+	{
+		ft_printf("A process shows that player %d ", l);
+		ft_printf("(%s) is alive.\n", g_g.players[l].name);
+	}
+	else
+	{
+		//call live func with l
+	}
 	g_g.last_live = l;
 	g_g.live[l]++;
 	//////

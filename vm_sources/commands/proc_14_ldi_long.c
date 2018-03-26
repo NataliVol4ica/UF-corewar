@@ -43,7 +43,7 @@ void			proc_ldi_long(void *data)
 	if (cod_b.t[0] == TREG)
 		arg[0] = proc->registry[arg[0]];
 	else if (cod_b.t[0] == TIND)
-		arg[0] = get_int(proc->pc + arg[0], 4);
+		arg[0] = get_int(proc->pc + (short)(arg[0]), 4);
 
 	if (cod_b.t[1] == TREG)
 		arg[1] = proc->registry[arg[1]];

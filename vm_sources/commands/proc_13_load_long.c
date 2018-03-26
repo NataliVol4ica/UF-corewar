@@ -39,7 +39,7 @@ void			proc_load_long(void *data)
 		return ;
 	}
 	if (cod_b.t[0] == TIND)
-		arg[0] = get_int(proc->pc + arg[0], 4);
+		arg[0] = get_int(proc->pc + (short)(arg[0]), 4);
 	proc->registry[arg[1]] = arg[0];
 	if (proc->registry[arg[1]] == 0)
 		proc->carry = 1;

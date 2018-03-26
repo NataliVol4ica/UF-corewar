@@ -21,6 +21,6 @@ void			proc_fork_long(void *data)
 
 	proc = (t_process*)data;
 	//ft_printf("field %#x\n", get_field_val(proc->pc));
-	copy_process(proc->pc + get_int(proc->pc + 1, 2), proc);
+	copy_process(proc->pc + (short)(get_int(proc->pc + 1, 2)), proc);
 	proc->pc = set_pos(proc->pc + 3);
 }

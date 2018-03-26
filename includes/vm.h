@@ -32,7 +32,7 @@ void	init_globals(void);
 void	print_winner(void);
 void	print_field(void);
 void	you_gonna_die_bitch(void);
-void	run_cycle_step(int cycle);
+void	run_cycle_step(void);
 void	ctd_check(void);
 
 /*

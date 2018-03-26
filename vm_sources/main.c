@@ -29,8 +29,6 @@ void	print_winner(void)
 
 int		main(int ac, char **av)
 {
-	int		cycle;
-	int		total_cycle;
 
 	parse_input(ac, av);
 	numerate_remaining_players();
@@ -39,8 +37,6 @@ int		main(int ac, char **av)
 	if (g_g.dump_cycle == 0)
 		print_field();
 	gen_processes();
-	cycle = 0;
-	total_cycle = 0;
 	if (g_g.to_visualise)
 		curse();
 	while (1)
@@ -50,18 +46,18 @@ int		main(int ac, char **av)
 		if (g_g.to_visualise)
 			++g_b->cycle/* += 1*/;
 		//ft_printf("====|| cycle %0.4d \n", total_cycle);
-		run_cycle_step(total_cycle);
-		if (cycle == g_g.cycle_to_die)
+		run_cycle_step();
+		if (g_g.cycle == g_g.cycle_to_die)
 		{
 			//ft_printf("cycle %d ctdie %d\n", cycle, g_g.cycle_to_die);
-			cycle = 0;
+			g_g.cycle = 0;
 			you_gonna_die_bitch();
 			ctd_check();
 			g_g.period_lives = 0;
 		}
-		cycle++;
-		total_cycle++;
-		if (total_cycle == g_g.dump_cycle)
+		g_g.cycle++;
+		g_g.total_cycle++;
+		if (g_g.total_cycle == g_g.dump_cycle)
 			print_field();
 		if (g_g.to_visualise)
 			readkey();

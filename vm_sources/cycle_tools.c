@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -52,7 +53,7 @@ void	you_gonna_die_bitch(void)
 		g_g.live[i] = 0;
 }
 
-void	run_cycle_step(int cycle)
+void	run_cycle_step(void)
 {
 	int			i;
 	t_process	*proc;
@@ -69,10 +70,10 @@ void	run_cycle_step(int cycle)
 			if (g_g.to_visualise)
 				erace_old(proc->pc);	
 			//	draw_new(proc->pc);
-			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", cycle + 1, proc->pc, g_g.field[proc->pc]);
+			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc]);
 			//ft_printf("parsing ");
 			proc->func((void*)proc);
-			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", cycle + 1, proc->pc, g_g.field[proc->pc]);
+			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc]);
 			parse_command(proc);
 			if (g_g.to_visualise)
 				draw_new(proc->pc);

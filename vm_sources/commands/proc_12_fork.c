@@ -23,6 +23,7 @@ void			proc_fork(void *data)
 	//ft_printf("field %#x\n", get_field_val(proc->pc));
 	//ft_printf("started fork\n");
 	copy_process(proc->pc + (get_int(proc->pc + 1, 2) % IDX_MOD), proc);
+	//ft_printf("?? %hd\n", get_int(proc->pc + 1, 2));
 	proc->pc = set_pos(proc->pc + 3);
 	//ft_printf("finished fork\n");
 }

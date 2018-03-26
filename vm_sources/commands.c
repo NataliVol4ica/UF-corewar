@@ -35,9 +35,9 @@ int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs, int td)
 	return (total);
 }
 
-UINT	get_int(int pos, int len)
+int		get_int(int pos, int len)
 {
-	UINT	ans;
+	int		ans;
 	int		i;
 
 	ans = 0;

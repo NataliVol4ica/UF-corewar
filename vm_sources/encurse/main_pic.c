@@ -53,7 +53,7 @@ void	make_bar(void)
 	attron(COLOR_PAIR(15) | A_BOLD);
 	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", "** PAUSED ** ");
 	mvprintw(Y_BAR_SECL, X_BAR_SRT,"%s %d", "Cycles/second limit : ", g_b->sleep);
-	mvprintw(Y_BAR_CYCL, X_BAR_SRT,"%s %d","Cycle :", g_b->cycle);
+	mvprintw(Y_BAR_CYCL, X_BAR_SRT,"%s %d","Cycle :", g_g.total_cycle);
 	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s","Processes : ");
 	show_players();
 	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT,"%s%d ","CYCLE_TO_DIE : ", CYCLE_TO_DIE);
@@ -229,5 +229,7 @@ void	redraw_bar(void)
 	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT + 15, "%d " ,CYCLE_DELTA);
 	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT + 15, "%d ", NBR_LIVE);
 	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT + 14, " %d  ", MAX_CHECKS - g_g.checks);
+	mvprintw(g_b->bar_y_st + Y_BAR_MCH + 5, X_BAR_SRT + 14, " %d  ", g_g.cycle);
+
 	wrefresh(g_b->win);
 }

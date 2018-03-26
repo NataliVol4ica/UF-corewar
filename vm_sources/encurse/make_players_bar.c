@@ -23,7 +23,7 @@ static void	make_first_player(void)
 {
 	mvprintw(Y_BAR_PL1, X_BAR_SRT, "%s", "Player -1 : ");
 	attron(COLOR_PAIR(1));
-	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12, "%.38s", g_g.players[0].filename);
+	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12, "%.38s", g_g.players[0].name);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL1LL, X_BAR_SCL, "%s", "Last live : ");
 	mvprintw(Y_BAR_PL1LIC, X_BAR_SCL, "%s", "Lives in current period : ");

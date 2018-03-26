@@ -11,51 +11,50 @@
 /* ************************************************************************** */
 
 #ifndef ENCURSE_H
-# define ENCURSE_H
+#define ENCURSE_H
 
-# include <stdlib.h>
-# include <ncurses.h>
-# include "vm.h"
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include "libft.h"
+#include <stdlib.h>
+#include <ncurses.h>
+#include "vm.h"
+#include <fcntl.h>
+#include <unistd.h>
+#include "libft.h"
 
-# define WIN_WIDTH 260
-# define WIN_HEIGHT 70
+#define WIN_WIDTH 260
+#define WIN_HEIGHT 70
 
-# define X_MATR_SRT 4
-# define Y_MATR_SRT 3
-# define X_MATR_END 196
-# define Y_MATR_END 68
+#define X_MATR_SRT 4
+#define Y_MATR_SRT 3
+#define X_MATR_END 196
+#define Y_MATR_END 68
 
-# define X_BAR_SRT 206
-# define Y_BAR_SRT 3
-# define Y_BAR_SECL 5
-# define Y_BAR_CYCL 9
-# define Y_BAR_PROC 11
+#define X_BAR_SRT 206
+#define Y_BAR_SRT 3
+#define Y_BAR_SECL 5
+#define Y_BAR_CYCL 9
+#define Y_BAR_PROC 15
 
-# define Y_BAR_PL1 13
-# define Y_BAR_PL1LL 14
-# define Y_BAR_PL1LIC 15
-# define X_BAR_SCL 206
+#define Y_BAR_PL1 17
+#define Y_BAR_PL1LL 18
+#define Y_BAR_PL1LIC 19
+#define X_BAR_SCL 206 
 
-# define Y_BAR_PL2 17
-# define Y_BAR_PL2LL 18
-# define Y_BAR_PL2LIC 19
+#define Y_BAR_PL2 21
+#define Y_BAR_PL2LL 22
+#define Y_BAR_PL2LIC 23
 
-# define Y_BAR_PL3 21
-# define Y_BAR_PL3LL 22
-# define Y_BAR_PL3LIC 23
+#define Y_BAR_PL3 25
+#define Y_BAR_PL3LL 26
+#define Y_BAR_PL3LIC 27
 
-# define Y_BAR_PL4 25
-# define Y_BAR_PL4LL 26
-# define Y_BAR_PL4LIC 27
+#define Y_BAR_PL4 29
+#define Y_BAR_PL4LL 30
+#define Y_BAR_PL4LIC 31
 
-# define Y_BAR_CD 4
-# define Y_BAR_CDEL 6
-# define Y_BAR_NL 8
-# define Y_BAR_MCH 10
+#define Y_BAR_CD 4
+#define Y_BAR_CDEL 6
+#define Y_BAR_NL 8
+#define Y_BAR_MCH 10
 
 typedef	struct	s_curs
 {
@@ -68,6 +67,7 @@ typedef	struct	s_curs
 	uint32_t	sleep;
 	uint8_t		timeout;
 	int8_t 		*map;
+	int16_t		*live;
 }				t_curs;
 
 /*
@@ -96,7 +96,7 @@ void			hooks(void);
 void			load_player(int index, int player);
 void			hotkey(void);
 void			print_cursor(void);
-
+void			call_me_baby_i_am_alive(int index);
 /*
 *** init and first draw
 */

@@ -35,9 +35,10 @@ void	proc_live(void *data)
 		ft_printf("(%s) is alive.\n", g_g.players[l].name);
 	}
 	else
-	{
-		//call live func with l
-	}
+		call_me_baby_i_am_alive(g_g.players[l].index);
+	// {
+	// 	//call live func with l
+	// }
 	g_g.last_live = l;
 	g_g.live[l]++;
 	//////

@@ -50,8 +50,8 @@ void		exit_curse(void)
 {
 	delwin(g_b->win);
 	endwin();
-//	system("kill $(pgrep afplay)");
-//	system("kill $(pgrep afplay)");
+	system("kill $(pgrep afplay)");
+	system("kill $(pgrep afplay)");
 	free(g_b);
 	exit(0);
 }
@@ -85,6 +85,6 @@ void		pashalka(void)
 	}
 	close(fd);
 	wrefresh(g_b->win);
-	// system("kill $(pgrep afplay)");
+	system("kill $(pgrep afplay)");
 	system("afplay mp3/mario.mp3");
 }

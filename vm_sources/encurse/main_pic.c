@@ -53,8 +53,9 @@ void	make_bar(void)
 	attron(COLOR_PAIR(15) | A_BOLD);
 	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", "** PAUSED ** ");
 	mvprintw(Y_BAR_SECL, X_BAR_SRT,"%s %d", "Cycles/second limit : ", g_b->sleep);
-	mvprintw(Y_BAR_CYCL, X_BAR_SRT,"%s %d","Cycle :", g_g.total_cycle);
-	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s","Processes : ");
+	mvprintw(Y_BAR_CYCL, X_BAR_SRT,"%s  %d","Total cycle :", g_g.total_cycle);
+	mvprintw(Y_BAR_CYCL + 2, X_BAR_SRT,"%s %d","Cycle :       ", g_g.total_cycle);
+	mvprintw(Y_BAR_PROC, X_BAR_SRT,"%s   %d","Processes : ", g_g.num_of_processes);
 	show_players();
 	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT,"%s%d ","CYCLE_TO_DIE : ", CYCLE_TO_DIE);
 	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT,"%s %d","CYCLE_DELTA : ", CYCLE_DELTA);
@@ -108,40 +109,56 @@ void	swap_cursor(int index)
 	res = mvwinch(g_b->win, y, x) & A_COLOR;
 	if (res == COLOR_PAIR(1))
 	{
-		wattron(g_b->win, COLOR_PAIR(21));
+		if (g_g.field[index] == 1) 
+			wattron(g_b->win, COLOR_PAIR(31) | A_BOLD);
+		else			
+			wattron(g_b->win, COLOR_PAIR(21));
 		wprintw(g_b->win, "%02x", g_g.field[index]);
+		wattroff(g_b->win, A_BOLD);
 	}
-	else if (res == COLOR_PAIR(21))
+	else if ((res == COLOR_PAIR(21)) || (res == COLOR_PAIR(31)))
 	{
 		wattron(g_b->win, COLOR_PAIR(1));
 		wprintw(g_b->win, "%02x", g_g.field[index]);
 	}
 	else if (res == COLOR_PAIR(2))
 	{
-		wattron(g_b->win, COLOR_PAIR(22));
+		if (g_g.field[index] == 1)
+			wattron(g_b->win, COLOR_PAIR(32) | A_BOLD);
+		else			
+			wattron(g_b->win, COLOR_PAIR(22));
 		wprintw(g_b->win, "%02x", g_g.field[index]);
+		wattroff(g_b->win, A_BOLD);
 	}
-	else if (res == COLOR_PAIR(22))
+	else if ((res == COLOR_PAIR(22)) | (res == COLOR_PAIR(32)))
 	{
 		wattron(g_b->win, COLOR_PAIR(2));
 		wprintw(g_b->win, "%02x", g_g.field[index]);
 	}
 	else if (res == COLOR_PAIR(3))
 	{
-		wattron(g_b->win, COLOR_PAIR(23));
+		if (g_g.field[index] == 1)
+			wattron(g_b->win, COLOR_PAIR(33) | A_BOLD);
+		else
+			wattron(g_b->win, COLOR_PAIR(23));
 		wprintw(g_b->win, "%02x", g_g.field[index]);
+		wattroff(g_b->win, A_BOLD);
 	}
-	else if (res == COLOR_PAIR(23))
+	else if ((res == COLOR_PAIR(23)) | (res == COLOR_PAIR(33)))
 	{
 		wattron(g_b->win, COLOR_PAIR(3));
 		wprintw(g_b->win, "%02x", g_g.field[index]);
 	}
 	else if (res == COLOR_PAIR(4))
 	{
-		wattron(g_b->win, COLOR_PAIR(24));
+		if (g_g.field[index] == 1)
+			wattron(g_b->win, COLOR_PAIR(34) | A_BOLD);
+		else
+			wattron(g_b->win, COLOR_PAIR(24));
 		wprintw(g_b->win, "%02x", g_g.field[index]);
+		wattroff(g_b->win, A_BOLD);
 	}
-	else if (res == COLOR_PAIR(24))
+	else if ((res == COLOR_PAIR(24)) | (res == COLOR_PAIR(34)))
 	{
 		wattron(g_b->win, COLOR_PAIR(4));
 		wprintw(g_b->win, "%02x", g_g.field[index]);
@@ -177,21 +194,18 @@ void	load_player(int index, int player)
 {
 	int x;
 	int y;
-	// int i;
 
-	// i = -1;
 	x = (index % 64) * 3;
 	y = index / 64;
 	wmove(g_b->win, y, x);
 	wattron(g_b->win, COLOR_PAIR(player + 1));
-	// while (++i < REG_SIZE)
-	// {
 	wprintw(g_b->win, " %02x", g_g.field[index]);
-	// 	if (index % 64 == 63)
-	// 		wprintw(g_b->win, "\n");
-	// 	index++;
-	// }
 	wrefresh(g_b->win);
+}
+
+void	call_me_baby_i_am_alive(int index)
+{
+	g_b->live[index] = g_g.cycle;
 }
 
 /*
@@ -203,33 +217,33 @@ void	redraw_bar(void)
 	refresh();
 	attron(COLOR_PAIR(15) | A_BOLD);
 	mvprintw(Y_BAR_SECL, X_BAR_SRT + 23,"%d ", g_b->sleep);
-	mvprintw(Y_BAR_CYCL, X_BAR_SRT + 8,"%d", g_b->cycle);
+	mvprintw(Y_BAR_CYCL, X_BAR_SRT + 14," %d", g_g.total_cycle);
 	if (g_b->pl_nb >= 1)
 	{
-//		mvprintw(Y_BAR_PL1LL, X_BAR_SCL + 26,"%d", g_g.live[0]);
-		mvprintw(Y_BAR_PL1LIC, X_BAR_SCL + 26,"%d",g_g.live[0]);
+		mvprintw(Y_BAR_PL1LL, X_BAR_SCL + 26,"%d  ", g_b->live[0]);
+		mvprintw(Y_BAR_PL1LIC, X_BAR_SCL + 26,"%d    ",g_g.live[0]);
 	}
 	if (g_b->pl_nb >= 2)
 	{
-//		mvprintw(Y_BAR_PL2LL, X_BAR_SCL + 26,"%d", g_g.live[1]);
-		mvprintw(Y_BAR_PL2LIC, X_BAR_SCL + 26,"%d", g_g.live[1]);
+		mvprintw(Y_BAR_PL2LL, X_BAR_SCL + 26,"%d   ", g_b->live[1]);
+		mvprintw(Y_BAR_PL2LIC, X_BAR_SCL + 26,"%d    ", g_g.live[1]);
 	}
 	if (g_b->pl_nb >= 3)
 	{
-		mvprintw(Y_BAR_PL3LL, X_BAR_SCL + 26,"%d", g_g.live[2]);
-//		mvprintw(Y_BAR_PL3LIC, X_BAR_SCL + 26,"%d",);
+		mvprintw(Y_BAR_PL3LL, X_BAR_SCL + 26,"%d   ", g_b->live[2]);
+		mvprintw(Y_BAR_PL3LIC, X_BAR_SCL + 26,"%d    ", g_g.live[2]);
 	}
 	if (g_b->pl_nb == 4)
 	{
-		mvprintw(Y_BAR_PL4LL, X_BAR_SCL + 26,"%d", g_g.live[3]);
-//		mvprintw(Y_BAR_PL4LIC, X_BAR_SCL + 26,"%d",);
+		mvprintw(Y_BAR_PL4LL, X_BAR_SCL + 26,"%d    ", g_b->live[3]);
+		mvprintw(Y_BAR_PL4LIC, X_BAR_SCL + 26,"%d     ", g_g.live[3]);
 	}
 	mvprintw(Y_BAR_PROC, X_BAR_SRT + 15,"%d", g_g.num_of_processes);
 	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT + 15,"%d ", g_g.cycle_to_die);
 	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT + 15, "%d " ,CYCLE_DELTA);
 	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT + 15, "%d ", NBR_LIVE);
 	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT + 14, " %d  ", MAX_CHECKS - g_g.checks);
-	mvprintw(g_b->bar_y_st + Y_BAR_MCH + 5, X_BAR_SRT + 14, " %d  ", g_g.cycle);
 
+	mvprintw(Y_BAR_CYCL + 2, X_BAR_SRT + 14, " %d  ", g_g.cycle);
 	wrefresh(g_b->win);
 }

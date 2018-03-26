@@ -49,6 +49,7 @@ void		init_globals(void)
 	MALL(g_g.proc = (t_process**)malloc(sizeof(t_process*)));
 	MALL(g_b = (t_curs*)ft_memalloc(sizeof(t_curs)));
 	MALL(g_b->map = (int8_t *)ft_memalloc(sizeof(int8_t) * MEM_SIZE));
+	MALL(g_b->live = (int16_t *)ft_memalloc(sizeof(int16_t) * MAX_PLAYERS));
 	g_b->sleep = 30000;
 	g_b->timeout = 1;
 	MALL(g_g.live = (int*)ft_memalloc(sizeof(int) * MAX_PLAYERS));

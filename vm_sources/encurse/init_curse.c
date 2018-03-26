@@ -24,12 +24,16 @@ void	colors(void)
 	init_color(COLOR_CYAN, 300, 300, 300);
 	init_pair(1,  COLOR_GREEN,   COLOR_BLACK); // color first player
 	init_pair(21, COLOR_BLACK, COLOR_GREEN); // swap color forst player
+	init_pair(31, COLOR_WHITE, COLOR_GREEN); // swap color first player live
 	init_pair(2,  COLOR_RED,     COLOR_BLACK); // color second player
 	init_pair(22, COLOR_BLACK, COLOR_RED); // swap color second player
+	init_pair(32, COLOR_WHITE, COLOR_RED); // swap color second player live
 	init_pair(3,  COLOR_YELLOW,  COLOR_BLACK); // color third player
 	init_pair(23, COLOR_BLACK, COLOR_YELLOW); // swap color third player
+	init_pair(33, COLOR_WHITE, COLOR_YELLOW); // swap color third player live
 	init_pair(4,  COLOR_BLUE,    COLOR_BLACK); // color four player
 	init_pair(24, COLOR_BLACK, COLOR_BLUE); // swap color four player
+	init_pair(34, COLOR_WHITE, COLOR_BLUE); // swap color four player live
 	init_pair(14, COLOR_CYAN, COLOR_BLACK); //color map
 	init_pair(41, COLOR_BLACK, COLOR_CYAN); // swap map color
 	init_pair(15, COLOR_WHITE, COLOR_BLACK); // white color for bar
@@ -43,18 +47,20 @@ void	init_curs(void)
 	if (!(initscr()))
 		ft_er_init();
 	ft_check_size_win();
-//	system("afplay mp3/batle.mp3 &");
-	curs_set(0);
+	system("afplay mp3/batle.mp3 &");
 	refresh();
 	start_color();  // Инициализация цветов
 	g_b->win = newwin(WIN_HEIGHT - 4, 194, 3, 3);
 	colors();
+	curs_set(0);
+	bkgd(COLOR_PAIR(17)); //background color
+	wbkgd(g_b->win, COLOR_PAIR(17)); //background color
 	make_border();
 	print_map();
 	wattron(g_b->win, COLOR_PAIR(14));
 	make_bar();
 	print_cursor();
-	refresh();
+ 	refresh();
 	wrefresh(g_b->win);
 }
 
@@ -63,7 +69,7 @@ void	init_curs(void)
 */
 
 void	curse(void)
-{
+{ 
 	// kill -SIGSTP $(pgrep afplay)
 	// kill -SIGSTOP $(pgrep afplay)
 	init_curs();

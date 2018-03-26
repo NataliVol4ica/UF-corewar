@@ -21,6 +21,7 @@ unsigned char	get_field_val(int pos)
 
 void			set_field_val(int pos, unsigned char val, int playernum)
 {
+	ft_printf("player #%d rewriting %d to %d at %d\n", playernum, g_g.field[pos % MEM_SIZE], val, pos % MEM_SIZE);
 	g_g.field[pos % MEM_SIZE] = val;
 	if (g_g.to_visualise == 1)
 		load_player(pos % MEM_SIZE, playernum);

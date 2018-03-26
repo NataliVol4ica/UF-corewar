@@ -15,6 +15,11 @@
 
 # include <stdlib.h>
 # include <ncurses.h>
+# include "vm.h"
+# include <stdio.h>
+# include <fcntl.h>
+# include <unistd.h>
+# include "libft.h"
 
 # define WIN_WIDTH 260
 # define WIN_HEIGHT 70
@@ -66,20 +71,22 @@ typedef	struct	s_curs
 }				t_curs;
 
 /*
-*** START_COLORS
+*** init and first draw
 */
 
-
-
-void			ft_er_init(void);
-void			ft_check_size_win(void);
-void			colors(void);
-void			make_border(void);
-void			make_bar(void);
-void			show_players(void);
-void			init_curs(void);
-void			exit_curse(void);
 void			curse(void);
+void			colors(void);
+void			init_curs(void);
+void			show_players(void);
+void			make_bar(void);
+void			make_border(void);
+
+
+/*
+*** redraw when game start
+*/
+
+void			print_map(void);
 void			draw_new(int index);
 void			erace_old(int index);
 void			swap_cursor(int index);
@@ -87,6 +94,16 @@ void			readkey(void);
 void			redraw_bar(void);
 void			hooks(void);
 void			load_player(int index, int player);
+void			hotkey(void);
+void			print_cursor(void);
+
+/*
+*** init and first draw
+*/
+
+void			ft_er_init(void);
+void			ft_check_size_win(void);
+void			exit_curse(void);
 void			pashalka(void);
 void			exit_curse_main(void);
 

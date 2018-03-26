@@ -10,71 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "encurse.h"
-# include <stdio.h>
-# include "vm.h"
-# include <stdio.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include "libft.h"
+#include "encurse.h"
 
 extern t_global	g_g;
 extern t_curs	*g_b;
-
-void	ft_er_init(void)
-{
-	ft_printf("ncurses problem with memory");
-	system("kill $(pgrep afplay) > 1 > 2 > /dev/null");
-	exit(0);
-}
-
-/*
-*** CHECK WINDOW SIZE!!!!!!!!!!!!!!
-*/
-
-void	ft_check_size_win(void)
-{
-	if (COLS < WIN_WIDTH)
-	{
-		endwin();
-		ft_printf("%s\n", "Too small window width!!! Min width must be 260 COLUMS");
-		exit(0);
-	}
-	if (LINES < WIN_HEIGHT)
-	{
-		endwin();
-		ft_printf("%s\n", "Too small window height!!! Min height must be 70 LINES");
-		exit(0);
-	}
-}
-
-/*
-*** START_COLORS
-*/
-
-void	colors(void)
-{
-	init_color(COLOR_CYAN, 300, 300, 300);
-	init_pair(1,  COLOR_GREEN,   COLOR_BLACK); // color first player
-	init_pair(21, COLOR_BLACK, COLOR_GREEN); // swap color forst player
-///////////////////////////////////////////////////////////////////////////
-	init_pair(2,  COLOR_RED,     COLOR_BLACK); // color second player
-	init_pair(22, COLOR_BLACK, COLOR_RED); // swap color second player
-///////////////////////////////////////////////////////////////////////////
-	init_pair(3,  COLOR_YELLOW,  COLOR_BLACK); // color third player
-	init_pair(23, COLOR_BLACK, COLOR_YELLOW); // swap color third player
-///////////////////////////////////////////////////////////////////////////
-	init_pair(4,  COLOR_BLUE,    COLOR_BLACK); // color four player
-	init_pair(24, COLOR_BLACK, COLOR_BLUE); // swap color four player
-///////////////////////////////////////////////////////////////////////////
-	init_pair(14, COLOR_CYAN, COLOR_BLACK); //color map
-	init_pair(41, COLOR_BLACK, COLOR_CYAN); // swap map color
-///////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////
-	init_pair(15, COLOR_WHITE, COLOR_BLACK); // white color for bar
-	init_pair(17, COLOR_BLACK, COLOR_BLACK); // black color for space in map
-	init_pair(18, COLOR_CYAN, COLOR_CYAN); // color border
-}
 
 /*
 *** MAKE BORDERS
@@ -106,75 +45,6 @@ void	make_border(void)
 }
 
 /*
-*** make players
-*/
-
-void	make_first_player(void)
-{
-	mvprintw(Y_BAR_PL1, X_BAR_SRT,"%s","Player -1 : ");
-	attron(COLOR_PAIR(1));
-	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12,"%.38s", g_g.players[0].filename);
-	attron(COLOR_PAIR(15));
-	mvprintw(Y_BAR_PL1LL, X_BAR_SCL,"%s","Last live : ");
-	mvprintw(Y_BAR_PL1LIC, X_BAR_SCL,"%s","Lives in current period : ");
-}
-
-void	make_second_player(void)
-{
-	mvprintw(Y_BAR_PL2, X_BAR_SRT,"%s", "Player -2 : ");
-	attron(COLOR_PAIR(2));
-	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12,"%.38s", g_g.players[1].filename);
-	attron(COLOR_PAIR(15));
-	mvprintw(Y_BAR_PL2LL, X_BAR_SCL,"%s","Last live : ");
-	mvprintw(Y_BAR_PL2LIC, X_BAR_SCL,"%s","Lives in current period : ");
-}
-
-void	make_third_player(void)
-{
-	mvprintw(Y_BAR_PL3, X_BAR_SRT,"%s","Player -3 : ");
-	attron(COLOR_PAIR(3));
-	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12,"%.38s", g_g.players[2].filename);
-	attron(COLOR_PAIR(15));
-	mvprintw(Y_BAR_PL3LL, X_BAR_SCL,"%s","Last live : ");
-	mvprintw(Y_BAR_PL3LIC, X_BAR_SCL,"%s","Lives in current period : ");
-}
-
-void	make_fifth_player(void)
-{
-	mvprintw(Y_BAR_PL4, X_BAR_SRT,"%s","Player -4 : ");
-	attron(COLOR_PAIR(4));
-	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12,"%.38s", g_g.players[3].filename);
-	attron(COLOR_PAIR(15));
-	mvprintw(Y_BAR_PL4LL, X_BAR_SCL,"%s","Last live : ");
-	mvprintw(Y_BAR_PL4LIC, X_BAR_SCL,"%s","Lives in current period : ");
-}
-
-void	show_players(void)
-{
-	if (g_b->pl_nb >= 1)
-	{
-		make_first_player();
-		g_b->bar_y_st = Y_BAR_PL1;
-	}
-	if (g_b->pl_nb >= 2)
-	{
-		make_second_player();
-		g_b->bar_y_st = Y_BAR_PL2;
-	}
-	if (g_b->pl_nb >= 3)
-	{
-		make_third_player();
-		g_b->bar_y_st = Y_BAR_PL3;
-	}
-	if (g_b->pl_nb == 4)
-	{
-		make_fifth_player();
-		g_b->bar_y_st = Y_BAR_PL4;
-	}
-	refresh();
-}
-
-/*
 *** make right side bar
 */
 
@@ -192,79 +62,6 @@ void	make_bar(void)
 	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT,"%s  %d","MAX_CHECKS : ", MAX_CHECKS);
 }
 
-void	print_color_p1(int *i)
-{
-	wattron(g_b->win, COLOR_PAIR(1));
-	while (*i < g_g.players[0].startpos + g_g.players[0].field_size)
-	{
-		wprintw(g_b->win, " %02x", g_g.field[*i]);
-		if (*i % 64 == 63)
-			wprintw(g_b->win, "\n");
-		(*i)++;
-	}
-	wattron(g_b->win, COLOR_PAIR(14));
-}
-
-void	print_color_p2(int *i)
-{
-	wattron(g_b->win, COLOR_PAIR(2));
-	while (*i < g_g.players[1].startpos + g_g.players[1].field_size)
-	{
-		wprintw(g_b->win, " %02x", g_g.field[*i]);
-		if (*i % 64 == 63)
-			wprintw(g_b->win, "\n");
-		(*i)++;
-	}
-	wattron(g_b->win, COLOR_PAIR(14));
-}
-
-void	print_color_p3(int *i)
-{
-	wattron(g_b->win, COLOR_PAIR(3));
-	while (*i < g_g.players[2].startpos + g_g.players[2].field_size)
-	{
-		wprintw(g_b->win, " %02x", g_g.field[*i]);
-		if (*i % 64 == 63)
-			wprintw(g_b->win, "\n");
-		(*i)++;
-	}
-	wattron(g_b->win, COLOR_PAIR(14));
-}
-
-void	print_color_p4(int *i)
-{
-	wattron(g_b->win, COLOR_PAIR(4));
-	while (*i < g_g.players[3].startpos + g_g.players[3].field_size)
-	{
-		wprintw(g_b->win, " %02x", g_g.field[*i]);
-		if (*i % 64 == 63)
-			wprintw(g_b->win, "\n");
-		(*i)++;
-	}
-	wattron(g_b->win, COLOR_PAIR(14));
-}
-
-void	print_map(void)
-{
-	wattron(g_b->win, COLOR_PAIR(14));
-	refresh();
-	int i = -1;
-	while (++i < MEM_SIZE)
-	{
-		if (i == g_g.players[0].startpos)
-			print_color_p1(&i);
-		else if (i == g_g.players[1].startpos)
-			print_color_p2(&i);
-		else if (i == g_g.players[2].startpos)
-			print_color_p3(&i);
-		else if (i == g_g.players[3].startpos)
-			print_color_p4(&i);
-		wprintw(g_b->win, " %02x", g_g.field[i]);
-		if (i % 64 == 63)
-			wprintw(g_b->win, "\n");
-	}
-	wrefresh(g_b->win);
-}
 
 /*
 *** initil ncurse liblary
@@ -272,7 +69,7 @@ void	print_map(void)
 
 void	print_cursor(void)
 {
-	refresh();
+//	refresh();
 	int x;
 	int y;
 
@@ -280,102 +77,23 @@ void	print_cursor(void)
 	{
 		g_b->map[g_g.players[0].startpos] = 1;
 		swap_cursor(g_g.players[0].startpos);
-		// x = g_g.players[0].startpos % 64;
-		// y = g_g.players[0].startpos / 64;
-		// wmove(g_b->win, y, (x * 3));
-		// wattron(g_b->win, COLOR_PAIR(17));
-		// wprintw(g_b->win, " ");
-		// wattron(g_b->win, COLOR_PAIR(21));
-		// wprintw(g_b->win, "%02x", g_g.field[g_g.players[0].startpos]);
-		// wattron(g_b->win, COLOR_PAIR(14));
 	}
 	if (g_b->pl_nb >= 2)
 	{
 		g_b->map[g_g.players[1].startpos] = 1;
 		swap_cursor(g_g.players[1].startpos);
-
-		// x = g_g.players[1].startpos % 64;
-		// y = g_g.players[1].startpos / 64;
-		// wmove(g_b->win, y, (x * 3));
-		// wattron(g_b->win, COLOR_PAIR(17));
-		// wprintw(g_b->win, " ");
-		// wattron(g_b->win, COLOR_PAIR(22));
-		// wprintw(g_b->win, "%02x", g_g.field[g_g.players[1].startpos]);
-		// wattron(g_b->win, COLOR_PAIR(14));
 	}
 	if (g_b->pl_nb >= 3)
 	{
 		g_b->map[g_g.players[2].startpos] = 1;
 		swap_cursor(g_g.players[2].startpos);
-
-		// x = g_g.players[2].startpos % 64;
-		// y = g_g.players[2].startpos / 64;
-		// wmove(g_b->win, y, (x * 3));
-		// wattron(g_b->win, COLOR_PAIR(17));
-		// wprintw(g_b->win, " ");
-		// wattron(g_b->win, COLOR_PAIR(23));
-		// wprintw(g_b->win, "%02x", g_g.field[g_g.players[2].startpos]);
-		// wattron(g_b->win, COLOR_PAIR(14));
 	}
 	if (g_b->pl_nb == 4)
 	{
 		g_b->map[g_g.players[3].startpos] = 1;
 		swap_cursor(g_g.players[3].startpos);
-
-		// int x = g_g.players[3].startpos % 64;
-		// int y = g_g.players[3].startpos / 64;
-		// wmove(g_b->win, y, (x * 3));
-		// wattron(g_b->win, COLOR_PAIR(17));
-		// wprintw(g_b->win, " ");
-		// wattron(g_b->win, COLOR_PAIR(24));
-		// wprintw(g_b->win, "%02x", g_g.field[g_g.players[3].startpos]);
-		// wattron(g_b->win, COLOR_PAIR(14));
 	}
 	refresh();
-}
-
-void	init_curs(void)
-{
-	g_b->pl_nb = g_g.num_of_players;
-	if (!(initscr()))
-		ft_er_init();
-	ft_check_size_win();
-//	system("afplay mp3/batle.mp3 &");
-	curs_set(0);
-	refresh();
-	start_color();  // Инициализация цветов
-	g_b->win = newwin(WIN_HEIGHT - 4, 194, 3, 3);
-	colors();
-	make_border();
-	print_map();
-	wattron(g_b->win, COLOR_PAIR(14));
-	make_bar();
-	print_cursor();
-	refresh();
-	wrefresh(g_b->win);
-}
-
-/*
-*** free and exit ncurse liblary
-*/
-
-void	exit_curse(void)
-{
-	delwin(g_b->win);
-	endwin();
-//	system("kill $(pgrep afplay)");
-//	system("kill $(pgrep afplay)");
-	free(g_b);
-	exit (0);
-}
-
-void	exit_curse_main(void)
-{
-	delwin(g_b->win);
-	endwin();
-//	system("kill $(pgrep afplay)");
-//	system("kill $(pgrep afplay)");
-	free(g_b);
 }
 
 void	swap_cursor(int index)
@@ -512,97 +230,4 @@ void	redraw_bar(void)
 	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT + 15, "%d ", NBR_LIVE);
 	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT + 14, " %d  ", MAX_CHECKS - g_g.checks);
 	wrefresh(g_b->win);
-}
-
-/*
-*** hotkay
-*/
-
-void		hotkey(void)
-{
-	if (g_b->key == 27)
-		exit_curse();
- 	if (g_b->key == 49 && g_b->sleep > 5000)
-		g_b->sleep -= 5000;
-	if (g_b->key == 50 && g_b->sleep < 200000)
-		g_b->sleep += 10000;
-	redraw_bar();
-}
-
-/*
-*** pause
-*/
-
-void		pause_key(void)
-{
-	g_b->pause = (g_b->pause == 0 ? 1 : 0);
-	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", g_b->pause == 0 ?
-			"** PAUSED ** " : "** STOPPED **");
-	g_b->key = 0;
-	while (g_b->key != 32)
-	{
-		g_b->key = getch();
-		hotkey();
-	}
-	g_b->pause = (g_b->pause == 0 ? 1 : 0);
-	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", g_b->pause == 0 ?
-			"** PAUSED ** " : "** STOPPED **");
-}
-
-void	pashalka(void)
-{
-	int fd;
-	int y = 0;
-	int ret;
-	char *line;
-	
-	fd = open("mp3/pas", O_RDONLY);
-	wattron(g_b->win, COLOR_PAIR(2));
-	while ((ret = get_next_line(fd, &line)))
-	{
-		if (ret == 0)
-			exit(0);
-		mvwprintw(g_b->win, y, 0,"%s", line);
-		free(line);
-		y++;
-	}
-	close(fd);
-	wrefresh(g_b->win);
-	// system("kill $(pgrep afplay)");
-	system("afplay mp3/mario.mp3");
-}
-
-/*
-*** Call from main
-*/
-
-void		readkey(void)
-{
- 	timeout(g_b->timeout);
-	g_b->key = getch();
-	hotkey();
- 	if (g_b->key == 32)
-		pause_key();
-	usleep(g_b->sleep);
-	g_b->key = 0;
-}
-
-/*
-*** first draw map
-*/
-
-void		curse(void)
-{
-	// kill -SIGSTP $(pgrep afplay)
-	// kill -SIGSTOP $(pgrep afplay)
-	init_curs();
-	noecho();
-	while (g_b->key != 32)
-	{
-		g_b->key = getch();
-		hotkey();
-	}
-	g_b->pause = (g_b->pause == 0 ? 1 : 0);
-	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", g_b->pause == 0 ?
-			"** PAUSED ** " : "** STOPPED **");
 }

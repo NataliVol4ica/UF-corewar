@@ -10,7 +10,12 @@ VMSRCDIR = ./vm_sources
 HFILES = $(patsubst %, $(INCDIR)/%.h, $(HEADERS))
 
 VMCMDENCDIR = encurse
-VMDENCNAMES = main_pic 
+VMDENCNAMES = main_pic \
+			  exit \
+			  make_players_bar \
+			  draw_map \
+			  init_curse \
+			  hotkey
 
 VMCENCFILES = $(patsubst %, $(VMSRCDIR)/$(VMCMDENCDIR)/%.c, $(VMDENCNAMES))
 VMOENCFILES = $(patsubst %, $(ODIR)/$(VMCMDENCDIR)/%.o, $(VMDENCNAMES))

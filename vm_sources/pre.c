@@ -61,4 +61,5 @@ void		init_globals(void)
 	g_g.num_of_processes = 0;
 	g_g.cycle = 0;
 	g_g.total_cycle = 0;
+	g_g.secret_var = 0;
 }

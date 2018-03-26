@@ -33,6 +33,7 @@ void	new_process(int pc, int playernum)
 	new_proc->carry = 0;
 	new_proc->live = 0;
 	new_proc->next = *g_g.proc;
+	new_proc->secret_num = g_g.secret_var++;
 	*g_g.proc = new_proc;
 	parse_command(new_proc);
 	if (g_g.to_visualise ==1)
@@ -56,11 +57,12 @@ void	copy_process(int pc, t_process *proc)
 	new_proc->carry = proc->carry;
 	new_proc->live = proc->live;
 	new_proc->next = *g_g.proc;
+	new_proc->secret_num = g_g.secret_var++;
 	*g_g.proc = new_proc;
 	parse_command(new_proc);
 	if (g_g.to_visualise ==1)
 		draw_new(new_proc->pc);
-	ft_printf("NEW PROCESS pc [%0.4d] |%0.2x|\n", new_proc->pc, g_g.field[new_proc->pc]);
+	ft_printf("NEW PROCESS #%d pc [%0.4d] |%0.2x|\n", new_proc->secret_num, new_proc->pc, g_g.field[new_proc->pc]);
 
 }
 
@@ -85,6 +87,7 @@ void	gen_processes(void)
 void	free_proc(t_process *proc)
 {
 	g_g.num_of_processes--;
+	ft_printf("process #%d died :'(\n", proc->secret_num);
 	if (g_g.to_visualise)
 		erace_old(proc->pc);
 	free(proc->registry);

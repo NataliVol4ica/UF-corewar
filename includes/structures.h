@@ -46,6 +46,7 @@ typedef struct	s_process
 	struct s_process	*next;
 	t_f					func;
 	int					label_size;
+	int					secret_num;
 }				t_process;
 
 typedef struct	s_global
@@ -65,6 +66,7 @@ typedef struct	s_global
 	int				num_of_processes;
 	int				cycle;
 	int				total_cycle;
+	int				secret_var;
 }				t_global;
 
 typedef struct	s_codes

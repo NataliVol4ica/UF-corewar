@@ -73,7 +73,8 @@ void	run_cycle_step(void)
 			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc]);
 			//ft_printf("parsing ");
 			proc->func((void*)proc);
-			ft_printf("cycle %0.3d proc #%0.2d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->secret_num, proc->pc, g_g.field[proc->pc]);
+			if (TOCOMMENT)
+				ft_printf("cycle %0.3d proc #%0.2d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->secret_num, proc->pc, g_g.field[proc->pc]);
 			parse_command(proc);
 			if (g_g.to_visualise)
 				draw_new(proc->pc);

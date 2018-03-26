@@ -65,9 +65,10 @@ void		print_field(void)
 		if (i % 64 == 63)
 			ft_printf("\n");
 	}
-	ft_printf("processed : %d\n", g_g.num_of_processes);
-	t_process *p;
-
+	if (!TOCOMMENT)
+		exit (0);		
+	ft_printf("processes : %d\n", g_g.num_of_processes);
+	t_process *p;		
 	p = *g_g.proc;
 	i = 1;
 	while (p)

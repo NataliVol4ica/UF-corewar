@@ -28,6 +28,8 @@
 # define TDIR 2
 # define TIND 3
 
+# define TOCOMMENT 0
+
 void	init_globals(void);
 void	print_winner(void);
 void	print_field(void);

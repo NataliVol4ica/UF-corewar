@@ -278,47 +278,58 @@ void	print_cursor(void)
 
 	if (g_b->pl_nb >= 1)
 	{
-		x = g_g.players[0].startpos % 64;
-		y = g_g.players[0].startpos / 64;
-		wmove(g_b->win, y, (x * 3));
-		wattron(g_b->win, COLOR_PAIR(17));
-		wprintw(g_b->win, " ");
-		wattron(g_b->win, COLOR_PAIR(21));
-		wprintw(g_b->win, "%02x", g_g.field[g_g.players[0].startpos]);
-		wattron(g_b->win, COLOR_PAIR(14));
+		g_b->map[g_g.players[0].startpos] = 1;
+		swap_cursor(g_g.players[0].startpos);
+		// x = g_g.players[0].startpos % 64;
+		// y = g_g.players[0].startpos / 64;
+		// wmove(g_b->win, y, (x * 3));
+		// wattron(g_b->win, COLOR_PAIR(17));
+		// wprintw(g_b->win, " ");
+		// wattron(g_b->win, COLOR_PAIR(21));
+		// wprintw(g_b->win, "%02x", g_g.field[g_g.players[0].startpos]);
+		// wattron(g_b->win, COLOR_PAIR(14));
 	}
 	if (g_b->pl_nb >= 2)
 	{
-		x = g_g.players[1].startpos % 64;
-		y = g_g.players[1].startpos / 64;
-		wmove(g_b->win, y, (x * 3));
-		wattron(g_b->win, COLOR_PAIR(17));
-		wprintw(g_b->win, " ");
-		wattron(g_b->win, COLOR_PAIR(22));
-		wprintw(g_b->win, "%02x", g_g.field[g_g.players[1].startpos]);
-		wattron(g_b->win, COLOR_PAIR(14));
+		g_b->map[g_g.players[1].startpos] = 1;
+		swap_cursor(g_g.players[1].startpos);
+
+		// x = g_g.players[1].startpos % 64;
+		// y = g_g.players[1].startpos / 64;
+		// wmove(g_b->win, y, (x * 3));
+		// wattron(g_b->win, COLOR_PAIR(17));
+		// wprintw(g_b->win, " ");
+		// wattron(g_b->win, COLOR_PAIR(22));
+		// wprintw(g_b->win, "%02x", g_g.field[g_g.players[1].startpos]);
+		// wattron(g_b->win, COLOR_PAIR(14));
 	}
 	if (g_b->pl_nb >= 3)
 	{
-		x = g_g.players[2].startpos % 64;
-		y = g_g.players[2].startpos / 64;
-		wmove(g_b->win, y, (x * 3));
-		wattron(g_b->win, COLOR_PAIR(17));
-		wprintw(g_b->win, " ");
-		wattron(g_b->win, COLOR_PAIR(23));
-		wprintw(g_b->win, "%02x", g_g.field[g_g.players[2].startpos]);
-		wattron(g_b->win, COLOR_PAIR(14));
+		g_b->map[g_g.players[2].startpos] = 1;
+		swap_cursor(g_g.players[2].startpos);
+
+		// x = g_g.players[2].startpos % 64;
+		// y = g_g.players[2].startpos / 64;
+		// wmove(g_b->win, y, (x * 3));
+		// wattron(g_b->win, COLOR_PAIR(17));
+		// wprintw(g_b->win, " ");
+		// wattron(g_b->win, COLOR_PAIR(23));
+		// wprintw(g_b->win, "%02x", g_g.field[g_g.players[2].startpos]);
+		// wattron(g_b->win, COLOR_PAIR(14));
 	}
 	if (g_b->pl_nb == 4)
 	{
-		int x = g_g.players[3].startpos % 64;
-		int y = g_g.players[3].startpos / 64;
-		wmove(g_b->win, y, (x * 3));
-		wattron(g_b->win, COLOR_PAIR(17));
-		wprintw(g_b->win, " ");
-		wattron(g_b->win, COLOR_PAIR(24));
-		wprintw(g_b->win, "%02x", g_g.field[g_g.players[3].startpos]);
-		wattron(g_b->win, COLOR_PAIR(14));
+		g_b->map[g_g.players[3].startpos] = 1;
+		swap_cursor(g_g.players[3].startpos);
+
+		// int x = g_g.players[3].startpos % 64;
+		// int y = g_g.players[3].startpos / 64;
+		// wmove(g_b->win, y, (x * 3));
+		// wattron(g_b->win, COLOR_PAIR(17));
+		// wprintw(g_b->win, " ");
+		// wattron(g_b->win, COLOR_PAIR(24));
+		// wprintw(g_b->win, "%02x", g_g.field[g_g.players[3].startpos]);
+		// wattron(g_b->win, COLOR_PAIR(14));
 	}
 	refresh();
 }
@@ -366,19 +377,6 @@ void	exit_curse_main(void)
 //	system("kill $(pgrep afplay)");
 	free(g_b);
 }
-
-// void	erase_old(int index, t_curs *b)
-// {
-// 	int x;
-// 	int y;
-// //	int fd = open("1", O_RDWR);
-// 	int res;
-
-// 	x = (index % 64) * 3 + 1;
-// 	y = index / 64;
-// 	res = mvwinch(b->win, y, x);
-// //	close(fd);
-// }
 
 void	swap_cursor(int index)
 {

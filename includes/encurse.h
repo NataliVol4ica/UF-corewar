@@ -65,6 +65,12 @@ typedef	struct	s_curs
 	int8_t 		*map;
 }				t_curs;
 
+/*
+*** START_COLORS
+*/
+
+
+
 void			ft_er_init(void);
 void			ft_check_size_win(void);
 void			colors(void);
@@ -80,7 +86,7 @@ void			swap_cursor(int index);
 void			readkey(void);
 void			redraw_bar(void);
 void			hooks(void);
-void			load_player(int index/*, int player*/);
+void			load_player(int index, int player);
 void			pashalka(void);
 void			exit_curse_main(void);
 

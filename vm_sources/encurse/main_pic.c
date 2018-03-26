@@ -113,7 +113,7 @@ void	make_first_player(void)
 {
 	mvprintw(Y_BAR_PL1, X_BAR_SRT,"%s","Player -1 : ");
 	attron(COLOR_PAIR(1));
-	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12,"%.38s", g_g.players[0].name);
+	mvprintw(Y_BAR_PL1, X_BAR_SRT + 12,"%.38s", g_g.players[0].filename);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL1LL, X_BAR_SCL,"%s","Last live : ");
 	mvprintw(Y_BAR_PL1LIC, X_BAR_SCL,"%s","Lives in current period : ");
@@ -123,7 +123,7 @@ void	make_second_player(void)
 {
 	mvprintw(Y_BAR_PL2, X_BAR_SRT,"%s", "Player -2 : ");
 	attron(COLOR_PAIR(2));
-	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12,"%.38s", g_g.players[1].name);
+	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12,"%.38s", g_g.players[1].filename);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL2LL, X_BAR_SCL,"%s","Last live : ");
 	mvprintw(Y_BAR_PL2LIC, X_BAR_SCL,"%s","Lives in current period : ");
@@ -133,7 +133,7 @@ void	make_third_player(void)
 {
 	mvprintw(Y_BAR_PL3, X_BAR_SRT,"%s","Player -3 : ");
 	attron(COLOR_PAIR(3));
-	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12,"%.38s", g_g.players[2].name);
+	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12,"%.38s", g_g.players[2].filename);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL3LL, X_BAR_SCL,"%s","Last live : ");
 	mvprintw(Y_BAR_PL3LIC, X_BAR_SCL,"%s","Lives in current period : ");
@@ -143,7 +143,7 @@ void	make_fifth_player(void)
 {
 	mvprintw(Y_BAR_PL4, X_BAR_SRT,"%s","Player -4 : ");
 	attron(COLOR_PAIR(4));
-	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12,"%.38s", g_g.players[3].name);
+	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12,"%.38s", g_g.players[3].filename);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL4LL, X_BAR_SCL,"%s","Last live : ");
 	mvprintw(Y_BAR_PL4LIC, X_BAR_SCL,"%s","Lives in current period : ");
@@ -455,24 +455,24 @@ void	erace_old(int index)
 		swap_cursor(index);
 }
 
-void	load_player(int index/*, int player*/)
+void	load_player(int index, int player)
 {
 	int x;
 	int y;
-	int i;
+	// int i;
 
-	i = -1;
+	// i = -1;
 	x = (index % 64) * 3;
 	y = index / 64;
 	wmove(g_b->win, y, x);
-	wattron(g_b->win, COLOR_PAIR(15));
-	while (++i < REG_SIZE)
-	{
-		wprintw(g_b->win, " %02x", g_g.field[index]);
-		if (index % 64 == 63)
-			wprintw(g_b->win, "\n");
-		index++;
-	}
+	wattron(g_b->win, COLOR_PAIR(player + 1));
+	// while (++i < REG_SIZE)
+	// {
+	wprintw(g_b->win, " %02x", g_g.field[index]);
+	// 	if (index % 64 == 63)
+	// 		wprintw(g_b->win, "\n");
+	// 	index++;
+	// }
 	wrefresh(g_b->win);
 }
 

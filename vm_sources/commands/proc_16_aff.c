@@ -28,7 +28,7 @@ void			proc_aff(void *data)
 	toskip += CODING_BYTE;
 	if (cod_b.t[0] != TREG)
 	{
-		proc->pc = set_pos(proc->pc + 2);
+		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
 	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip))

@@ -205,7 +205,7 @@ void	load_player(int index, int player)
 
 void	call_me_baby_i_am_alive(int index)
 {
-	g_b->live[index] = g_g.cycle;
+	g_b->live[index] = g_g.total_cycle;
 }
 
 /*

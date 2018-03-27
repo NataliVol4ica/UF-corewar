@@ -29,7 +29,7 @@ void			proc_or(void *data)
 	//ft_printf("field %#x : %b %b %b\n", get_field_val(proc->pc), cod_b.t[0], cod_b.t[1], cod_b.t[2]);
 	if (cod_b.t[0] != TREG || cod_b.t[1] != TREG || cod_b.t[2] != TREG)
 	{
-		proc->pc = set_pos(proc->pc + toskip);
+		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
 		return ;
 	}
 	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||

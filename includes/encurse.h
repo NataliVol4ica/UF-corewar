@@ -56,6 +56,8 @@
 #define Y_BAR_NL 8
 #define Y_BAR_MCH 10
 
+#define MUSIC 1
+
 typedef	struct	s_curs
 {
 	WINDOW		*win;

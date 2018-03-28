@@ -17,7 +17,8 @@ extern t_curs	*g_b;
 void		ft_er_init(void)
 {
 	ft_printf("ncurses problem with memory");
-//	system("kill $(pgrep afplay) > 1 > 2 > /dev/null");
+	if (MUSIC == 1)
+		system("kill $(pgrep afplay) > /dev/null 2>&1");
 	exit(0);
 }
 
@@ -37,7 +38,8 @@ void		ft_check_size_win(void)
 	if (LINES < WIN_HEIGHT)
 	{
 		endwin();
-		ft_printf("%s\n", "Too small window height!!! Min height must be 70 LINES");
+		ft_printf("%s\n", "Too small window height!!! Min height must "
+						" be 70 LINES");
 		exit(0);
 	}
 }
@@ -50,8 +52,11 @@ void		exit_curse(void)
 {
 	delwin(g_b->win);
 	endwin();
-	// system("kill $(pgrep afplay)");
-	// system("kill $(pgrep afplay)");
+	if (MUSIC == 1)
+	{
+		system("kill $(pgrep afplay) > /dev/null 2>&1");
+		system("kill $(pgrep afplay) > /dev/null 2>&1");
+	}
 	free(g_b);
 	exit(0);
 }
@@ -60,8 +65,11 @@ void		exit_curse_main(void)
 {
 	delwin(g_b->win);
 	endwin();
-//	system("kill $(pgrep afplay)");
-//	system("kill $(pgrep afplay)");
+	if (MUSIC == 1)
+	{
+		system("kill $(pgrep afplay) > /dev/null 2>&1");
+		system("kill $(pgrep afplay) > /dev/null 2>&1");
+	}
 	free(g_b);
 }
 
@@ -71,7 +79,7 @@ void		pashalka(void)
 	int		y;
 	int		ret;
 	char	*line;
-	
+
 	y = 0;
 	fd = open("mp3/pas", O_RDONLY);
 	wattron(g_b->win, COLOR_PAIR(2));
@@ -79,12 +87,15 @@ void		pashalka(void)
 	{
 		if (ret == 0)
 			exit(0);
-		mvwprintw(g_b->win, y, 0,"%s", line);
+		mvwprintw(g_b->win, y, 0, "%s", line);
 		free(line);
 		y++;
 	}
 	close(fd);
 	wrefresh(g_b->win);
-	// system("kill $(pgrep afplay)");
-	// system("afplay mp3/mario.mp3");
+	if (MUSIC == 1)
+	{
+		system("kill $(pgrep afplay) > /dev/null 2>&1");
+		system("afplay mp3/mario.mp3");
+	}
 }

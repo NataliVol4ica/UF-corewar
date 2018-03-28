@@ -15,7 +15,8 @@ VMDENCNAMES = main_pic \
 			  make_players_bar \
 			  draw_map \
 			  init_curse \
-			  hotkey
+			  hotkey \
+			  swap_cursor
 
 VMCENCFILES = $(patsubst %, $(VMSRCDIR)/$(VMCMDENCDIR)/%.c, $(VMDENCNAMES))
 VMOENCFILES = $(patsubst %, $(ODIR)/$(VMCMDENCDIR)/%.o, $(VMDENCNAMES))

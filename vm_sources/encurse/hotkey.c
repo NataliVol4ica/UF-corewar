@@ -23,7 +23,7 @@ void	hotkey(void)
 {
 	if (g_b->key == 27)
 		exit_curse();
- 	if (g_b->key == 49 && g_b->sleep > 5000)
+	if (g_b->key == 49 && g_b->sleep > 5000)
 		g_b->sleep -= 5000;
 	if (g_b->key == 50 && g_b->sleep < 200000)
 		g_b->sleep += 10000;
@@ -37,7 +37,7 @@ void	hotkey(void)
 void	pause_key(void)
 {
 	g_b->pause = (g_b->pause == 0 ? 1 : 0);
-	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", g_b->pause == 0 ?
+	mvprintw(Y_BAR_SRT, X_BAR_SRT, "%s", g_b->pause == 0 ?
 			"** PAUSED ** " : "** STOPPED **");
 	g_b->key = 0;
 	while (g_b->key != 32)
@@ -46,7 +46,7 @@ void	pause_key(void)
 		hotkey();
 	}
 	g_b->pause = (g_b->pause == 0 ? 1 : 0);
-	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", g_b->pause == 0 ?
+	mvprintw(Y_BAR_SRT, X_BAR_SRT, "%s", g_b->pause == 0 ?
 			"** PAUSED ** " : "** STOPPED **");
 }
 
@@ -56,10 +56,10 @@ void	pause_key(void)
 
 void	readkey(void)
 {
- 	timeout(g_b->timeout);
+	timeout(g_b->timeout);
 	g_b->key = getch();
 	hotkey();
- 	if (g_b->key == 32)
+	if (g_b->key == 32)
 		pause_key();
 	usleep(g_b->sleep);
 	g_b->key = 0;

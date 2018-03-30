@@ -36,8 +36,6 @@ void	new_process(int pc, int playernum)
 	new_proc->secret_num = g_g.secret_var++;
 	*g_g.proc = new_proc;
 	parse_command(new_proc);
-	if (g_g.to_visualise ==1)
-		draw_new(new_proc->pc);
 }
 
 void	copy_process(int pc, t_process *proc)
@@ -60,9 +58,9 @@ void	copy_process(int pc, t_process *proc)
 	new_proc->secret_num = g_g.secret_var++;
 	*g_g.proc = new_proc;
 	parse_command(new_proc);
-	if (g_g.to_visualise ==1)
+	if (g_g.to_visualise == 1)
 		draw_new(new_proc->pc);
-	
+
 	if (TOCOMMENT)
 		ft_printf("NEW PROCESS #%d pc [%0.4d] |%0.2x|\n", new_proc->secret_num, new_proc->pc, g_g.field[new_proc->pc]);
 

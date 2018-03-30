@@ -68,8 +68,11 @@ typedef	struct	s_curs
 	int 		cycle;
 	uint32_t	sleep;
 	uint8_t		timeout;
-	int8_t 		*map;
+	int 		*map;
 	int16_t		*live;
+	int fd;/////////
+	int fd3;////////
+	int fd4;////////
 }				t_curs;
 
 /*

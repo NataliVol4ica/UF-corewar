@@ -66,10 +66,8 @@ void	run_cycle_step(void)
 		//ft_printf("prs#%d ind[%x] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
 		if (proc->sleep == 0)
 		{
-			//erase_old(proc->pc);
 			if (g_g.to_visualise)
 				erace_old(proc->pc);	
-			//	draw_new(proc->pc);
 			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc]);
 			//ft_printf("parsing ");
 			proc->func((void*)proc);

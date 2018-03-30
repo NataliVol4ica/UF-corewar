@@ -36,9 +36,9 @@ int		main(int ac, char **av)
 	set_players();
 	if (g_g.dump_cycle == 0)
 		print_field();
-	gen_processes();
 	if (g_g.to_visualise)
 		curse();
+	gen_processes();
 	while (1)
 	{
 		if (!*g_g.proc)
@@ -69,6 +69,9 @@ int		main(int ac, char **av)
 		pashalka();
 		exit_curse_main();
 	}
+	close(g_b->fd);
+	close(g_b->fd3);
+	close(g_b->fd4);
 	print_winner();
  	return (0);
 }

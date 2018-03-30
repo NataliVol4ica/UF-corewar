@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "encurse.h"
+#include <fcntl.h>
+#include <stdio.h>
 
 extern t_global	g_g;
 extern t_curs	*g_b;
@@ -50,12 +52,32 @@ void	pause_key(void)
 			"** PAUSED ** " : "** STOPPED **");
 }
 
+void	print_file(void)
+{
+	int i = -1;
+	while (++i < MEM_SIZE)
+	{
+		if (g_b->map[i] == 0)
+			dprintf(g_b->fd, " %c", '.');
+		else
+			dprintf(g_b->fd, " %d", g_b->map[i]);
+		if (i % 64 == 63)
+			dprintf(g_b->fd, "\n");
+	}
+	dprintf(g_b->fd, "\n");
+	dprintf(g_b->fd, "\n");
+	dprintf(g_b->fd, "\n");
+}
+
+
 /*
 *** Call from main
 */
 
 void	readkey(void)
 {
+	// if (g_g.total_cycle >=0 && g_g.total_cycle <= 2)
+	// 	print_file();
 	timeout(g_b->timeout);
 	g_b->key = getch();
 	hotkey();

@@ -41,6 +41,8 @@ int		main(int ac, char **av)
 	gen_processes();
 	while (1)
 	{
+		if (g_g.kill == 1)
+			g_g.kill = 0;
 		if (!*g_g.proc)
 			break;
 		if (g_g.to_visualise)

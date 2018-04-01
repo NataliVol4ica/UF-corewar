@@ -79,21 +79,12 @@ void	print_cursor(void)
 {
 	if (g_b->pl_nb >= 1)
 		draw_new(g_g.players[0].startpos);
-	// if (g_b->pl_nb >= 2)
-	// {
-	// 	g_b->map[g_g.players[1].startpos] = 1;
-	// 	swap_cursor(g_g.players[1].startpos);
-	// }
-	// if (g_b->pl_nb >= 3)
-	// {
-	// 	g_b->map[g_g.players[2].startpos] = 1;
-	// 	swap_cursor(g_g.players[2].startpos);
-	// }
-	// if (g_b->pl_nb == 4)
-	// {
-	// 	g_b->map[g_g.players[3].startpos] = 1;
-	// 	swap_cursor(g_g.players[3].startpos);
-	// }
+	if (g_b->pl_nb >= 2)
+		draw_new(g_g.players[1].startpos);
+	if (g_b->pl_nb >= 3)
+		draw_new(g_g.players[2].startpos);
+	if (g_b->pl_nb == 4)
+		draw_new(g_g.players[3].startpos);
 	wrefresh(g_b->win);
 	refresh();
 }

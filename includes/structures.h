@@ -67,6 +67,7 @@ typedef struct	s_global
 	int				cycle;
 	int				total_cycle;
 	int				secret_var;
+	int				kill;
 }				t_global;
 
 typedef struct	s_codes

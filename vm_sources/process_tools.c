@@ -91,6 +91,7 @@ void	free_proc(t_process *proc)
 		ft_printf("process #%d died :'(\n", proc->secret_num);
 	if (g_g.to_visualise)
 		erace_old(proc->pc);
+	g_g.kill = 1;
 	free(proc->registry);
 	free(proc);
 }

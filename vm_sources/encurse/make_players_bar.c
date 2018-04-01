@@ -33,7 +33,7 @@ static void	make_second_player(void)
 {
 	mvprintw(Y_BAR_PL2, X_BAR_SRT, "%s", "Player -2 : ");
 	attron(COLOR_PAIR(2));
-	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12, "%.38s", g_g.players[1].filename);
+	mvprintw(Y_BAR_PL2, X_BAR_SRT + 12, "%.38s", g_g.players[1].name);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL2LL, X_BAR_SCL, "%s", "Last live : ");
 	mvprintw(Y_BAR_PL2LIC, X_BAR_SCL, "%s", "Lives in current period : ");
@@ -43,7 +43,7 @@ static void	make_third_player(void)
 {
 	mvprintw(Y_BAR_PL3, X_BAR_SRT, "%s", "Player -3 : ");
 	attron(COLOR_PAIR(3));
-	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12, "%.38s", g_g.players[2].filename);
+	mvprintw(Y_BAR_PL3, X_BAR_SRT + 12, "%.38s", g_g.players[2].name);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL3LL, X_BAR_SCL, "%s", "Last live : ");
 	mvprintw(Y_BAR_PL3LIC, X_BAR_SCL, "%s", "Lives in current period : ");
@@ -53,7 +53,7 @@ static void	make_fifth_player(void)
 {
 	mvprintw(Y_BAR_PL4, X_BAR_SRT, "%s", "Player -4 : ");
 	attron(COLOR_PAIR(4));
-	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12, "%.38s", g_g.players[3].filename);
+	mvprintw(Y_BAR_PL4, X_BAR_SRT + 12, "%.38s", g_g.players[3].name);
 	attron(COLOR_PAIR(15));
 	mvprintw(Y_BAR_PL4LL, X_BAR_SCL, "%s", "Last live : ");
 	mvprintw(Y_BAR_PL4LIC, X_BAR_SCL, "%s", "Lives in current period : ");

@@ -78,6 +78,12 @@ void	readkey(void)
 {
 	// if (g_g.total_cycle >=0 && g_g.total_cycle <= 2)
 	// 	print_file();
+	if (g_g.kill == 1)
+	{
+		system("kill -SIGSTOP $(pgrep afplay) > /dev/null 2>&1");
+		system("afplay mp3/fire.mp3 > /dev/null 2>&1");
+		system("kill -SIGSTP $(pgrep afplay) > /dev/null 2>&1");
+	}
 	timeout(g_b->timeout);
 	g_b->key = getch();
 	hotkey();

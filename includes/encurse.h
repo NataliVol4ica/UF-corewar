@@ -56,7 +56,8 @@
 #define Y_BAR_NL 8
 #define Y_BAR_MCH 10
 
-#define MUSIC 0
+#define MUSIC 1
+#define TRECK 3s
 
 typedef	struct	s_curs
 {

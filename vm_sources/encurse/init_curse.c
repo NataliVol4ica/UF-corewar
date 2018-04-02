@@ -47,8 +47,12 @@ void	init_curs(void)
 	if (!(initscr()))
 		ft_er_init();
 	ft_check_size_win();
-	if (MUSIC == 1)
+	if (MUSIC == 1 && TRECK == 1)
 		system("afplay mp3/batle.mp3 &");
+	if (MUSIC == 1 && TRECK == 2)
+		system("afplay mp3/cs.mp3 &");
+	if (MUSIC == 1 && TRECK == 3)
+		system("afplay mp3/rk.mp3 &");
 	refresh();
 	start_color();  // Инициализация цветов
 	g_b->win = newwin(WIN_HEIGHT - 4, 194, 3, 3);

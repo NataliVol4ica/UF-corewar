@@ -66,7 +66,7 @@ _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip)
 	if (code == TREG)
 	{
 		*arg = get_int(proc->pc + *toskip, T_REG);
-		if (*arg >= REG_NUMBER)
+		if (*arg < 1 || *arg > REG_NUMBER)
 			return (0);
 		*toskip = *toskip + T_REG;
 	}

@@ -24,7 +24,7 @@ void			proc_zjump(void *data)
 	//if (proc->secret_num == 13)
 	//	ft_printf("yoyo %d\n", proc->carry);
 	//if (proc->secret_num == 13)
-	//	ft_printf("zjmp carry %d\n", proc->carry);
+	//ft_printf("zjmp carry %d\n", proc->carry);
 	if (proc->carry)
 		proc->pc = set_pos(proc->pc + (short)((get_int(proc->pc + 1, 2))) % IDX_MOD);
 	else

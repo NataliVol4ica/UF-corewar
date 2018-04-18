@@ -33,6 +33,8 @@ void	print_usage(void)
 	ft_printf("\tvisual mod\n");
 	ft_printf("    -l:\n");
 	ft_printf("\tturn on the logs\n");
+	ft_printf("    -n:\n");
+	ft_printf("\tcustom number of player\n");
 	ft_printf("NOTE: The total number of players must be between 1 and %d\n",
 		MAX_PLAYERS);
 	exit(0);

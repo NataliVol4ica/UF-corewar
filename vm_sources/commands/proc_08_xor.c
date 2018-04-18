@@ -37,6 +37,7 @@ void			proc_xor(void *data)
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip) ||
 		!parse_arg(cod_b.t[2], proc, &arg[2], &toskip))
 	{
+		print_move(proc, count_total_skip(cod_b, 1, 3, proc->label_size));
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
 		return ;
 	}
@@ -49,6 +50,7 @@ void			proc_xor(void *data)
 	else if (cod_b.t[1] == TIND)
 		arg[1] = get_int(proc->pc + (short)(arg[1]) % IDX_MOD, 4);
 	proc->registry[arg[2]] =  arg[0] ^ arg[1];
+	//ft_printf("xor %d %d operation result %d\n", arg[0], arg[1], proc->registry[arg[2]]);
 	if (proc->registry[arg[2]] == 0)
 		proc->carry = 1;
 	else

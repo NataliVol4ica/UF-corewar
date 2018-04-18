@@ -36,6 +36,7 @@ void			proc_load_long(void *data)
 	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip))
 	{
+		print_move(proc, count_total_skip(cod_b, 1, 2, proc->label_size));
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}

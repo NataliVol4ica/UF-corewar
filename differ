@@ -1,0 +1,55 @@
+1,2c1,5
+< Introducing contestants...
+< * Player 1, weighing 430 bytes, "bigzork" ("I know i cant win") !
+---
+>  || PARTICIPANTS: ||
+> =============// Player[1]
+> 	Name:    "bigzork"
+> 	Weight:   430
+> 	Comment: "®I know i cant win"
+2734c2737,2779
+< Contestant 1, "bigzork", has won !
+---
+> ADV 5 (0x00d9 -> 0x00de) 01 ff ff ff ff 
+> ADV 5 (0x00de -> 0x00e3) 01 ff ff ff ff 
+> ADV 5 (0x00e3 -> 0x00e8) 01 ff ff ff ff 
+> ADV 5 (0x00e8 -> 0x00ed) 01 ff ff ff ff 
+> ADV 5 (0x00ed -> 0x00f2) 01 ff ff ff ff 
+> ADV 5 (0x00f2 -> 0x00f7) 01 ff ff ff ff 
+> ADV 5 (0x00f7 -> 0x00fc) 01 ff ff ff ff 
+> ADV 5 (0x00fc -> 0x0101) 01 ff ff ff ff 
+> ADV 5 (0x0101 -> 0x0106) 01 ff ff ff ff 
+> ADV 5 (0x0106 -> 0x010b) 01 ff ff ff ff 
+> ADV 5 (0x010b -> 0x0110) 01 ff ff ff ff 
+> ADV 5 (0x0110 -> 0x0115) 01 ff ff ff ff 
+> ADV 5 (0x0115 -> 0x011a) 01 ff ff ff ff 
+> ADV 5 (0x011a -> 0x011f) 01 ff ff ff ff 
+> ADV 5 (0x011f -> 0x0124) 01 ff ff ff ff 
+> ADV 5 (0x0124 -> 0x0129) 01 ff ff ff ff 
+> ADV 5 (0x0129 -> 0x012e) 01 ff ff ff ff 
+> ADV 5 (0x012e -> 0x0133) 01 ff ff ff ff 
+> ADV 5 (0x0133 -> 0x0138) 01 ff ff ff ff 
+> ADV 5 (0x0138 -> 0x013d) 01 ff ff ff ff 
+> ADV 5 (0x013d -> 0x0142) 01 ff ff ff ff 
+> ADV 5 (0x0142 -> 0x0147) 01 ff ff ff ff 
+> ADV 5 (0x0147 -> 0x014c) 01 ff ff ff ff 
+> ADV 5 (0x014c -> 0x0151) 01 ff ff ff ff 
+> ADV 5 (0x0151 -> 0x0156) 01 ff ff ff ff 
+> ADV 5 (0x0156 -> 0x015b) 01 ff ff ff ff 
+> ADV 5 (0x015b -> 0x0160) 01 ff ff ff ff 
+> ADV 5 (0x0160 -> 0x0165) 01 ff ff ff ff 
+> ADV 5 (0x0165 -> 0x016a) 01 ff ff ff ff 
+> ADV 5 (0x016a -> 0x016f) 01 ff ff ff ff 
+> ADV 5 (0x016f -> 0x0174) 01 ff ff ff ff 
+> ADV 5 (0x0174 -> 0x0179) 01 ff ff ff ff 
+> ADV 5 (0x0179 -> 0x017e) 01 ff ff ff ff 
+> ADV 5 (0x017e -> 0x0183) 01 ff ff ff ff 
+> ADV 5 (0x0183 -> 0x0188) 01 ff ff ff ff 
+> ADV 5 (0x0188 -> 0x018d) 01 ff ff ff ff 
+> ADV 5 (0x018d -> 0x0192) 01 ff ff ff ff 
+> ADV 5 (0x0192 -> 0x0197) 01 ff ff ff ff 
+> ADV 5 (0x0197 -> 0x019c) 01 ff ff ff ff 
+> ADV 5 (0x019c -> 0x01a1) 01 ff ff ff ff 
+> ADV 5 (0x01a1 -> 0x01a6) 01 ff ff ff ff 
+> ADV 5 (0x01a6 -> 0x01ab) 01 ff ff ff ff 
+> Player 1 (bigzork) won.

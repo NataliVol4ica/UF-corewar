@@ -15,6 +15,7 @@
 #include "encurse.h"
 #include <stdlib.h>
 #include <ncurses.h>
+#include "vm.h"
 
 extern t_global	g_g;
 extern t_func	g_funcs[];
@@ -37,6 +38,8 @@ int		main(int ac, char **av)
 		print_field();
 	if (g_g.to_visualise)
 		curse();
+	else
+		print_participants();
 	gen_processes();
 	while (1)
 	{

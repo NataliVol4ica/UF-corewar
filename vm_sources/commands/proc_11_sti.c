@@ -38,6 +38,7 @@ void			proc_sti(void *data)
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip) ||
 		!parse_arg(cod_b.t[2], proc, &arg[2], &toskip))
 	{
+		print_move(proc, count_total_skip(cod_b, 1, 2, proc->label_size));
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		//if (proc->secret_num == 13)
 		//	ft_printf("sti failed2\n");

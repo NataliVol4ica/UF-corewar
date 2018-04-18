@@ -29,6 +29,7 @@ void			proc_load_long(void *data)
 	//ft_printf("field %#x : %b %b %b\n", get_field_val(proc->pc), cod_b.t[0], cod_b.t[1], cod_b.t[2]);
 	if ((cod_b.t[0] != TDIR && cod_b.t[0] != TIND) || cod_b.t[1] != TREG)
 	{
+		print_move(proc, count_total_skip(cod_b, 1, 2, proc->label_size));
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
@@ -46,5 +47,6 @@ void			proc_load_long(void *data)
 	else
 		proc->carry = 0;
 	//ft_printf("reg %d is %0.8x\n", arg[1], proc->registry[arg[1]]);
+	print_move(proc, toskip);
 	proc->pc = set_pos(proc->pc + toskip);
 }

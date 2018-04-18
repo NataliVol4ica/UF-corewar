@@ -28,6 +28,7 @@ void			proc_aff(void *data)
 	toskip += CODING_BYTE;
 	if (cod_b.t[0] != TREG)
 	{
+		print_move(proc, count_total_skip(cod_b, 1, 2, proc->label_size));
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
@@ -37,6 +38,7 @@ void			proc_aff(void *data)
 		return ;
 	}
 	ft_printf("%c\n", proc->registry[arg[0]]);
+	print_move(proc, toskip);
 	proc->pc = set_pos(proc->pc + 3);
-	proc->carry = 0;
+	//proc->carry = 0;
 }

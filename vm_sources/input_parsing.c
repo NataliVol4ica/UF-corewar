@@ -38,5 +38,10 @@ void	parse_input(int ac, char **av)
 		cur_arg++;
 		g_g.to_visualise = 1;
 	}
+	if (!ft_strcmp("-l", av[cur_arg]))
+	{
+		cur_arg++;
+		g_g.log_flag = 1;
+	}
 	read_players(cur_arg, ac, av);
 }

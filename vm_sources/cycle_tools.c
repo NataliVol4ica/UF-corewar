@@ -68,7 +68,8 @@ void	run_cycle_step(void)
 		{
 			if (g_g.to_visualise)
 				erace_old(proc->pc);	
-			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc]);
+			//if (proc->secret_num == 13)
+			//	ft_printf("cycle %0.3d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc]);
 			//ft_printf("parsing ");
 			proc->func((void*)proc);
 			if (TOCOMMENT)

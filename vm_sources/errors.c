@@ -24,8 +24,15 @@ void	mall_error(void)
 
 void	print_usage(void)
 {
-	ft_printf("Usage: ./corewar [-dump nbr_cycles]");
+	ft_printf("Usage: ./corewar [-dump nbr_cycles] [-v] [-l]");
 	ft_printf(" [[-n number] champion1.cor] ...\n");
+	ft_printf("   -dump:\n");
+	ft_printf("\tafter nbr_cycles of executions, dump the memory on ");
+	ft_printf("the standard output and quit the game\n");
+	ft_printf("    -v:\n");
+	ft_printf("\tvisual mod\n");
+	ft_printf("    -l:\n");
+	ft_printf("\tturn on the logs\n");
 	ft_printf("NOTE: The total number of players must be between 1 and %d\n",
 		MAX_PLAYERS);
 	exit(0);

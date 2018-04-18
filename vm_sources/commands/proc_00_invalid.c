@@ -20,5 +20,6 @@ void	proc_invalid(void *data)
 	t_process	*proc;
 
 	proc = (t_process*)data;
+	//print_move(proc, 1);
 	proc->pc = set_pos(proc->pc + 1);
 }

@@ -29,7 +29,6 @@ void	print_winner(void)
 
 int		main(int ac, char **av)
 {
-
 	parse_input(ac, av);
 	numerate_remaining_players();
 	validate_numeration();

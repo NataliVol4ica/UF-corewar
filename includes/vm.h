@@ -80,6 +80,7 @@ void	new_process(int pc, int playernum);
 void	copy_process(int pc, t_process *proc);
 void	gen_processes(void);
 void	free_proc(t_process *proc);
+void	print_move(t_process *proc, int toskip);
 
 /*
 ** FIELD TOOLS

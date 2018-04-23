@@ -75,6 +75,16 @@ static void	read_viravn(char *name, int fd)
 			invalid_champion(name);
 }
 
+static void	read_declared_player_size(char *name, int fd, t_champ *player)
+{
+	unsigned char	temp[2];
+	int		ret;
+	
+	if ((ret = read(fd, temp, 2)) < 2)
+		invalid_champion(name);
+	player->declared_player_size = (temp[0] << 8) + temp[1];
+}
+
 void		parse_player(char *name, t_champ *player)
 {
 	int		fd;
@@ -88,8 +98,9 @@ void		parse_player(char *name, t_champ *player)
 		PROG_NAME_LENGTH)
 		invalid_champion(name);
 	read_viravn(name, fd);
-	if ((ret = read(fd, player->comment, COMMENT_LENGTH)) <
-		COMMENT_LENGTH)
+	read_declared_player_size(name, fd, player);
+	if ((ret = read(fd, player->comment, COMMENT_LENGTH - 2)) <
+		COMMENT_LENGTH - 2)
 		invalid_champion(name);
 	read_viravn(name, fd);
 	if ((ret = read(fd, player->field, CHAMP_MAX_SIZE)) < 0)
@@ -97,5 +108,7 @@ void		parse_player(char *name, t_champ *player)
 	player->field_size = ret;
 	if ((ret = read(fd, temp, 1)) > 0)
 		invalid_champion(name);
+	if (player->field_size != player->declared_player_size)
+		invalid_champ_length(name);
 	close(fd);
 }

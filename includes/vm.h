@@ -106,6 +106,7 @@ void	invalid_flag(char *str);
 void	not_a_champion(char *str);
 void	invalid_palyer_index(char *str);
 void	invalid_champion(char *str);
+void	invalid_champ_length(char *str);
 void	file_error(char *filename);
 
 #endif

@@ -80,7 +80,6 @@ void		parse_player(char *name, t_champ *player)
 	int		fd;
 	int		ret;
 	char	temp[1];
-	int		i;
 
 	if ((fd = open(name, O_RDONLY)) < 0)
 		file_error(name);

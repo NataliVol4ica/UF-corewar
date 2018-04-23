@@ -37,7 +37,6 @@ int				set_pos(int pos)
 static int		get_two_bits(int pos, int from)
 {
 	int t;
-	int	i;
 
 	t = get_field_val(pos);
 	t = t << from;

@@ -21,7 +21,6 @@ extern t_curs *g_b;
 
 static void	alloc_players(void)
 {
-	int	i;
 	int	j;
 
 	j = -1;

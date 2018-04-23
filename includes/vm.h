@@ -94,6 +94,7 @@ int		count_total_skip(t_codes c_b, _Bool has_coding, int numofargs, int td);
 int		get_int(int pos, int len);
 void	set_int(int pos, int len, UINT val, int playernum);
 _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip);
+void	print_participants(void);
 
 /*
 ** ERRORS

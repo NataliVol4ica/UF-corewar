@@ -28,7 +28,7 @@ void	proc_live(void *data)
 	l = -(l + 1);
 	print_move(proc, 5);
 	proc->pc = set_pos(proc->pc + 5);
-	if (l >= g_g.num_of_players)
+	if (l >= (unsigned int)g_g.num_of_players)
 		return ;
 	if (!g_g.to_visualise && !g_g.log_flag)
 	{

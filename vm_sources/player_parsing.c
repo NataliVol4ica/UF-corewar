@@ -49,14 +49,14 @@ static void	parse_magic_number(char *name, int fd)
 {
 	int		ret;
 	long	magic_number;
-	char	buf[4];
+	unsigned char	buf[4];
 
 	if ((ret = read(fd, buf, 4)) < 4)
 		not_a_champion(name);
-	magic_number = (unsigned char)buf[3] +
-					((unsigned char)buf[2] << 8) +
-					((unsigned char)buf[1] << 16) +
-					((unsigned char)buf[0] << 24);
+	magic_number = buf[3] +
+				(buf[2] << 8) +
+				(buf[1] << 16) +
+				(buf[0] << 24);
 	if (magic_number != COREWAR_EXEC_MAGIC)
 		not_a_champion(name);
 }

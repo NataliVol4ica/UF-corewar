@@ -43,20 +43,20 @@ void			proc_ldi(void *data)
 	//ft_printf("P%5d | ldi ", proc->secret_num + 1);
 	if (cod_b.t[0] == TREG)
 	{
-	//	ft_printf("r%d ", arg[0]);
 		arg[0] = proc->registry[arg[0]];
+	//	ft_printf("%d ", arg[0]);
 	}
 	else if (cod_b.t[0] == TIND)
 	{
 	//	ft_printf("%d ", arg[0]);
 		arg[0] = get_int(proc->pc + (short)(arg[0]) % IDX_MOD, 4);
 	}
-	else
+	//else
 	//	ft_printf("%d ", arg[0]);
 	if (cod_b.t[1] == TREG)
 	{
-	//	ft_printf("r%d ", arg[1]);
 		arg[1] = proc->registry[arg[1]];
+	//	ft_printf("%d ", arg[1]);
 	}
 	//else
 	//	ft_printf("%d ", arg[1]);

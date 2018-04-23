@@ -56,12 +56,11 @@ void			proc_sti(void *data)
 	}
 	else if (cod_b.t[1] == TIND)
 	{
-			arg[1] = get_int(proc->pc + (short)(arg[1]) % IDX_MOD, 4);
-	//		ft_printf("%d ", arg[1]);
+		arg[1] = get_int(proc->pc + (short)(arg[1]) % IDX_MOD, 4);
+		//ft_printf("%d ", arg[1]);
 	}
-	else
+	//else
 	//	ft_printf("%d ", arg[1]);
-	
 	if (cod_b.t[2] == TREG)
 	{
 		arg[2] = proc->registry[arg[2]];

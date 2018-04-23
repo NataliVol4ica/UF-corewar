@@ -58,8 +58,7 @@ void			proc_load(void *data)
 	{
 		arg[0] = get_int(proc->pc + ((short)(arg[0]) % IDX_MOD), 4);
 	}
-	//else
-	//	ft_printf("%d", arg[0]);
+	//ft_printf("%d", arg[0]);
 	proc->registry[arg[1]] = arg[0];
 	if (proc->registry[arg[1]] == 0)
 		proc->carry = 1;

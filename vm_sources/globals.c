@@ -18,9 +18,9 @@ t_func		g_funcs[] =
 {
 	{0x01, &proc_live, 10, 4},
 	{0x02, &proc_load, 5, 4},
-	{0x03, &proc_store, 5, 0},
-	{0x04, &proc_add, 10, 0},
-	{0x05, &proc_sub, 10, 0},
+	{0x03, &proc_store, 5, 4},
+	{0x04, &proc_add, 10, 4},
+	{0x05, &proc_sub, 10, 4},
 	{0x06, &proc_and, 6, 4},
 	{0x07, &proc_or, 6, 4},
 	{0x08, &proc_xor, 6, 4},
@@ -31,5 +31,5 @@ t_func		g_funcs[] =
 	{0x0d, &proc_load_long, 10, 4},
 	{0x0e, &proc_ldi_long, 50, 2},
 	{0x0f, &proc_fork_long, 1000, 2},
-	{0x10, &proc_aff, 2, 0}
+	{0x10, &proc_aff, 2, 4}
 };

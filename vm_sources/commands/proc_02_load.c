@@ -53,19 +53,22 @@ void			proc_load(void *data)
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
-	//ft_printf("P%5d | ld ", proc->secret_num + 1);
+	if (TOCOMMENT)
+		ft_printf("P%5d | ld ", proc->secret_num + 1);
 	if (cod_b.t[0] == TIND)
 	{
 		arg[0] = get_int(proc->pc + ((short)(arg[0]) % IDX_MOD), 4);
 	}
-	//ft_printf("%d", arg[0]);
+	if (TOCOMMENT)
+		ft_printf("%d", arg[0]);
 	proc->registry[arg[1]] = arg[0];
 	if (proc->registry[arg[1]] == 0)
 		proc->carry = 1;
 	else
 		proc->carry = 0;
-	//ft_printf(" r%d\n", arg[1]);
-	//ft_printf("reg %d is %0.8x\n", arg[1], proc->registry[arg[1]]);
+	if (TOCOMMENT)
+		ft_printf(" r%d\n", arg[1]);
+//	ft_printf("reg %d is %0.8x\n", arg[1], proc->registry[arg[1]]);
 	print_move(proc, toskip);
 	proc->pc = set_pos(proc->pc + toskip);
 }

@@ -68,15 +68,15 @@ void	run_cycle_step(void)
 		{
 			if (g_g.to_visualise)
 				erace_old(proc->pc);	
-			//if (proc->secret_num == 13)
-			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x| proc %d\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc], proc->secret_num);
+			//if (proc->secret_num == 91)
+			//	ft_printf("cycle %0.3d pc [%0.4d] |%0.2x| proc %d\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc], proc->secret_num);
 			//ft_printf("proc %d carry %d\n", proc->secret_num, proc->carry);
 			//for (int i = 0; i < 15; i++)
 			//	ft_printf("%d ", proc->registry[i]);
 			//ft_printf("\n");
 			proc->func((void*)proc);
-			if (TOCOMMENT)
-				ft_printf("cycle %0.3d proc #%0.2d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->secret_num, proc->pc, g_g.field[proc->pc]);
+			//if (TOCOMMENT)
+			//	ft_printf("cycle %0.3d proc #%0.2d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->secret_num, proc->pc, g_g.field[proc->pc]);
 			parse_command(proc);
 			if (g_g.to_visualise)
 				draw_new(proc->pc);

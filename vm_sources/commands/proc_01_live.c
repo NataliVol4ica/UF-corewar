@@ -24,7 +24,8 @@ void	proc_live(void *data)
 	proc->live++;
 	g_g.period_lives++;
 	l = get_int(proc->pc + 1, 4);
-	//ft_printf("P%5d | live %d\n", proc->secret_num + 1, l);
+	if (TOCOMMENT)
+		ft_printf("P%5d | live %d\n", proc->secret_num + 1, l);
 	l = -(l + 1);
 	print_move(proc, 5);
 	proc->pc = set_pos(proc->pc + 5);

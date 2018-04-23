@@ -20,7 +20,8 @@ void			proc_zjump(void *data)
 	t_process	*proc;
 
 	proc = (t_process*)data;
-	//ft_printf("P%5d | zjmp %d %s\n", proc->secret_num + 1, (short)((get_int(proc->pc + 1, 2))) % IDX_MOD, proc->carry ? "OK" : "FAILED");
+	if (TOCOMMENT)
+		ft_printf("P%5d | zjmp %d %s\n", proc->secret_num + 1, (short)((get_int(proc->pc + 1, 2))), proc->carry ? "OK" : "FAILED");
 	//ft_printf("proc %d. carry %d\n", proc->secret_num, proc->carry);
 	//if (proc->secret_num == 13)
 	//ft_printf("zjmp carry %d\n", proc->carry);

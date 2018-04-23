@@ -88,6 +88,7 @@ void	run_cycle_step(void)
 
 void	ctd_check(void)
 {
+	g_g.checks++;
 	if (g_g.period_lives >= NBR_LIVE || g_g.checks == MAX_CHECKS)
 	{
 		g_g.cycle_to_die -= CYCLE_DELTA;
@@ -98,6 +99,4 @@ void	ctd_check(void)
 		//cycle to die //checks
 		return ;
 	}
-	g_g.checks++;
-	//chechs
 }

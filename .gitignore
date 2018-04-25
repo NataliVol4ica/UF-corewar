@@ -5,3 +5,6 @@ libft/libft.a
 corewar
 *.o
 *~
+log
+mylog
+differ

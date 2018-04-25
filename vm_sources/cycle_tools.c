@@ -63,24 +63,16 @@ void	run_cycle_step(void)
 	while (proc)
 	{
 		proc->sleep--;
-		//ft_printf("prs#%d ind[%x] pos %0.4d(%0.2x) sleep %d\n", i, proc->registry[0], proc->pc, g_g.field[proc->pc], proc->sleep);
 		if (proc->sleep == 0)
 		{
 			if (g_g.to_visualise)
 				erace_old(proc->pc);	
-			//if (proc->secret_num == 13)
-			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x| proc %d\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc], proc->secret_num);
-			//ft_printf("proc %d carry %d\n", proc->secret_num, proc->carry);
-			//for (int i = 0; i < 15; i++)
-			//	ft_printf("%d ", proc->registry[i]);
-			//ft_printf("\n");
+			//if (proc->secret_num == 91)
+			//	ft_printf("cycle %0.3d pc [%0.4d] |%0.2x| proc %d\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc], proc->secret_num);
 			proc->func((void*)proc);
-			if (TOCOMMENT)
-				ft_printf("cycle %0.3d proc #%0.2d pc [%0.4d] |%0.2x|\n", g_g.total_cycle + 1, proc->secret_num, proc->pc, g_g.field[proc->pc]);
 			parse_command(proc);
 			if (g_g.to_visualise)
 				draw_new(proc->pc);
-			//ft_printf("finished\n");
 		}
 		proc = proc->next;
 	}
@@ -96,7 +88,6 @@ void	ctd_check(void)
 			g_g.cycle_to_die = 1;
 		g_g.checks = 0;
 		g_g.period_lives = 0;
-		//cycle to die //checks
 		return ;
 	}
 }

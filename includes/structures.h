@@ -33,6 +33,7 @@ typedef struct	s_champ
 	unsigned char	*field;
 	int				field_size;
 	int				startpos;
+	int				declared_player_size;
 }				t_champ;
 
 typedef struct	s_process

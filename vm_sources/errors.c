@@ -66,6 +66,11 @@ void	invalid_champion(char *str)
 	exit(0);
 }
 
+void	invalid_champ_length(char *str)
+{
+	ft_printf("Error: File %s has a code size that differ from what its header says.\n", str);
+	exit(0);
+}
 void	file_error(char *filename)
 {
 	ft_printf("\"%s\": %s\n", filename, strerror(errno));

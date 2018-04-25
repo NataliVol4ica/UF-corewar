@@ -28,6 +28,7 @@ void			proc_add(void *data)
 	toskip += CODING_BYTE;
 	if (cod_b.t[0] != TREG || cod_b.t[1] != TREG || cod_b.t[2] != TREG)
 	{
+		//ft_printf("total skip %d\n", count_total_skip(cod_b, 1, 3, proc->label_size));
 		print_move(proc, count_total_skip(cod_b, 1, 3, proc->label_size));
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
 		return ;
@@ -41,7 +42,8 @@ void			proc_add(void *data)
 		return ;
 	}
 	proc->registry[arg[2]] = proc->registry[arg[0]] + proc->registry[arg[1]];
-	//ft_printf("P%5d | add r%d r%d r%d\n", proc->secret_num + 1, arg[0], arg[1], arg[2]);
+	if (TOCOMMENT)
+		ft_printf("P%5d | add r%d r%d r%d\n", proc->secret_num + 1, arg[0], arg[1], arg[2]);
 	if (proc->registry[arg[2]] == 0)
 		proc->carry = 1;
 	else

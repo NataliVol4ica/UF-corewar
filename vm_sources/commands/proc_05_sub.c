@@ -42,7 +42,8 @@ void			proc_sub(void *data)
 		return ;
 	}
 	proc->registry[arg[2]] = proc->registry[arg[0]] - proc->registry[arg[1]];
-	//ft_printf("P%5d | sub r%d r%d r%d\n", proc->secret_num + 1, arg[0], arg[1], arg[2]);
+	if (TOCOMMENT)
+		ft_printf("P%5d | sub r%d r%d r%d\n", proc->secret_num + 1, arg[0], arg[1], arg[2]);
 	if (proc->registry[arg[2]] == 0)
 		proc->carry = 1;
 	else

@@ -21,7 +21,8 @@ void			proc_fork(void *data)
 
 	proc = (t_process*)data;
 	copy_process(proc->pc + ((short)(get_int(proc->pc + 1, 2)) % IDX_MOD), proc);
-	//ft_printf("P%5d | fork %d (%d)\n", proc->secret_num + 1, (short)get_int(proc->pc + 1, 2), proc->pc + ((short)(get_int(proc->pc + 1, 2)) % IDX_MOD));
+	if (TOCOMMENT)
+		ft_printf("P%5d | fork %d (%d)\n", proc->secret_num + 1, (short)get_int(proc->pc + 1, 2), proc->pc + ((short)(get_int(proc->pc + 1, 2)) % IDX_MOD));
 	print_move(proc, 3);
 	proc->pc = set_pos(proc->pc + 3);
 }

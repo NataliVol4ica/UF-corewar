@@ -40,10 +40,20 @@ void			proc_store(void *data)
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
+	if (TOCOMMENT)
+		ft_printf("P%5d | st r%d %d\n", proc->secret_num + 1, arg[0], arg[1]);
 	if (cod_b.t[1] == TREG)
+	{
+		//if (TOCOMMENT)
+		//	ft_printf("r%d\n", arg[1]);
 		proc->registry[arg[1]] = proc->registry[arg[0]];
+	}
 	else
+	{
+		//if (TOCOMMENT)
+		//	ft_printf("%d\n", arg[1]);
 		set_int(proc->pc + ((short)(arg[1]) % IDX_MOD), 4, proc->registry[arg[0]], proc->index);
+	}
 	print_move(proc, toskip);
 	proc->pc = set_pos(proc->pc + toskip);
 }

@@ -65,7 +65,7 @@ void		print_field(void)
 		if (i % 64 == 63)
 			ft_printf("\n");
 	}
-	if (!TOCOMMENT)
+	/*if (!TOCOMMENT)
 		exit (0);		
 	ft_printf("processes : %d\n", g_g.num_of_processes);
 	t_process *p;		
@@ -75,6 +75,6 @@ void		print_field(void)
 	{
 		ft_printf("[%d] at |%d|\n", i++, p->pc);
 		p = p->next;
-	}
+	}*/
 	exit(0);
 }

@@ -21,24 +21,24 @@ extern t_curs	*g_b;
 
 void	colors(void)
 {
-	init_color(COLOR_CYAN, 300, 300, 300);
-	init_pair(1,  COLOR_GREEN,   COLOR_BLACK);
+	init_color(COLOR_WHITE, 300, 300, 300);
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(21, COLOR_BLACK, COLOR_GREEN);
 	init_pair(31, COLOR_WHITE, COLOR_GREEN);
-	init_pair(2,  COLOR_RED,     COLOR_BLACK);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
 	init_pair(22, COLOR_BLACK, COLOR_RED);
 	init_pair(32, COLOR_WHITE, COLOR_RED);
-	init_pair(3,  COLOR_YELLOW,  COLOR_BLACK);
+	init_pair(3, COLOR_YELLOW, COLOR_BLACK);
 	init_pair(23, COLOR_BLACK, COLOR_YELLOW);
 	init_pair(33, COLOR_WHITE, COLOR_YELLOW);
-	init_pair(4,  COLOR_BLUE,    COLOR_BLACK);
+	init_pair(4, COLOR_BLUE, COLOR_BLACK);
 	init_pair(24, COLOR_BLACK, COLOR_BLUE);
 	init_pair(34, COLOR_WHITE, COLOR_BLUE);
-	init_pair(14, COLOR_CYAN, COLOR_BLACK);
-	init_pair(41, COLOR_BLACK, COLOR_CYAN);
+	init_pair(14, COLOR_WHITE, COLOR_BLACK);
+	init_pair(41, COLOR_BLACK, COLOR_WHITE);
 	init_pair(15, COLOR_WHITE, COLOR_BLACK);
 	init_pair(17, COLOR_BLACK, COLOR_BLACK);
-	init_pair(18, COLOR_CYAN, COLOR_CYAN);
+	init_pair(18, COLOR_WHITE, COLOR_WHITE);
 }
 
 void	init_curs(void)
@@ -53,8 +53,9 @@ void	init_curs(void)
 		system("afplay mp3/cs.mp3 &");
 	if (MUSIC == 1 && TRECK == 3)
 		system("afplay mp3/rk.mp3 &");
-	refresh();
 	start_color();
+	keypad(stdscr, TRUE);
+	nodelay(g_b->win, FALSE);
 	g_b->win = newwin(WIN_HEIGHT - 4, 194, 3, 3);
 	colors();
 	curs_set(0);
@@ -65,7 +66,7 @@ void	init_curs(void)
 	wattron(g_b->win, COLOR_PAIR(14));
 	make_bar();
 	print_cursor();
- 	refresh();
+	refresh();
 	wrefresh(g_b->win);
 }
 
@@ -83,6 +84,6 @@ void	curse(void)
 		hotkey();
 	}
 	g_b->pause = (g_b->pause == 0 ? 1 : 0);
-	mvprintw(Y_BAR_SRT, X_BAR_SRT,"%s", g_b->pause == 0 ?
-			"** PAUSED ** " : "** STOPPED **");
+	mvprintw(Y_BAR_SRT, X_BAR_SRT, "%s", g_b->pause == 0 ?
+			"** PAUSED ** " : "** RUNNING **");
 }

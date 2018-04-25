@@ -51,7 +51,6 @@ void		init_globals(void)
 	MALL(g_b->live = (int16_t *)ft_memalloc(sizeof(int16_t) * MAX_PLAYERS));
 	g_b->sleep = 1;
 	g_b->timeout = 1;
-	g_b->fd = open("02", O_RDWR);
 	MALL(g_g.live = (int*)ft_memalloc(sizeof(int) * MAX_PLAYERS));
 	*g_g.proc = NULL;
 	g_g.period_lives = 0;

@@ -1,5 +1,5 @@
 /* ************************************************************************** */
-/*	                                                                        */
+/*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   main_pic.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -52,22 +52,22 @@ void	make_bar(void)
 {
 	attron(COLOR_PAIR(15) | A_BOLD);
 	mvprintw(Y_BAR_SRT, X_BAR_SRT, "%s", "** PAUSED ** ");
-	mvprintw(Y_BAR_SECL, X_BAR_SRT, "%s %d", "Cycles/second limit : ",
+	mvprintw(Y_BAR_SECL, X_BAR_SRT, "%s %d  ", "Cycles/second limit : ",
 											g_b->sleep);
-	mvprintw(Y_BAR_CYCL, X_BAR_SRT, "%s  %d", "Total cycle :",
+	mvprintw(Y_BAR_CYCL, X_BAR_SRT, "%s  %d  ", "Total cycle :",
 											g_g.total_cycle);
-	mvprintw(Y_BAR_CYCL + 2, X_BAR_SRT, "%s %d", "Cycle :       ",
+	mvprintw(Y_BAR_CYCL + 2, X_BAR_SRT, "%s %d  ", "Cycle :       ",
 											g_g.total_cycle);
-	mvprintw(Y_BAR_PROC, X_BAR_SRT, "%s   %d", "Processes : ",
+	mvprintw(Y_BAR_PROC, X_BAR_SRT, "%s   %d  ", "Processes : ",
 											g_g.num_of_processes);
 	show_players();
 	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT, "%s%d ", "CYCLE_TO_DIE : ",
 														CYCLE_TO_DIE);
-	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT, "%s %d", "CYCLE_DELTA : ",
+	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT, "%s %d ", "CYCLE_DELTA : ",
 														CYCLE_DELTA);
 	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT, "%s %d   ", "NBR_LIVE :    ",
 														NBR_LIVE);
-	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT, "%s  %d", "MAX_CHECKS : ",
+	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT, "%s  %d ", "MAX_CHECKS : ",
 														MAX_CHECKS);
 }
 
@@ -102,9 +102,9 @@ void	redraw_bar(void)
 {
 	refresh();
 	attron(COLOR_PAIR(15) | A_BOLD);
-	mvprintw(Y_BAR_SECL, X_BAR_SRT + 23, "%d ", g_b->sleep);
-	mvprintw(Y_BAR_CYCL, X_BAR_SRT + 14, " %d", g_g.total_cycle);
-	mvprintw(Y_BAR_CYCL + 2, X_BAR_SRT + 14, " %d  ", g_g.cycle);
+	mvprintw(Y_BAR_SECL, X_BAR_SRT + 23, "%d   ", g_b->sleep);
+	mvprintw(Y_BAR_CYCL, X_BAR_SRT + 14, " %d    ", g_g.total_cycle);
+	mvprintw(Y_BAR_CYCL + 2, X_BAR_SRT + 14, " %d   ", g_g.cycle);
 	if (g_b->pl_nb >= 1)
 	{
 		mvprintw(Y_BAR_PL1LL, X_BAR_SCL + 26, "%d  ", g_b->live[0]);
@@ -125,14 +125,14 @@ void	redraw_bar(void)
 		mvprintw(Y_BAR_PL4LL, X_BAR_SCL + 26, "%d    ", g_b->live[3]);
 		mvprintw(Y_BAR_PL4LIC, X_BAR_SCL + 26, "%d     ", g_g.live[3]);
 	}
-	mvprintw(Y_BAR_PROC, X_BAR_SRT + 15, "%d", g_g.num_of_processes);
-	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT + 15, "%d ",
+	mvprintw(Y_BAR_PROC, X_BAR_SRT + 15, "%d    ", g_g.num_of_processes);
+	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT + 15, "%d    ",
 				g_g.cycle_to_die);
-	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT + 15, "%d "
+	mvprintw(g_b->bar_y_st + Y_BAR_CDEL, X_BAR_SRT + 15, "%d    "
 			, CYCLE_DELTA);
-	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT + 15, "%d ",
+	mvprintw(g_b->bar_y_st + Y_BAR_NL, X_BAR_SRT + 15, "%d    ",
 			NBR_LIVE);
-	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT + 14, " %d  ",
+	mvprintw(g_b->bar_y_st + Y_BAR_MCH, X_BAR_SRT + 14, " %d   ",
 			MAX_CHECKS - g_g.checks);
 	wrefresh(g_b->win);
 }

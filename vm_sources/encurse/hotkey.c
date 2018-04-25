@@ -40,7 +40,7 @@ void	pause_key(void)
 {
 	g_b->pause = (g_b->pause == 0 ? 1 : 0);
 	mvprintw(Y_BAR_SRT, X_BAR_SRT, "%s", g_b->pause == 0 ?
-			"** PAUSED ** " : "** STOPPED **");
+			"** PAUSED ** " : "** RUNNING **");
 	g_b->key = 0;
 	while (g_b->key != 32)
 	{
@@ -49,24 +49,7 @@ void	pause_key(void)
 	}
 	g_b->pause = (g_b->pause == 0 ? 1 : 0);
 	mvprintw(Y_BAR_SRT, X_BAR_SRT, "%s", g_b->pause == 0 ?
-			"** PAUSED ** " : "** STOPPED **");
-}
-
-void	print_file(void)
-{
-	int i = -1;
-	while (++i < MEM_SIZE)
-	{
-		if (g_b->map[i] == 0)
-			dprintf(g_b->fd, " %c", '.');
-		else
-			dprintf(g_b->fd, " %d", g_b->map[i]);
-		if (i % 64 == 63)
-			dprintf(g_b->fd, "\n");
-	}
-	dprintf(g_b->fd, "\n");
-	dprintf(g_b->fd, "\n");
-	dprintf(g_b->fd, "\n");
+			"** PAUSED ** " : "** RUNNING **");
 }
 
 /*
@@ -75,11 +58,7 @@ void	print_file(void)
 
 void	readkey(void)
 {
-	int pause;
-
-	pause = 0;
-	// if (g_g.total_cycle >=0 && g_g.total_cycle <= 2)
-	// 	print_file();
+	usleep(1000000 / g_b->sleep);
 	if (g_g.kill == 1)
 	{
 		system("kill -SIGSTOP $(pgrep afplay) > /dev/null 2>&1");
@@ -91,7 +70,5 @@ void	readkey(void)
 	hotkey();
 	if (g_b->key == 32)
 		pause_key();
-	pause = 1000000 / g_b->sleep;
-	usleep(pause);
 	g_b->key = 0;
 }

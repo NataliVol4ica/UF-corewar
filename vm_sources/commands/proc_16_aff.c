@@ -37,7 +37,8 @@ void			proc_aff(void *data)
 		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 2, proc->label_size));
 		return ;
 	}
-	ft_printf("%c\n", proc->registry[arg[0]]);
+	if (!g_g.to_visualise && !g_g.log_flag)
+		ft_printf("%c\n", proc->registry[arg[0]]);
 	print_move(proc, toskip);
 	proc->pc = set_pos(proc->pc + 3);
 	//proc->carry = 0;

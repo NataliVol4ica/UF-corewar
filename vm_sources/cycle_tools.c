@@ -53,12 +53,23 @@ void	you_gonna_die_bitch(void)
 		g_g.live[i] = 0;
 }
 
-void	run_cycle_step(void)
+void	parse_commands(void)
 {
-	int			i;
 	t_process	*proc;
 	
-	i = 0;
+	proc = *g_g.proc;
+	while (proc)
+	{
+		if (!proc->func)
+			parse_command(proc);
+		proc = proc->next;
+	}
+}
+
+void	run_cycle_step(void)
+{
+	t_process	*proc;
+	
 	proc = *g_g.proc;
 	while (proc)
 	{
@@ -67,15 +78,15 @@ void	run_cycle_step(void)
 		{
 			if (g_g.to_visualise)
 				erace_old(proc->pc);	
-			//if (proc->secret_num == 91)
-			//	ft_printf("cycle %0.3d pc [%0.4d] |%0.2x| proc %d\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc], proc->secret_num);
+			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x| proc %d\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc], proc->secret_num);
 			proc->func((void*)proc);
-			parse_command(proc);
+			proc->func = NULL;
 			if (g_g.to_visualise)
 				draw_new(proc->pc);
 		}
 		proc = proc->next;
 	}
+	parse_commands();
 }
 
 void	ctd_check(void)

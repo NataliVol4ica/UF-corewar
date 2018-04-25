@@ -23,8 +23,8 @@ extern t_curs	*g_b;
 
 void	print_winner(void)
 {
-	ft_printf("Player %d ", g_g.last_live + 1);
-	ft_printf("(%s) won.\n", g_g.players[g_g.last_live].name);
+	ft_printf("Contestant %d, ", g_g.last_live + 1);
+	ft_printf("\"%s\", has won !\n", g_g.players[g_g.last_live].name);
 	exit(0);
 }
 
@@ -48,25 +48,22 @@ int		main(int ac, char **av)
 		if (!*g_g.proc)
 			break;
 		if (g_g.to_visualise)
-			++g_b->cycle/* += 1*/;
-		//ft_printf("====|| cycle %0.4d \n", total_cycle);
+			++g_b->cycle;
+
 		run_cycle_step();
+		g_g.cycle++;
+		g_g.total_cycle++;
 		if (g_g.cycle == g_g.cycle_to_die)
 		{
-			//ft_printf("cycle %d ctdie %d\n", cycle, g_g.cycle_to_die);
 			g_g.cycle = 0;
 			you_gonna_die_bitch();
 			ctd_check();
 			g_g.period_lives = 0;
 		}
-		g_g.cycle++;
-		g_g.total_cycle++;
 		if (g_g.total_cycle == g_g.dump_cycle)
 			print_field();
 		if (g_g.to_visualise)
 			readkey();
-		//if (total_cycle == 1500)
-		//	exit(0);
 	}
 	if (g_g.to_visualise)
 	{

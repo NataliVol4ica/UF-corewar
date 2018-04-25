@@ -25,10 +25,10 @@ void	hotkey(void)
 {
 	if (g_b->key == 27)
 		exit_curse();
-	if (g_b->key == 49 && g_b->sleep > 5000)
-		g_b->sleep -= 5000;
-	if (g_b->key == 50 && g_b->sleep < 200000)
-		g_b->sleep += 10000;
+	if (g_b->key == 49 && g_b->sleep > 5)
+		g_b->sleep -= 5;
+	if (g_b->key == 50 && g_b->sleep < 200)
+		g_b->sleep += 5;
 	redraw_bar();
 }
 
@@ -69,19 +69,21 @@ void	print_file(void)
 	dprintf(g_b->fd, "\n");
 }
 
-
 /*
 *** Call from main
 */
 
 void	readkey(void)
 {
+	int pause;
+
+	pause = 0;
 	// if (g_g.total_cycle >=0 && g_g.total_cycle <= 2)
 	// 	print_file();
 	if (g_g.kill == 1)
 	{
 		system("kill -SIGSTOP $(pgrep afplay) > /dev/null 2>&1");
-		system("afplay mp3/fire.mp3 > /dev/null 2>&1");
+		system("afplay mp3/fire.mp3 & > /dev/null 2>&1");
 		system("kill -SIGSTP $(pgrep afplay) > /dev/null 2>&1");
 	}
 	timeout(g_b->timeout);
@@ -89,6 +91,7 @@ void	readkey(void)
 	hotkey();
 	if (g_b->key == 32)
 		pause_key();
-	usleep(g_b->sleep);
+	pause = 1000000 / g_b->sleep;
+	usleep(pause);
 	g_b->key = 0;
 }

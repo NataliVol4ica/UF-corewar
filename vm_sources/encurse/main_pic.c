@@ -89,11 +89,9 @@ void	print_cursor(void)
 	refresh();
 }
 
-
-
 void	call_me_baby_i_am_alive(int index)
 {
-	g_b->live[index] = g_g.total_cycle;
+	g_b->live[index] = g_g.total_cycle + 1;
 }
 
 /*
@@ -138,82 +136,3 @@ void	redraw_bar(void)
 			MAX_CHECKS - g_g.checks);
 	wrefresh(g_b->win);
 }
-
-/*
-void	swap_cursor(int index)
-{
-	int res;
-
-//	refresh();
-	res = mvwinch(g_b->win, index / 64, (index % 64) * 3 + 1) & A_COLOR;
-
-	if (res == COLOR_PAIR(1))
-		swap_two_col(1, index);
-	// {
-	// 	if (g_g.field[index] == 1) 
-	// 		wattron(g_b->win, COLOR_PAIR(31) | A_BOLD);
-	// 	else			
-	// 		wattron(g_b->win, COLOR_PAIR(21));
-	// 	wprintw(g_b->win, "%02x", g_g.field[index]);
-	// 	wattroff(g_b->win, A_BOLD);
-	// }
-	else if ((res == COLOR_PAIR(21)) || (res == COLOR_PAIR(31)))
-	{
-		wattron(g_b->win, COLOR_PAIR(1));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-	}
-	else if (res == COLOR_PAIR(2))
-	{
-		if (g_g.field[index] == 1)
-			wattron(g_b->win, COLOR_PAIR(32) | A_BOLD);
-		else			
-			wattron(g_b->win, COLOR_PAIR(22));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-		wattroff(g_b->win, A_BOLD);
-	}
-	else if ((res == COLOR_PAIR(22)) | (res == COLOR_PAIR(32)))
-	{
-		wattron(g_b->win, COLOR_PAIR(2));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-	}
-	else if (res == COLOR_PAIR(3))
-	{
-		if (g_g.field[index] == 1)
-			wattron(g_b->win, COLOR_PAIR(33) | A_BOLD);
-		else
-			wattron(g_b->win, COLOR_PAIR(23));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-		wattroff(g_b->win, A_BOLD);
-	}
-	else if ((res == COLOR_PAIR(23)) | (res == COLOR_PAIR(33)))
-	{
-		wattron(g_b->win, COLOR_PAIR(3));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-	}
-	else if (res == COLOR_PAIR(4))
-	{
-		if (g_g.field[index] == 1)
-			wattron(g_b->win, COLOR_PAIR(34) | A_BOLD);
-		else
-			wattron(g_b->win, COLOR_PAIR(24));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-		wattroff(g_b->win, A_BOLD);
-	}
-	else if ((res == COLOR_PAIR(24)) | (res == COLOR_PAIR(34)))
-	{
-		wattron(g_b->win, COLOR_PAIR(4));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-	}
-	else if (res == COLOR_PAIR(14))
-	{
-		wattron(g_b->win, COLOR_PAIR(41));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-	}
-	else if (res == COLOR_PAIR(41))
-	{
-		wattron(g_b->win, COLOR_PAIR(14));
-		wprintw(g_b->win, "%02x", g_g.field[index]);
-	}
-	wrefresh(g_b->win);
-}
-*/

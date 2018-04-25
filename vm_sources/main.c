@@ -73,9 +73,9 @@ int		main(int ac, char **av)
 		pashalka();
 		exit_curse_main();
 	}
-	close(g_b->fd);
-	close(g_b->fd3);
-	close(g_b->fd4);
+	// close(g_b->fd);
+	// close(g_b->fd3);
+	// close(g_b->fd4);
 	print_winner();
  	return (0);
 }

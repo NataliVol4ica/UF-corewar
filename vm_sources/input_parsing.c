@@ -67,4 +67,6 @@ void		parse_input(int ac, char **av)
 		g_g.to_visualise = 1;
 	}
 	parse_input2(ac, av, cur_arg);
+	if (g_g.to_visualise && (g_g.log_flag2 || g_g.log_flag1))
+		print_usage();
 }

@@ -31,6 +31,7 @@ void	proc_live(void *data)
 	proc->pc = set_pos(proc->pc + 5);
 	if (l >= (unsigned int)g_g.num_of_players)
 		return ;
+	g_g.any_live = 1;
 	if (g_g.to_visualise)
 		call_me_baby_i_am_alive(g_g.players[l].index);
 	g_g.last_live = l;

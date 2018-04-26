@@ -45,6 +45,7 @@ static void	zero_vars(void)
 	g_g.cycle_to_die = CYCLE_TO_DIE;
 	g_g.checks = 0;
 	g_g.last_live = 0;
+	g_g.any_live = 0;
 	g_g.num_of_processes = 0;
 	g_g.cycle = 0;
 	g_g.total_cycle = 0;

@@ -54,8 +54,8 @@ void	init_curs(void)
 	if (MUSIC == 1 && TRECK == 3)
 		system("afplay mp3/rk.mp3 &");
 	start_color();
-	keypad(stdscr, TRUE);
-	nodelay(g_b->win, FALSE);
+	//keypad(stdscr, TRUE);
+	//nodelay(g_b->win, FALSE);
 	g_b->win = newwin(WIN_HEIGHT - 4, 194, 3, 3);
 	colors();
 	curs_set(0);

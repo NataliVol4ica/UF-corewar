@@ -24,7 +24,7 @@ void	mall_error(void)
 
 void	print_usage(void)
 {
-	ft_printf("Usage: ./corewar [-dump nbr_cycles] [-v] [-l]");
+	ft_printf("Usage: ./corewar [-dump nbr_cycles] [-v] [-l lIdx]");
 	ft_printf(" [[-n number] champion1.cor] ...\n");
 	ft_printf("   -dump:\n");
 	ft_printf("\tafter nbr_cycles of executions, dump the memory on ");
@@ -32,7 +32,7 @@ void	print_usage(void)
 	ft_printf("    -v:\n");
 	ft_printf("\tvisual mod\n");
 	ft_printf("    -l:\n");
-	ft_printf("\tturn on the logs\n");
+	ft_printf("\tturn on the logs. Incompatible with -v\n");
 	ft_printf("\t   1: commands log\n");
 	ft_printf("\t   2: PC movement log\n");
 	ft_printf("    -n:\n");

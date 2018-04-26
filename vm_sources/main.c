@@ -36,14 +36,15 @@ static void	read_and_parse(int ac, char **av)
 	gen_processes();
 }
 
-static void	finish_prog(void)
+void		finish_prog(void)
 {
 	if (g_g.to_visualise)
 	{
 		pashalka();
 		exit_curse_main();
 	}
-	print_winner();
+	if (!*g_g.proc)
+		print_winner();
 }
 
 int			main(int ac, char **av)

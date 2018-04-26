@@ -71,6 +71,7 @@ typedef struct	s_global
 	int				kill;
 	_Bool			log_flag1;
 	_Bool			log_flag2;
+	_Bool			any_live;
 }				t_global;
 
 typedef struct	s_codes

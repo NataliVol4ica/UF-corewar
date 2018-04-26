@@ -35,6 +35,7 @@ void	you_gonna_die_bitch(void);
 void	run_cycle_step(void);
 void	parse_commands(void);
 void	ctd_check(void);
+void	finish_prog(void);
 
 /*
 ** INPUT READING

@@ -55,6 +55,7 @@ void		print_field(void)
 {
 	int	i;
 
+	finish_prog();
 	ft_printf("\n ||    FIELD:     || \n");
 	i = -1;
 	while (++i < MEM_SIZE)
@@ -70,7 +71,8 @@ void		print_field(void)
 
 void		print_winner(void)
 {
+	if (!g_g.any_live)
+		g_g.last_live = g_g.num_of_players - 1;
 	ft_printf("Contestant %d, ", g_g.last_live + 1);
 	ft_printf("\"%s\", has won !\n", g_g.players[g_g.last_live].name);
-	exit(0);
 }

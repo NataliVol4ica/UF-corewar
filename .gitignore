@@ -2,7 +2,7 @@ obj/
 libft/obj/
 libft/libft.a
 *DS_*
-corewar
+./corewar
 *.o
 *~
 log

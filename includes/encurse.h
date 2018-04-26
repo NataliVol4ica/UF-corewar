@@ -11,69 +11,69 @@
 /* ************************************************************************** */
 
 #ifndef ENCURSE_H
-#define ENCURSE_H
+# define ENCURSE_H
 
-#include <stdlib.h>
-#include <ncurses.h>
-#include "vm.h"
-#include <fcntl.h>
-#include <unistd.h>
-#include "libft.h"
+# include <stdlib.h>
+# include <ncurses.h>
+# include "vm.h"
+# include <fcntl.h>
+# include <unistd.h>
+# include "libft.h"
 
-#define WIN_WIDTH 260
-#define WIN_HEIGHT 70
+# define WIN_WIDTH 260
+# define WIN_HEIGHT 70
 
-#define X_MATR_SRT 4
-#define Y_MATR_SRT 3
-#define X_MATR_END 196
-#define Y_MATR_END 68
+# define X_MATR_SRT 4
+# define Y_MATR_SRT 3
+# define X_MATR_END 196
+# define Y_MATR_END 68
 
-#define X_BAR_SRT 206
-#define Y_BAR_SRT 3
-#define Y_BAR_SECL 5
-#define Y_BAR_CYCL 9
-#define Y_BAR_PROC 15
+# define X_BAR_SRT 206
+# define Y_BAR_SRT 3
+# define Y_BAR_SECL 5
+# define Y_BAR_CYCL 9
+# define Y_BAR_PROC 15
 
-#define Y_BAR_PL1 17
-#define Y_BAR_PL1LL 18
-#define Y_BAR_PL1LIC 19
-#define X_BAR_SCL 206 
+# define Y_BAR_PL1 17
+# define Y_BAR_PL1LL 18
+# define Y_BAR_PL1LIC 19
+# define X_BAR_SCL 206
 
-#define Y_BAR_PL2 21
-#define Y_BAR_PL2LL 22
-#define Y_BAR_PL2LIC 23
+# define Y_BAR_PL2 21
+# define Y_BAR_PL2LL 22
+# define Y_BAR_PL2LIC 23
 
-#define Y_BAR_PL3 25
-#define Y_BAR_PL3LL 26
-#define Y_BAR_PL3LIC 27
+# define Y_BAR_PL3 25
+# define Y_BAR_PL3LL 26
+# define Y_BAR_PL3LIC 27
 
-#define Y_BAR_PL4 29
-#define Y_BAR_PL4LL 30
-#define Y_BAR_PL4LIC 31
+# define Y_BAR_PL4 29
+# define Y_BAR_PL4LL 30
+# define Y_BAR_PL4LIC 31
 
-#define Y_BAR_CD 4
-#define Y_BAR_CDEL 6
-#define Y_BAR_NL 8
-#define Y_BAR_MCH 10
+# define Y_BAR_CD 4
+# define Y_BAR_CDEL 6
+# define Y_BAR_NL 8
+# define Y_BAR_MCH 10
 
-#define MUSIC 0
-#define TRECK 1
+# define MUSIC 0
+# define TRECK 1
 
 typedef	struct	s_curs
 {
 	WINDOW		*win;
 	int			pl_nb;
 	int			bar_y_st;
-	int 		key;
+	int			key;
 	int			pause;
-	int 		cycle;
+	int			cycle;
 	uint32_t	sleep;
 	uint8_t		timeout;
-	int 		*map;
+	int			*map;
 	int16_t		*live;
-	int fd;/////////
-	int fd3;////////
-	int fd4;////////
+	int			fd;/////////
+	int			fd3;////////
+	int			fd4;////////
 }				t_curs;
 
 /*
@@ -86,7 +86,6 @@ void			init_curs(void);
 void			show_players(void);
 void			make_bar(void);
 void			make_border(void);
-
 
 /*
 *** redraw when game start

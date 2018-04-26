@@ -37,10 +37,28 @@ static void	alloc_players(void)
 	}
 }
 
-void		init_globals(void)
+static void	zero_vars(void)
 {
 	g_g.dump_cycle = -1;
 	g_g.num_of_players = 0;
+	g_g.period_lives = 0;
+	g_g.cycle_to_die = CYCLE_TO_DIE;
+	g_g.checks = 0;
+	g_g.last_live = 0;
+	g_g.num_of_processes = 0;
+	g_g.cycle = 0;
+	g_g.total_cycle = 0;
+	g_g.secret_var = 0;
+	g_g.kill = 0;
+	g_g.to_visualise = 0;
+	g_g.log_flag1 = 0;
+	g_g.log_flag2 = 0;
+	g_b->sleep = 1;
+	g_b->timeout = 1;
+}
+
+void		init_globals(void)
+{
 	alloc_players();
 	MALL(g_g.taken_index = (_Bool*)ft_memalloc(sizeof(_Bool) * MAX_PLAYERS));
 	MALL(g_g.field =
@@ -49,20 +67,7 @@ void		init_globals(void)
 	MALL(g_b = (t_curs*)ft_memalloc(sizeof(t_curs)));
 	MALL(g_b->map = (int *)ft_memalloc(sizeof(int) * MEM_SIZE));
 	MALL(g_b->live = (int16_t *)ft_memalloc(sizeof(int16_t) * MAX_PLAYERS));
-	g_b->sleep = 1;
-	g_b->timeout = 1;
 	MALL(g_g.live = (int*)ft_memalloc(sizeof(int) * MAX_PLAYERS));
 	*g_g.proc = NULL;
-	g_g.period_lives = 0;
-	g_g.cycle_to_die = CYCLE_TO_DIE;
-	g_g.checks = 0;
-	g_g.last_live = 0;
-	g_g.to_visualise = 0;
-	g_g.num_of_processes = 0;
-	g_g.cycle = 0;
-	g_g.total_cycle = 0;
-	g_g.secret_var = 0;
-	g_g.kill = 0;
-	g_g.log_flag1 = 0;
-	g_g.log_flag2 = 0;
+	zero_vars();
 }

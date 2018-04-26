@@ -21,14 +21,7 @@ extern t_global	g_g;
 extern t_func	g_funcs[];
 extern t_curs	*g_b;
 
-void	print_winner(void)
-{
-	ft_printf("Contestant %d, ", g_g.last_live + 1);
-	ft_printf("\"%s\", has won !\n", g_g.players[g_g.last_live].name);
-	exit(0);
-}
-
-int		main(int ac, char **av)
+static void	read_and_parse(int ac, char **av)
 {
 	parse_input(ac, av);
 	numerate_remaining_players();
@@ -41,15 +34,28 @@ int		main(int ac, char **av)
 	else
 		print_participants();
 	gen_processes();
+}
+
+static void	finish_prog(void)
+{
+	if (g_g.to_visualise)
+	{
+		pashalka();
+		exit_curse_main();
+	}
+	print_winner();
+}
+
+int			main(int ac, char **av)
+{
+	read_and_parse(ac, av);
 	while (1)
 	{
-		if (g_g.kill == 1)
-			g_g.kill = 0;
+		g_g.kill = g_g.kill == 1 ? 0 : g_g.kill;
 		if (!*g_g.proc)
-			break;
+			break ;
 		if (g_g.to_visualise)
 			++g_b->cycle;
-
 		run_cycle_step();
 		g_g.cycle++;
 		g_g.total_cycle++;
@@ -65,14 +71,6 @@ int		main(int ac, char **av)
 		if (g_g.to_visualise)
 			readkey();
 	}
-	if (g_g.to_visualise)
-	{
-		pashalka();
-		exit_curse_main();
-	}
-	// close(g_b->fd);
-	// close(g_b->fd3);
-	// close(g_b->fd4);
-	print_winner();
- 	return (0);
+	finish_prog();
+	return (0);
 }

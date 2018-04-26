@@ -15,7 +15,35 @@
 
 extern t_global	g_g;
 
-void	parse_input(int ac, char **av)
+static void	parse_input2(int ac, char **av, int cur_arg)
+{
+	if (!ft_strcmp("-l", av[cur_arg]))
+	{
+		cur_arg++;
+		if (!ft_strcmp("1", av[cur_arg]))
+		{
+			g_g.log_flag1 = 1;
+			cur_arg++;
+		}
+		else if (!ft_strcmp("2", av[cur_arg]))
+		{
+			g_g.log_flag2 = 1;
+			cur_arg++;
+		}
+		else if (!ft_strcmp("12", av[cur_arg]) ||
+				!ft_strcmp("21", av[cur_arg]))
+		{
+			g_g.log_flag1 = 1;
+			g_g.log_flag2 = 1;
+			cur_arg++;
+		}
+		else
+			print_usage();
+	}
+	read_players(cur_arg, ac, av);
+}
+
+void		parse_input(int ac, char **av)
 {
 	int		cur_arg;
 
@@ -38,27 +66,5 @@ void	parse_input(int ac, char **av)
 		cur_arg++;
 		g_g.to_visualise = 1;
 	}
-	if (!ft_strcmp("-l", av[cur_arg]))
-	{
-		cur_arg++;
-		if (!ft_strcmp("1", av[cur_arg]))
-		{
-			g_g.log_flag1 = 1;
-			cur_arg++;
-		}
-		else if (!ft_strcmp("2", av[cur_arg]))
-		{
-			g_g.log_flag2 = 1;
-			cur_arg++;
-		}
-		else if (!ft_strcmp("12", av[cur_arg]) || !ft_strcmp("21", av[cur_arg]))
-		{
-			g_g.log_flag1 = 1;
-			g_g.log_flag2 = 1;
-			cur_arg++;
-		}
-		else
-			print_usage();
-	}
-	read_players(cur_arg, ac, av);
+	parse_input2(ac, av, cur_arg);
 }

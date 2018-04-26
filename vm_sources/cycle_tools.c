@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -21,7 +20,19 @@ extern t_global	g_g;
 extern t_func	g_funcs[];
 extern t_curs	*g_b;
 
-void	you_gonna_die_bitch(void)
+static int	ygdb_1(t_process **temp, t_process **prev)
+{
+	if ((*temp)->live)
+	{
+		(*temp)->live = 0;
+		(*prev) = (*temp);
+		(*temp) = (*temp)->next;
+		return (1);
+	}
+	return (0);
+}
+
+void		you_gonna_die_bitch(void)
 {
 	t_process	*temp;
 	t_process	*prev;
@@ -30,13 +41,8 @@ void	you_gonna_die_bitch(void)
 	temp = *g_g.proc;
 	while (temp)
 	{
-		if (temp->live)
-		{
-			temp->live = 0;
-			prev = temp;
-			temp = temp->next;
+		if (ygdb_1(&temp, &prev))
 			continue;
-		}
 		if (temp == *g_g.proc)
 		{
 			temp = (*g_g.proc)->next;
@@ -53,10 +59,10 @@ void	you_gonna_die_bitch(void)
 		g_g.live[i] = 0;
 }
 
-void	parse_commands(void)
+void		parse_commands(void)
 {
 	t_process	*proc;
-	
+
 	proc = *g_g.proc;
 	while (proc)
 	{
@@ -66,10 +72,10 @@ void	parse_commands(void)
 	}
 }
 
-void	run_cycle_step(void)
+void		run_cycle_step(void)
 {
 	t_process	*proc;
-	
+
 	proc = *g_g.proc;
 	while (proc)
 	{
@@ -77,8 +83,7 @@ void	run_cycle_step(void)
 		if (proc->sleep == 0)
 		{
 			if (g_g.to_visualise)
-				erace_old(proc->pc);	
-			//ft_printf("cycle %0.3d pc [%0.4d] |%0.2x| proc %d\n", g_g.total_cycle + 1, proc->pc, g_g.field[proc->pc], proc->secret_num);
+				erace_old(proc->pc);
 			proc->func((void*)proc);
 			proc->func = NULL;
 			if (g_g.to_visualise)
@@ -89,7 +94,7 @@ void	run_cycle_step(void)
 	parse_commands();
 }
 
-void	ctd_check(void)
+void		ctd_check(void)
 {
 	g_g.checks++;
 	if (g_g.period_lives >= NBR_LIVE || g_g.checks == MAX_CHECKS)

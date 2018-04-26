@@ -54,7 +54,7 @@ void		print_participants(void)
 void		print_field(void)
 {
 	int	i;
-	
+
 	ft_printf("\n ||    FIELD:     || \n");
 	i = -1;
 	while (++i < MEM_SIZE)
@@ -65,16 +65,12 @@ void		print_field(void)
 		if (i % 64 == 63)
 			ft_printf("\n");
 	}
-	/*if (!TOCOMMENT)
-		exit (0);		
-	ft_printf("processes : %d\n", g_g.num_of_processes);
-	t_process *p;		
-	p = *g_g.proc;
-	i = 1;
-	while (p)
-	{
-		ft_printf("[%d] at |%d|\n", i++, p->pc);
-		p = p->next;
-	}*/
+	exit(0);
+}
+
+void		print_winner(void)
+{
+	ft_printf("Contestant %d, ", g_g.last_live + 1);
+	ft_printf("\"%s\", has won !\n", g_g.players[g_g.last_live].name);
 	exit(0);
 }

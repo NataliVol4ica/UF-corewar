@@ -62,7 +62,6 @@ void	set_int(int pos, int len, UINT val, int playernum)
 
 _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip)
 {
-	//ft_printf("toskip %d\n", *toskip);
 	if (code == TREG)
 	{
 		*arg = get_int(proc->pc + *toskip, T_REG);

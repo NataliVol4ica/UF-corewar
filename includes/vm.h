@@ -95,6 +95,7 @@ int		get_int(int pos, int len);
 void	set_int(int pos, int len, UINT val, int playernum);
 _Bool	parse_arg(int code, t_process *proc, int *arg, int *toskip);
 void	print_participants(void);
+void	print_winner(void);
 
 /*
 ** ERRORS

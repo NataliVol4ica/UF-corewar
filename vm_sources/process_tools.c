@@ -60,9 +60,6 @@ void	copy_process(int pc, t_process *proc)
 	parse_command(new_proc);
 	if (g_g.to_visualise == 1)
 		draw_new(new_proc->pc);
-	//if (TOCOMMENT)
-	//	ft_printf("NEW PROCESS #%d pc [%0.4d] |%0.2x|\n", new_proc->secret_num, new_proc->pc, g_g.field[new_proc->pc]);
-
 }
 
 void	gen_processes(void)
@@ -86,8 +83,6 @@ void	gen_processes(void)
 void	free_proc(t_process *proc)
 {
 	g_g.num_of_processes--;
-	//if (TOCOMMENT)
-	//	ft_printf("process #%d died :'(\n", proc->secret_num);
 	if (g_g.to_visualise)
 		erace_old(proc->pc);
 	g_g.kill = 1;

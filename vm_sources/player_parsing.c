@@ -47,8 +47,8 @@ _Bool		parse_n_flag(int *cur_arg, int ac, char **av)
 
 static void	parse_magic_number(char *name, int fd)
 {
-	int		ret;
-	long	magic_number;
+	int				ret;
+	long			magic_number;
 	unsigned char	buf[4];
 
 	if ((ret = read(fd, buf, 4)) < 4)
@@ -78,8 +78,8 @@ static void	read_viravn(char *name, int fd)
 static void	read_declared_player_size(char *name, int fd, t_champ *player)
 {
 	unsigned char	temp[2];
-	int		ret;
-	
+	int				ret;
+
 	if ((ret = read(fd, temp, 2)) < 2)
 		invalid_champion(name);
 	player->declared_player_size = (temp[0] << 8) + temp[1];

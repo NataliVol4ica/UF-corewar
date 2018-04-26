@@ -47,6 +47,7 @@ VMOCMDFILES = $(patsubst %, $(ODIR)/$(VMCMDSRCDIR)/%.o, $(VMCMDFNAMES))
 VMFILENAMES =	main \
 				pre \
 				errors \
+				errors2 \
 				globals \
 				input_parsing \
 				player_reading \

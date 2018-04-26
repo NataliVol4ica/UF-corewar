@@ -51,7 +51,7 @@ void	copy_process(int pc, t_process *proc)
 	i = 0;
 	while (++i <= REG_NUMBER)
 		new_proc->registry[i] = proc->registry[i];
-	new_proc->pc = pc;
+	new_proc->pc = pc % MEM_SIZE;
 	new_proc->carry = proc->carry;
 	new_proc->live = proc->live;
 	new_proc->secret_num = g_g.secret_var++;

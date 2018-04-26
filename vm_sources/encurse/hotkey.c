@@ -53,9 +53,9 @@ void	hotkey(void)
 {
 	if (g_b->key == 27)
 		exit_curse();
-	if (g_b->key == 49 && g_b->sleep > 5)
+	if (g_b->key == KEY_LEFT && g_b->sleep > 5)
 		g_b->sleep -= 5;
-	if (g_b->key == 50 && g_b->sleep < 500)
+	if (g_b->key == KEY_RIGHT && g_b->sleep < 500)
 		g_b->sleep += 5;
 	redraw_bar();
 }

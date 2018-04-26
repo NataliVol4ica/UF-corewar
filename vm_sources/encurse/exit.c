@@ -57,6 +57,8 @@ void		exit_curse(void)
 		system("kill $(pgrep afplay) > /dev/null 2>&1");
 		system("kill $(pgrep afplay) > /dev/null 2>&1");
 	}
+	free(g_b->map);
+	free(g_b->live);
 	free(g_b);
 	exit(0);
 }
@@ -70,6 +72,8 @@ void		exit_curse_main(void)
 		system("kill $(pgrep afplay) > /dev/null 2>&1");
 		system("kill $(pgrep afplay) > /dev/null 2>&1");
 	}
+	free(g_b->map);
+	free(g_b->live);
 	free(g_b);
 }
 
@@ -85,17 +89,14 @@ void		pashalka(void)
 	wattron(g_b->win, COLOR_PAIR(2));
 	while ((ret = get_next_line(fd, &line)))
 	{
-		if (ret == 0)
-			exit(0);
+		if (ret == -1)
+			break ;
 		mvwprintw(g_b->win, y, 0, "%s", line);
 		free(line);
 		y++;
 	}
 	close(fd);
 	wrefresh(g_b->win);
-	if (MUSIC == 1)
-	{
-		system("kill $(pgrep afplay) > /dev/null 2>&1");
-		system("afplay mp3/mario.mp3");
-	}
+	system("kill $(pgrep afplay) > /dev/null 2>&1");
+	system("afplay mp3/mario.mp3");
 }

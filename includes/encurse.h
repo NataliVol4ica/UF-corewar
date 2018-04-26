@@ -71,9 +71,6 @@ typedef	struct	s_curs
 	uint8_t		timeout;
 	int			*map;
 	int16_t		*live;
-	int			fd;/////////
-	int			fd3;////////
-	int			fd4;////////
 }				t_curs;
 
 /*
@@ -102,6 +99,8 @@ void			load_player(int index, int player);
 void			hotkey(void);
 void			print_cursor(void);
 void			call_me_baby_i_am_alive(int index);
+void			redraw_player_bar(void);
+
 /*
 *** init and first draw
 */

@@ -105,26 +105,7 @@ void	redraw_bar(void)
 	mvprintw(Y_BAR_SECL, X_BAR_SRT + 23, "%d   ", g_b->sleep);
 	mvprintw(Y_BAR_CYCL, X_BAR_SRT + 14, " %d    ", g_g.total_cycle);
 	mvprintw(Y_BAR_CYCL + 2, X_BAR_SRT + 14, " %d   ", g_g.cycle);
-	if (g_b->pl_nb >= 1)
-	{
-		mvprintw(Y_BAR_PL1LL, X_BAR_SCL + 26, "%d  ", g_b->live[0]);
-		mvprintw(Y_BAR_PL1LIC, X_BAR_SCL + 26, "%d    ", g_g.live[0]);
-	}
-	if (g_b->pl_nb >= 2)
-	{
-		mvprintw(Y_BAR_PL2LL, X_BAR_SCL + 26, "%d   ", g_b->live[1]);
-		mvprintw(Y_BAR_PL2LIC, X_BAR_SCL + 26, "%d    ", g_g.live[1]);
-	}
-	if (g_b->pl_nb >= 3)
-	{
-		mvprintw(Y_BAR_PL3LL, X_BAR_SCL + 26, "%d   ", g_b->live[2]);
-		mvprintw(Y_BAR_PL3LIC, X_BAR_SCL + 26, "%d    ", g_g.live[2]);
-	}
-	if (g_b->pl_nb == 4)
-	{
-		mvprintw(Y_BAR_PL4LL, X_BAR_SCL + 26, "%d    ", g_b->live[3]);
-		mvprintw(Y_BAR_PL4LIC, X_BAR_SCL + 26, "%d     ", g_g.live[3]);
-	}
+	redraw_player_bar();
 	mvprintw(Y_BAR_PROC, X_BAR_SRT + 15, "%d    ", g_g.num_of_processes);
 	mvprintw(g_b->bar_y_st + Y_BAR_CD, X_BAR_SRT + 15, "%d    ",
 				g_g.cycle_to_die);

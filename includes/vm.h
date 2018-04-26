@@ -28,8 +28,6 @@
 # define TDIR 2
 # define TIND 3
 
-# define TOCOMMENT 0
-
 void	init_globals(void);
 void	print_winner(void);
 void	print_field(void);
@@ -82,6 +80,7 @@ void	copy_process(int pc, t_process *proc);
 void	gen_processes(void);
 void	free_proc(t_process *proc);
 void	print_move(t_process *proc, int toskip);
+t_codes	get_cod_b(int *toskip, t_process **proc, void *data);
 
 /*
 ** FIELD TOOLS

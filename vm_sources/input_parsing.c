@@ -41,7 +41,24 @@ void	parse_input(int ac, char **av)
 	if (!ft_strcmp("-l", av[cur_arg]))
 	{
 		cur_arg++;
-		g_g.log_flag = 1;
+		if (!ft_strcmp("1", av[cur_arg]))
+		{
+			g_g.log_flag1 = 1;
+			cur_arg++;
+		}
+		else if (!ft_strcmp("2", av[cur_arg]))
+		{
+			g_g.log_flag2 = 1;
+			cur_arg++;
+		}
+		else if (!ft_strcmp("12", av[cur_arg]) || !ft_strcmp("21", av[cur_arg]))
+		{
+			g_g.log_flag1 = 1;
+			g_g.log_flag2 = 1;
+			cur_arg++;
+		}
+		else
+			print_usage();
 	}
 	read_players(cur_arg, ac, av);
 }

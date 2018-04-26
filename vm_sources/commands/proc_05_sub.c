@@ -22,32 +22,22 @@ void			proc_sub(void *data)
 	int			toskip;
 	int			arg[3];
 
-	toskip = COMMAND;
-	proc = (t_process*)data;
-	cod_b = coding_byte(proc->pc + toskip);
-	toskip += CODING_BYTE;
-	//ft_printf("field %#x : %b %b %b\n", get_field_val(proc->pc), cod_b.t[0], cod_b.t[1], cod_b.t[2]);
-	if (cod_b.t[0] != TREG || cod_b.t[1] != TREG || cod_b.t[2] != TREG)
-	{
-		print_move(proc, count_total_skip(cod_b, 1, 3, proc->label_size));
-		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
-		return ;
-	}
-	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||
+	cod_b = get_cod_b(&toskip, &proc, data);
+	if (cod_b.t[0] != TREG || cod_b.t[1] != TREG || cod_b.t[2] != TREG ||
+		!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip) ||
 		!parse_arg(cod_b.t[2], proc, &arg[2], &toskip))
 	{
 		print_move(proc, count_total_skip(cod_b, 1, 3, proc->label_size));
-		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
+		proc->pc = set_pos(proc->pc +
+			count_total_skip(cod_b, 1, 3, proc->label_size));
 		return ;
 	}
 	proc->registry[arg[2]] = proc->registry[arg[0]] - proc->registry[arg[1]];
-	if (TOCOMMENT)
-		ft_printf("P%5d | sub r%d r%d r%d\n", proc->secret_num + 1, arg[0], arg[1], arg[2]);
-	if (proc->registry[arg[2]] == 0)
-		proc->carry = 1;
-	else
-		proc->carry = 0;
+	proc->carry = proc->registry[arg[2]] == 0 ? 1 : 0;
+	if (g_g.log_flag1)
+		ft_printf("P%5u | sub r%d r%d r%d\n",
+			proc->secret_num + 1, arg[0], arg[1], arg[2]);
 	print_move(proc, toskip);
 	proc->pc = set_pos(proc->pc + toskip);
 }

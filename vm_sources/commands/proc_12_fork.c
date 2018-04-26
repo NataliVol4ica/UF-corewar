@@ -20,9 +20,12 @@ void			proc_fork(void *data)
 	t_process	*proc;
 
 	proc = (t_process*)data;
-	copy_process(proc->pc + ((short)(get_int(proc->pc + 1, 2)) % IDX_MOD), proc);
-	if (TOCOMMENT)
-		ft_printf("P%5d | fork %d (%d)\n", proc->secret_num + 1, (short)get_int(proc->pc + 1, 2), proc->pc + ((short)(get_int(proc->pc + 1, 2)) % IDX_MOD));
+	copy_process(proc->pc +
+		((short)(get_int(proc->pc + 1, 2)) % IDX_MOD), proc);
+	if (g_g.log_flag1)
+		ft_printf("P%5d | fork %d (%d)\n", proc->secret_num + 1,
+			(short)get_int(proc->pc + 1, 2),
+			proc->pc + ((short)(get_int(proc->pc + 1, 2)) % IDX_MOD));
 	print_move(proc, 3);
 	proc->pc = set_pos(proc->pc + 3);
 }

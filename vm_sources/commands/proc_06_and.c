@@ -15,63 +15,42 @@
 
 extern t_global	g_g;
 
-void			proc_and(void *data)
+static void	parse_args(t_codes cod_b, t_process *proc, int *arg)
+{
+	if (cod_b.t[0] == TREG)
+		arg[0] = proc->registry[arg[0]];
+	else if (cod_b.t[0] == TIND)
+		arg[0] = get_int(proc->pc + (short)(arg[0]) % IDX_MOD, 4);
+	if (cod_b.t[1] == TREG)
+		arg[1] = proc->registry[arg[1]];
+	else if (cod_b.t[1] == TIND)
+		arg[1] = get_int(proc->pc + (short)(arg[1]) % IDX_MOD, 4);
+}
+
+void		proc_and(void *data)
 {
 	t_process	*proc;
 	t_codes		cod_b;
 	int			toskip;
 	int			arg[3];
 
-	toskip = COMMAND;
-	proc = (t_process*)data;
-	cod_b = coding_byte(proc->pc + toskip);
-	toskip += CODING_BYTE;
-	//ft_printf("field %#x : %b %b %b\n", get_field_val(proc->pc), cod_b.t[0], cod_b.t[1], cod_b.t[2]);
-	if (!cod_b.t[0] || !cod_b.t[1] || cod_b.t[2] != TREG)
-	{
-		print_move(proc, count_total_skip(cod_b, 1, 3, proc->label_size));
-		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
-		return ;
-	}
-	if (!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||
+	cod_b = get_cod_b(&toskip, &proc, data);
+	if (!cod_b.t[0] || !cod_b.t[1] || cod_b.t[2] != TREG ||
+		!parse_arg(cod_b.t[0], proc, &arg[0], &toskip) ||
 		!parse_arg(cod_b.t[1], proc, &arg[1], &toskip) ||
 		!parse_arg(cod_b.t[2], proc, &arg[2], &toskip))
 	{
 		print_move(proc, count_total_skip(cod_b, 1, 3, proc->label_size));
-		proc->pc = set_pos(proc->pc + count_total_skip(cod_b, 1, 3, proc->label_size));
+		proc->pc = set_pos(proc->pc +
+			count_total_skip(cod_b, 1, 3, proc->label_size));
 		return ;
 	}
-	//ft_printf("P%5d | and ", proc->secret_num + 1);
-	if (cod_b.t[0] == TREG)
-	{
-	//	ft_printf("r%d ", arg[0]);
-		arg[0] = proc->registry[arg[0]];
-	}
-	else if (cod_b.t[0] == TIND)
-	{
-	//	ft_printf("%d ", arg[0]);
-		arg[0] = get_int(proc->pc + (short)(arg[0]) % IDX_MOD, 4);
-	}
-	//else
-	//	ft_printf("%d ", arg[0]);
-	if (cod_b.t[1] == TREG)
-	{
-	//	ft_printf("r%d ", arg[1]);
-		arg[1] = proc->registry[arg[1]];
-	}
-	else if (cod_b.t[1] == TIND)
-	{
-	//	ft_printf("%d ", arg[1]);
-		arg[1] = get_int(proc->pc + (short)(arg[1]) % IDX_MOD, 4);
-	}
-	//else
-	//	ft_printf("%d ", arg[1]);
-	//ft_printf("r%d\n", arg[2]);
-	proc->registry[arg[2]] =  arg[0] & arg[1];
-	if (proc->registry[arg[2]] == 0)
-		proc->carry = 1;
-	else
-		proc->carry = 0;
+	parse_args(cod_b, proc, arg);
+	if (g_g.log_flag1)
+		ft_printf("P%5d | and %d %d r%d\n",
+			proc->secret_num + 1, arg[0], arg[1], arg[2]);
+	proc->registry[arg[2]] = arg[0] & arg[1];
+	proc->carry = proc->registry[arg[2]] == 0 ? 1 : 0;
 	print_move(proc, toskip);
 	proc->pc = set_pos(proc->pc + toskip);
 }

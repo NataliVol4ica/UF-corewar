@@ -63,5 +63,6 @@ void		init_globals(void)
 	g_g.total_cycle = 0;
 	g_g.secret_var = 0;
 	g_g.kill = 0;
-	g_g.log_flag = 0;
+	g_g.log_flag1 = 0;
+	g_g.log_flag2 = 0;
 }

@@ -38,7 +38,8 @@ VMCMDFNAMES = 	proc_00_invalid \
 				proc_13_load_long \
 				proc_14_ldi_long \
 				proc_15_fork_long \
-				proc_16_aff
+				proc_16_aff \
+				proc_common
 
 VMCCMDFILES = $(patsubst %, $(VMSRCDIR)/$(VMCMDSRCDIR)/%.c, $(VMCMDFNAMES))
 VMOCMDFILES = $(patsubst %, $(ODIR)/$(VMCMDSRCDIR)/%.o, $(VMCMDFNAMES))
